@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #d4c5a0 0%, #b8a082 50%, #a08c6b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a08c6b' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .envelope-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            width: 200px;
+            height: 140px;
+            position: relative;
+            background: #f4f1e8;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 70px;
+            background: #e8dcc6;
+            border: 2px solid #8b6f47;
+            border-bottom: none;
+            clip-path: polygon(0 0, 50% 70%, 100% 0);
+            z-index: 2;
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: #d4c5a0;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+
+        .wax-seal {
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            width: 40px;
+            height: 40px;
+            background: #8b2635;
+            border-radius: 50%;
+            border: 3px solid #6b1a28;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #d4c5a0;
+            z-index: 3;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .envelope.opening {
+            animation: envelopeOpen 0.8s ease-out forwards;
+        }
+
+        @keyframes envelopeOpen {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1) rotate(5deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        .chat-area {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message-bubble {
+            max-width: 300px;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            color: #4a3728;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message-right {
+            background: #8b6f47;
+            color: #f4f1e8;
+            margin-left: auto;
+            margin-right: 20px;
+            border-bottom-right-radius: 5px;
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .message-left {
+            background: #f4f1e8;
+            border: 2px solid #8b6f47;
+            margin-left: 20px;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .response-button {
+            background: linear-gradient(135deg, #8b6f47 0%, #6b5437 100%);
+            color: #f4f1e8;
+            border: 2px solid #4a3728;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-family: 'Georgia', serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .response-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .response-button:hover::before {
+            left: 100%;
+        }
+
+        .response-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #9a7d57 0%, #7a6047 100%);
+        }
+
+        .response-button:active {
+            transform: translateY(0);
+        }
+
+        .parchment-decoration {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(139, 111, 71, 0.3);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .parchment-decoration::before,
+        .parchment-decoration::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(139, 111, 71, 0.3);
+            border-radius: 50%;
+        }
+
+        .parchment-decoration::before {
+            top: -10px;
+            left: -10px;
+        }
+
+        .parchment-decoration::after {
+            bottom: -10px;
+            right: -10px;
+        }
+
+        @media (max-width: 480px) {
+            .envelope {
+                width: 160px;
+                height: 112px;
+            }
+            
+            .message-container {
+                margin: 0 10px;
+                padding: 30px 20px;
+            }
+            
+            .message-text {
+                font-size: 20px;
+            }
+            
+            .response-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope-container" id="envelopeContainer" onclick="openEnvelope()">
+            <div class="envelope" id="envelope">
+                <div class="wax-seal">✦</div>
+            </div>
+        </div>
+        
+        <div class="chat-area" id="chatArea">
+            <div class="message-bubble message-left" id="firstMessage">
+                Missed me?
+            </div>
+        </div>
+        
+        <button class="response-button" id="responseButton" onclick="handleResponse()">
+            Good morning
+        </button>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const envelopeContainer = document.getElementById('envelopeContainer');
+            const chatArea = document.getElementById('chatArea');
+            const responseButton = document.getElementById('responseButton');
+            
+            // Add opening animation to envelope
+            envelope.classList.add('opening');
+            
+            // After animation completes, show chat
+            setTimeout(() => {
+                envelopeContainer.style.display = 'none';
+                chatArea.style.display = 'block';
+                responseButton.style.display = 'block';
+            }, 800);
+        }
+
+        function handleResponse() {
+            const chatArea = document.getElementById('chatArea');
+            const responseButton = document.getElementById('responseButton');
+            
+            // Create user response message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message-bubble message-right';
+            userMessage.textContent = 'Good morning';
+            
+            // Add it to chat area
+            chatArea.appendChild(userMessage);
+            
+            // Hide the response button
+            responseButton.style.display = 'none';
+            
+            // Replace this with your desired action
+            // For example:
+            // setTimeout(() => {
+            //     window.location.href = 'https://your-target-url.com';
+            // }, 1000);
+            
+            setTimeout(() => {
+                alert('Conversation complete! Replace this with your desired action in the JavaScript.');
+            }, 800);
+        }
+
+        // Add some ambient effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add slight floating animation to envelope
+            const envelope = document.getElementById('envelope');
+            if (envelope) {
+                setInterval(() => {
+                    if (!envelope.classList.contains('opening')) {
+                        envelope.style.transform = `translateY(${Math.sin(Date.now() * 0.002) * 3}px)`;
+                    }
+                }, 50);
+            }
+        });
+    </script>
+</body>
+</html>
