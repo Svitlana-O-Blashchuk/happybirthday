@@ -1,460 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with Gandalf</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #d4c5a0 0%, #b8a082 50%, #a08c6b 100%);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      height: 80vh;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a08c6b' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
+    .chat-area {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            min-height: 100vh;
-        }
+    .message {
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 20px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
 
-        .envelope-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .user-message {
+      background: #007bff;
+      color: white;
+      align-self: flex-end;
+    }
 
-        .envelope-container:hover {
-            transform: translate(-50%, -50%) scale(1.05);
-        }
+    .gandalf-message {
+      background: #e4e6eb;
+      color: black;
+      align-self: flex-start;
+    }
 
-        .envelope {
-            width: 200px;
-            height: 140px;
-            position: relative;
-            background: #f4f1e8;
-            border: 2px solid #8b6f47;
-            border-radius: 8px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s ease;
-        }
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
 
-        .envelope::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            height: 70px;
-            background: #e8dcc6;
-            border: 2px solid #8b6f47;
-            border-bottom: none;
-            clip-path: polygon(0 0, 50% 70%, 100% 0);
-            z-index: 2;
-        }
+    .input-area input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+    }
 
-        .envelope::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            background: #d4c5a0;
-            border-radius: 4px;
-            opacity: 0.8;
-        }
+    .input-area button {
+      padding: 15px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
 
-        .wax-seal {
-            position: absolute;
-            bottom: -15px;
-            right: -15px;
-            width: 40px;
-            height: 40px;
-            background: #8b2635;
-            border-radius: 50%;
-            border: 3px solid #6b1a28;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #d4c5a0;
-            z-index: 3;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-        }
+    /* Gandalf image styling */
+    .gandalf-image {
+      position: relative;
+      margin: 20px 0;
+      margin-left: -20px; /* cancel chat-area padding for left flush */
+    }
 
-        .envelope.opening {
-            animation: envelopeOpen 0.8s ease-out forwards;
-        }
-
-        @keyframes envelopeOpen {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1) rotate(5deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(0) rotate(15deg);
-                opacity: 0;
-            }
-        }
-
-        /* Gandalf Image */
-        .gandalf-image {
-            position: relative;
-            margin: 20px 0;
-            margin-left: -20px; /* cancel chat padding so it touches left screen edge */
-            text-align: left;
-            z-index: 10;
-            display: none;
-            pointer-events: none;
-            max-width: calc(100% - 20px); /* keep right side aligned with chat padding */
-        }
-
-        .gandalf-image img {
-            width: auto;         /* adjust width automatically */
-            max-height: 70vh;    /* cap at 70% of viewport height */
-            object-fit: contain; /* keep proportions */
-            display: block;
-        }
-
-        .grow-turn {
-            animation: growTurn 1s ease-out forwards;
-        }
-
-        @keyframes growTurn {
-            0% {
-                opacity: 0;
-                transform: scale(0.2) rotate(-360deg);
-            }
-            25% {
-                opacity: 0.3;
-                transform: scale(0.4) rotate(-270deg);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(0.6) rotate(-180deg);
-            }
-            75% {
-                opacity: 0.8;
-                transform: scale(0.8) rotate(-90deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        /* Chat Area */
-        .chat-area {
-            display: none;
-            padding: 20px;
-            margin-top: 50px;
-            min-height: calc(100vh - 100px);
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .message-bubble {
-            max-width: 300px;
-            margin: 10px 0;
-            padding: 15px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            color: #4a3728;
-            position: relative;
-            word-wrap: break-word;
-        }
-
-        .message-right {
-            background: #8b6f47;
-            color: #f4f1e8;
-            margin-left: auto;
-            margin-right: 20px;
-            border-bottom-right-radius: 5px;
-            animation: slideInRight 0.6s ease-out;
-        }
-
-        .message-left {
-            background: #f4f1e8;
-            border: 2px solid #8b6f47;
-            margin-left: 20px;
-            margin-right: auto;
-            border-bottom-left-radius: 5px;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        @keyframes slideInRight {
-            0% {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Response Buttons */
-        .response-button {
-            background: linear-gradient(135deg, #8b6f47 0%, #6b5437 100%);
-            color: #f4f1e8;
-            border: 2px solid #4a3728;
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-family: 'Georgia', serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: none;
-            z-index: 1000;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, 20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, 0);
-            }
-        }
-
-        .response-button:hover {
-            transform: translateX(-50%) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(135deg, #9a7d57 0%, #7a6047 100%);
-        }
-
-        .response-button:active {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* Custom scrollbar */
-        .chat-area::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chat-area::-webkit-scrollbar-track {
-            background: rgba(139, 111, 71, 0.2);
-            border-radius: 4px;
-        }
-
-        .chat-area::-webkit-scrollbar-thumb {
-            background: rgba(139, 111, 71, 0.6);
-            border-radius: 4px;
-        }
-
-        .chat-area::-webkit-scrollbar-thumb:hover {
-            background: rgba(139, 111, 71, 0.8);
-        }
-
-        @media (max-width: 480px) {
-            .envelope {
-                width: 160px;
-                height: 112px;
-            }
-            
-            .message-bubble {
-                margin: 0 10px;
-                max-width: 250px;
-            }
-            
-            .response-button {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    .gandalf-image img {
+      max-width: 100%;   /* never overflow screen width */
+      height: auto;      /* keep aspect ratio */
+      max-height: 70vh;  /* cap tallness */
+      object-fit: contain;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="envelope-container" id="envelopeContainer" onclick="openEnvelope()">
-            <div class="envelope" id="envelope">
-                <div class="wax-seal">✦</div>
-            </div>
-        </div>
-        
-        <!-- Chat Area -->
-        <div class="chat-area" id="chatArea">
-            <div class="message-bubble message-left" id="firstMessage">
-                Missed me?
-            </div>
-            
-            <!-- Gandalf Image -->
-            <div class="gandalf-image" id="gandalfImage">
-                <img src="./gandalf.png" alt="Gandalf" />
-            </div>
-        </div>
-        
-        <!-- Buttons -->
-        <button class="response-button" id="responseButton" onclick="handleResponse()">
-            Good morning!
-        </button>
-        
-        <button class="response-button" id="finalResponseButton" onclick="handleFinalResponse()" style="display: none;">
-            All of them at once, I suppose.
-        </button>
-        
-        <button class="response-button" id="helpResponseButton" onclick="handleHelpResponse()" style="display: none;">
-            Can I help you?? 
-        </button>
+  <div class="chat-container">
+    <div class="chat-area" id="chatArea">
+      <!-- Messages will appear here -->
     </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
 
-    <script>
-        function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const envelopeContainer = document.getElementById('envelopeContainer');
-            const chatArea = document.getElementById('chatArea');
-            const responseButton = document.getElementById('responseButton');
-            const gandalfImage = document.getElementById('gandalfImage');
-            
-            envelope.classList.add('opening');
-            
-            setTimeout(() => {
-                envelopeContainer.style.display = 'none';
-                chatArea.style.display = 'block';
-                
-                setTimeout(() => {
-                    gandalfImage.style.display = 'block';
-                    gandalfImage.classList.add('grow-turn');
-                    
-                    setTimeout(() => {
-                        responseButton.style.display = 'block';
-                    }, 1000);
-                }, 1200);
-            }, 800);
-        }
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (message === "") return;
 
-        function handleResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const responseButton = document.getElementById('responseButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Good morning!';
-            chatArea.appendChild(userMessage);
-            
-            responseButton.style.display = 'none';
-            
-            const gandalfResponses = [
-                "What do you mean?",
-                "Do you wish me a good morning",
-                "or do you mean that it is a good morning whether I want it or not",
-                "or that you feel good this morning",
-                "or that it is a morning to be good on?"
-            ];
-            
-            gandalfResponses.forEach((response, index) => {
-                setTimeout(() => {
-                    const gandalfMessage = document.createElement('div');
-                    gandalfMessage.className = 'message-bubble message-left';
-                    gandalfMessage.textContent = response;
-                    gandalfMessage.style.animation = 'slideInLeft 0.6s ease-out';
-                    chatArea.appendChild(gandalfMessage);
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                }, (index + 1) * 1500);
-            });
-            
-            setTimeout(() => {
-                const finalButton = document.getElementById('finalResponseButton');
-                finalButton.style.display = 'block';
-            }, gandalfResponses.length * 1500 + 1000);
-        }
+      const chatArea = document.getElementById('chatArea');
 
-        function handleFinalResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const finalButton = document.getElementById('finalResponseButton');
-            const helpButton = document.getElementById('helpResponseButton');
-            
-            const finalUserMessage = document.createElement('div');
-            finalUserMessage.className = 'message-bubble message-right';
-            finalUserMessage.textContent = 'All of them at once, I suppose.';
-            finalUserMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(finalUserMessage);
-            
-            finalButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
-            setTimeout(() => {
-                helpButton.style.display = 'block';
-            }, 1500);
-        }
+      // User message
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('message', 'user-message');
+      userMsg.textContent = message;
+      chatArea.appendChild(userMsg);
 
-        function handleHelpResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const helpButton = document.getElementById('helpResponseButton');
-            
-            const helpUserMessage = document.createElement('div');
-            helpUserMessage.className = 'message-bubble message-right';
-            helpUserMessage.textContent = 'Can I help you??';
-            helpUserMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(helpUserMessage);
-            
-            helpButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
-            setTimeout(() => {
-                alert('Full conversation complete! Replace this with your desired final action.');
-            }, 1000);
-        }
+      // Gandalf response
+      setTimeout(() => {
+        const gandalfMsg = document.createElement('div');
+        gandalfMsg.classList.add('message', 'gandalf-message');
+        gandalfMsg.textContent = "A wizard is never late, nor is he early. He arrives precisely when he means to!";
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const envelope = document.getElementById('envelope');
-            if (envelope) {
-                setInterval(() => {
-                    if (!envelope.classList.contains('opening')) {
-                        envelope.style.transform = 'translateY(' + Math.sin(Date.now() * 0.002) * 3 + 'px)';
-                    }
-                }, 50);
-            }
-        });
-    </script>
+        // Gandalf image
+        const gandalfImgDiv = document.createElement('div');
+        gandalfImgDiv.classList.add('gandalf-image');
+        const gandalfImg = document.createElement('img');
+        gandalfImg.src = "https://upload.wikimedia.org/wikipedia/en/e/e9/Gandalf600ppx.jpg";
+        gandalfImg.alt = "Gandalf";
+        gandalfImgDiv.appendChild(gandalfImg);
+
+        chatArea.appendChild(gandalfMsg);
+        chatArea.appendChild(gandalfImgDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }, 1000);
+
+      input.value = "";
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+  </script>
 </body>
 </html>
