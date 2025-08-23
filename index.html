@@ -15,12 +15,9 @@
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #d4c5a0 0%, #b8a082 50%, #a08c6b 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         body::before {
@@ -37,20 +34,22 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 500px;
             width: 100%;
-            text-align: center;
+            min-height: 100vh;
         }
 
         .envelope-container {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: inline-block;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .envelope-container:hover {
-            transform: scale(1.05);
+            transform: translate(-50%, -50%) scale(1.05);
         }
 
         .envelope {
@@ -127,15 +126,61 @@
             }
         }
 
+        /* Gandalf Image */
+        .gandalf-image {
+            position: relative;
+            margin: 20px 0;
+            margin-left: -20px; /* cancel chat padding so it touches left screen edge */
+            text-align: left;
+            z-index: 10;
+            display: none;
+            pointer-events: none;
+            max-width: calc(100% - 20px); /* keep right side aligned with chat padding */
+        }
+
+        .gandalf-image img {
+            width: auto;         /* adjust width automatically */
+            max-height: 70vh;    /* cap at 70% of viewport height */
+            object-fit: contain; /* keep proportions */
+            display: block;
+        }
+
+        .grow-turn {
+            animation: growTurn 1s ease-out forwards;
+        }
+
+        @keyframes growTurn {
+            0% {
+                opacity: 0;
+                transform: scale(0.2) rotate(-360deg);
+            }
+            25% {
+                opacity: 0.3;
+                transform: scale(0.4) rotate(-270deg);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(0.6) rotate(-180deg);
+            }
+            75% {
+                opacity: 0.8;
+                transform: scale(0.8) rotate(-90deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Chat Area */
         .chat-area {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
             padding: 20px;
+            margin-top: 50px;
+            min-height: calc(100vh - 100px);
+            max-height: calc(100vh - 100px);
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .message-bubble {
@@ -189,49 +234,7 @@
             }
         }
 
-        .image-message {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: none;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.9);
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-message img {
-            max-width: 90vw;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 20px;
-            border: 4px solid #8b6f47;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-
-        .grow-turn {
-            animation: growTurn 1s ease-out forwards;
-        }
-
-        @keyframes growTurn {
-            0% {
-                opacity: 0;
-                transform: scale(0) rotate(-180deg) translateX(-50px);
-            }
-            50% {
-                opacity: 0.8;
-                transform: scale(0.8) rotate(-90deg) translateX(-25px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg) translateX(0);
-            }
-        }
-
+        /* Response Buttons */
         .response-button {
             background: linear-gradient(135deg, #8b6f47 0%, #6b5437 100%);
             color: #f4f1e8;
@@ -248,6 +251,7 @@
             left: 50%;
             transform: translateX(-50%);
             display: none;
+            z-index: 1000;
             animation: fadeInUp 0.8s ease-out 0.5s both;
         }
 
@@ -262,60 +266,33 @@
             }
         }
 
-        .response-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .response-button:hover::before {
-            left: 100%;
-        }
-
         .response-button:hover {
-            transform: translateY(-2px);
+            transform: translateX(-50%) translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             background: linear-gradient(135deg, #9a7d57 0%, #7a6047 100%);
         }
 
         .response-button:active {
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
 
-        .parchment-decoration {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(139, 111, 71, 0.3);
-            border-radius: 10px;
-            pointer-events: none;
+        /* Custom scrollbar */
+        .chat-area::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .parchment-decoration::before,
-        .parchment-decoration::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(139, 111, 71, 0.3);
-            border-radius: 50%;
+        .chat-area::-webkit-scrollbar-track {
+            background: rgba(139, 111, 71, 0.2);
+            border-radius: 4px;
         }
 
-        .parchment-decoration::before {
-            top: -10px;
-            left: -10px;
+        .chat-area::-webkit-scrollbar-thumb {
+            background: rgba(139, 111, 71, 0.6);
+            border-radius: 4px;
         }
 
-        .parchment-decoration::after {
-            bottom: -10px;
-            right: -10px;
+        .chat-area::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 111, 71, 0.8);
         }
 
         @media (max-width: 480px) {
@@ -324,18 +301,14 @@
                 height: 112px;
             }
             
-            .message-container {
+            .message-bubble {
                 margin: 0 10px;
-                padding: 30px 20px;
-            }
-            
-            .message-text {
-                font-size: 20px;
+                max-width: 250px;
             }
             
             .response-button {
-                padding: 12px 30px;
-                font-size: 16px;
+                padding: 10px 20px;
+                font-size: 14px;
             }
         }
     </style>
@@ -348,17 +321,29 @@
             </div>
         </div>
         
+        <!-- Chat Area -->
         <div class="chat-area" id="chatArea">
             <div class="message-bubble message-left" id="firstMessage">
                 Missed me?
             </div>
-            <div class="image-message" id="gandalfImage">
+            
+            <!-- Gandalf Image -->
+            <div class="gandalf-image" id="gandalfImage">
                 <img src="./gandalf.png" alt="Gandalf" />
             </div>
         </div>
         
+        <!-- Buttons -->
         <button class="response-button" id="responseButton" onclick="handleResponse()">
-            Good morning
+            Good morning!
+        </button>
+        
+        <button class="response-button" id="finalResponseButton" onclick="handleFinalResponse()" style="display: none;">
+            All of them at once, I suppose.
+        </button>
+        
+        <button class="response-button" id="helpResponseButton" onclick="handleHelpResponse()" style="display: none;">
+            Can I help you?? 
         </button>
     </div>
 
@@ -370,66 +355,102 @@
             const responseButton = document.getElementById('responseButton');
             const gandalfImage = document.getElementById('gandalfImage');
             
-            // Add opening animation to envelope
             envelope.classList.add('opening');
             
-            // After animation completes, show chat
             setTimeout(() => {
                 envelopeContainer.style.display = 'none';
                 chatArea.style.display = 'block';
                 
-                // Show Gandalf image after message appears
                 setTimeout(() => {
-                    console.log('Showing Gandalf image...');
-                    gandalfImage.style.display = 'flex';
+                    gandalfImage.style.display = 'block';
                     gandalfImage.classList.add('grow-turn');
                     
-                    // Show response button after image animation
                     setTimeout(() => {
                         responseButton.style.display = 'block';
                     }, 1000);
-                }, 800);
+                }, 1200);
             }, 800);
         }
 
         function handleResponse() {
             const chatArea = document.getElementById('chatArea');
             const responseButton = document.getElementById('responseButton');
-            const gandalfImage = document.getElementById('gandalfImage');
             
-            // Hide Gandalf image first
-            gandalfImage.style.display = 'none';
-            
-            // Create user response message
             const userMessage = document.createElement('div');
             userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Good morning';
-            
-            // Add it to chat area
+            userMessage.textContent = 'Good morning!';
             chatArea.appendChild(userMessage);
             
-            // Hide the response button
             responseButton.style.display = 'none';
             
-            // Replace this with your desired action
-            // For example:
-            // setTimeout(() => {
-            //     window.location.href = 'https://your-target-url.com';
-            // }, 1000);
+            const gandalfResponses = [
+                "What do you mean?",
+                "Do you wish me a good morning",
+                "or do you mean that it is a good morning whether I want it or not",
+                "or that you feel good this morning",
+                "or that it is a morning to be good on?"
+            ];
+            
+            gandalfResponses.forEach((response, index) => {
+                setTimeout(() => {
+                    const gandalfMessage = document.createElement('div');
+                    gandalfMessage.className = 'message-bubble message-left';
+                    gandalfMessage.textContent = response;
+                    gandalfMessage.style.animation = 'slideInLeft 0.6s ease-out';
+                    chatArea.appendChild(gandalfMessage);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }, (index + 1) * 1500);
+            });
             
             setTimeout(() => {
-                alert('Conversation complete! Replace this with your desired action in the JavaScript.');
-            }, 800);
+                const finalButton = document.getElementById('finalResponseButton');
+                finalButton.style.display = 'block';
+            }, gandalfResponses.length * 1500 + 1000);
         }
 
-        // Add some ambient effects
+        function handleFinalResponse() {
+            const chatArea = document.getElementById('chatArea');
+            const finalButton = document.getElementById('finalResponseButton');
+            const helpButton = document.getElementById('helpResponseButton');
+            
+            const finalUserMessage = document.createElement('div');
+            finalUserMessage.className = 'message-bubble message-right';
+            finalUserMessage.textContent = 'All of them at once, I suppose.';
+            finalUserMessage.style.animation = 'slideInRight 0.6s ease-out';
+            chatArea.appendChild(finalUserMessage);
+            
+            finalButton.style.display = 'none';
+            chatArea.scrollTop = chatArea.scrollHeight;
+            
+            setTimeout(() => {
+                helpButton.style.display = 'block';
+            }, 1500);
+        }
+
+        function handleHelpResponse() {
+            const chatArea = document.getElementById('chatArea');
+            const helpButton = document.getElementById('helpResponseButton');
+            
+            const helpUserMessage = document.createElement('div');
+            helpUserMessage.className = 'message-bubble message-right';
+            helpUserMessage.textContent = 'Can I help you??';
+            helpUserMessage.style.animation = 'slideInRight 0.6s ease-out';
+            chatArea.appendChild(helpUserMessage);
+            
+            helpButton.style.display = 'none';
+            chatArea.scrollTop = chatArea.scrollHeight;
+            
+            setTimeout(() => {
+                alert('Full conversation complete! Replace this with your desired final action.');
+            }, 1000);
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Add slight floating animation to envelope
             const envelope = document.getElementById('envelope');
             if (envelope) {
                 setInterval(() => {
                     if (!envelope.classList.contains('opening')) {
-                        envelope.style.transform = `translateY(${Math.sin(Date.now() * 0.002) * 3}px)`;
+                        envelope.style.transform = 'translateY(' + Math.sin(Date.now() * 0.002) * 3 + 'px)';
                     }
                 }, 50);
             }
