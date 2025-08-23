@@ -343,7 +343,7 @@
                 Missed me?
             </div>
             <div class="image-message" id="gandalfImage">
-                <img src="https://svitlana-o-blashchuk.github.io/happybirthday/gandalf.png" alt="Gandalf" />
+                <img src="./gandalf.png" alt="Gandalf" />
             </div>
         </div>
         
@@ -370,6 +370,7 @@
                 
                 // Show Gandalf image after message appears
                 setTimeout(() => {
+                    console.log('Showing Gandalf image...');
                     gandalfImage.style.display = 'block';
                     gandalfImage.classList.add('grow-turn');
                     
