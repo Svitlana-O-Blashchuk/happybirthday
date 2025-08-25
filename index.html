@@ -12,10 +12,11 @@
         }
 
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #d4c5a0 0%, #b8a082 50%, #a08c6b 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
             min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
             position: relative;
             overflow-x: hidden;
         }
@@ -33,9 +34,111 @@
 
         .container {
             position: relative;
-            z-index: 1;
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #1a1a2e;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            background: #16213e;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            min-height: 24px;
+        }
+
+        .status-left {
+            font-weight: 600;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .back-button {
+            margin-right: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .contact-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: linear-gradient(135deg, #d4c5a0, #b8a082);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-details h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .contact-details .status {
+            margin: 0;
+            font-size: 12px;
+            color: #bdc3c7;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-actions button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-actions button:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         .envelope-container {
@@ -130,18 +233,19 @@
         .gandalf-image {
             position: relative;
             margin: 20px 0;
-            margin-left: -20px; /* cancel chat padding so it touches left screen edge */
+            margin-left: 20px;
             text-align: left;
             z-index: 10;
             display: none;
             pointer-events: none;
-            max-width: calc(100% - 20px); /* keep right side aligned with chat padding */
+            max-width: calc(100% - 40px);
         }
 
         .gandalf-image img {
-            width: auto;         /* adjust width automatically */
-            max-height: 70vh;    /* cap at 70% of viewport height */
-            object-fit: contain; /* keep proportions */
+            width: auto;
+            max-height: 40vh;
+            max-width: 100%;
+            object-fit: contain;
             display: block;
         }
 
@@ -175,41 +279,144 @@
         /* Chat Area */
         .chat-area {
             display: none;
-            padding: 20px;
-            margin-top: 50px;
-            min-height: calc(100vh - 100px);
-            max-height: calc(100vh - 100px);
+            flex: 1;
             overflow-y: auto;
-            overflow-x: hidden;
+            padding: 16px;
+            background: #1a1a2e;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 111, 71, 0.02) 0%, transparent 50%);
+        }
+
+        .date-separator {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .date-separator span {
+            background: rgba(255,255,255,0.1);
+            color: #bdc3c7;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
         .message-bubble {
-            max-width: 300px;
-            margin: 10px 0;
-            padding: 15px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            color: #4a3728;
+            max-width: 75%;
+            margin: 4px 0;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
             position: relative;
             word-wrap: break-word;
+            line-height: 1.4;
         }
 
-        .message-right {
-            background: #8b6f47;
-            color: #f4f1e8;
+        .message-bubble.message-right {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
             margin-left: auto;
-            margin-right: 20px;
-            border-bottom-right-radius: 5px;
-            animation: slideInRight 0.6s ease-out;
+            margin-right: 12px;
+            border-bottom-right-radius: 4px;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .message-left {
-            background: #f4f1e8;
-            border: 2px solid #8b6f47;
-            margin-left: 20px;
+            background: #2c2c54;
+            color: #ecf0f1;
+            margin-left: 52px;
             margin-right: auto;
-            border-bottom-left-radius: 5px;
-            animation: slideInLeft 0.6s ease-out;
+            border-bottom-left-radius: 4px;
+            animation: slideInLeft 0.3s ease-out;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .message-left::before {
+            content: '🧙‍♂️';
+            position: absolute;
+            left: -44px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4c5a0, #b8a082);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .message-timestamp {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .message-left .message-timestamp {
+            color: rgba(236,240,241,0.6);
+            text-align: left;
+            justify-content: flex-start;
+        }
+
+        .read-receipt {
+            font-size: 12px;
+            color: #3498db;
+        }
+
+        /* Input Area */
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #2c2c54;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            gap: 12px;
+        }
+
+        .input-field {
+            flex: 1;
+            background: #1a1a2e;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 10px 16px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .input-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-actions button {
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .input-actions button:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
         }
 
         @keyframes slideInRight {
@@ -386,35 +593,39 @@
             }
         }
 
-        /* Response Buttons */
+        /* Response Buttons - Modern messenger style */
         .response-button {
             background: linear-gradient(135deg, #8b6f47 0%, #6b5437 100%);
             color: #f4f1e8;
-            border: 2px solid #4a3728;
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-size: 16px;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 25px;
+            font-size: 15px;
             font-family: 'Georgia', serif;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 111, 71, 0.3);
             position: fixed;
-            bottom: 30px;
+            bottom: 25px;
             display: none;
             z-index: 1000;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
+            animation: fadeInUp 0.5s ease-out both;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 241, 232, 0.2);
         }
 
         .response-button.left {
-            left: calc(50% - 130px);
+            left: calc(50% - 140px);
             transform: translateX(0);
-            bottom: 30px;
+            bottom: 25px;
         }
 
         .response-button.right {
-            right: calc(50% - 130px);
+            right: calc(50% - 140px);
             transform: translateX(0);
-            bottom: 90px;
+            bottom: 85px;
         }
 
         .response-button.center {
@@ -422,68 +633,86 @@
             transform: translateX(-50%);
         }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, 20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, 0);
-            }
-        }
-
         .response-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
             background: linear-gradient(135deg, #9a7d57 0%, #7a6047 100%);
+            scale: 1.02;
         }
 
         .response-button.left:hover {
-            transform: translateX(0) translateY(-2px);
+            transform: translateX(0) translateY(-3px) scale(1.02);
         }
 
         .response-button.right:hover {
-            transform: translateX(0) translateY(-2px);
+            transform: translateX(0) translateY(-3px) scale(1.02);
         }
 
         .response-button.center:hover {
-            transform: translateX(-50%) translateY(-2px);
+            transform: translateX(-50%) translateY(-3px) scale(1.02);
         }
 
         .response-button:active {
-            transform: translateY(0);
+            transform: translateY(-1px) scale(0.98);
         }
 
         .response-button.left:active {
-            transform: translateX(0) translateY(0);
+            transform: translateX(0) translateY(-1px) scale(0.98);
         }
 
         .response-button.right:active {
-            transform: translateX(0) translateY(0);
+            transform: translateX(0) translateY(-1px) scale(0.98);
         }
 
         .response-button.center:active {
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(-1px) scale(0.98);
         }
 
-        /* Custom scrollbar */
+        /* Custom scrollbar - Modern style */
         .chat-area::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         .chat-area::-webkit-scrollbar-track {
-            background: rgba(139, 111, 71, 0.2);
-            border-radius: 4px;
+            background: rgba(139, 111, 71, 0.1);
+            border-radius: 10px;
         }
 
         .chat-area::-webkit-scrollbar-thumb {
-            background: rgba(139, 111, 71, 0.6);
-            border-radius: 4px;
+            background: linear-gradient(180deg, rgba(139, 111, 71, 0.6), rgba(139, 111, 71, 0.8));
+            border-radius: 10px;
         }
 
         .chat-area::-webkit-scrollbar-thumb:hover {
-            background: rgba(139, 111, 71, 0.8);
+            background: linear-gradient(180deg, rgba(139, 111, 71, 0.8), rgba(139, 111, 71, 1));
+        }
+
+        /* Message typing animation */
+        @keyframes messageTyping {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .message-bubble.typing {
+            animation: messageTyping 0.4s ease-out;
+        }
+
+        /* Improved fade in animation */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 15px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(1);
+            }
         }
 
         @media (max-width: 480px) {
@@ -506,6 +735,18 @@
 </head>
 <body>
     <div class="container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-left" id="currentTime">4:05</div>
+            <div class="status-right">
+                <span>🔇</span>
+                <span>📶</span>
+                <span>📶</span>
+                <span>🔋</span>
+                <span>61%</span>
+            </div>
+        </div>
+
         <!-- Fireworks Container -->
         <div class="fireworks-container" id="fireworksContainer"></div>
         
@@ -514,11 +755,31 @@
                 <div class="wax-seal">✦</div>
             </div>
         </div>
+
+        <!-- Header Bar -->
+        <div class="header-bar" id="headerBar" style="display: none;">
+            <div class="back-button">←</div>
+            <div class="contact-info">
+                <div class="contact-avatar">🧙‍♂️</div>
+                <div class="contact-details">
+                    <h3>Gandalf the Grey</h3>
+                    <p class="status" id="lastSeen">last seen at 3:45 PM</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button>📞</button>
+                <button>⋮</button>
+            </div>
+        </div>
         
         <!-- Chat Area -->
         <div class="chat-area" id="chatArea">
+            <div class="date-separator">
+                <span id="currentDate">Today</span>
+            </div>
             <div class="message-bubble message-left" id="firstMessage">
                 Happy Birthday!
+                <div class="message-timestamp" id="firstMessageTime"></div>
             </div>
             
             <!-- Gandalf Image -->
@@ -526,46 +787,147 @@
                 <img src="./gandalf.png" alt="Gandalf" />
             </div>
         </div>
-        
-        <!-- Buttons -->
-        <button class="response-button center" id="responseButton" onclick="handleResponse()">
-            Good morning!
-        </button>
-        
-        <button class="response-button center" id="thankYouButton" onclick="handleThankYouResponse()">
-            Thank you!
-        </button>
-        
-        <button class="response-button center" id="finalResponseButton" onclick="handleFinalResponse()">
-            All of them at once, I suppose.
-        </button>
-        
-        <button class="response-button center" id="helpResponseButton" onclick="handleHelpResponse()">
-            Can I help you?? 
-        </button>
-        
-        <button class="response-button center" id="nextResponseButton" onclick="handleNextResponse()">
-            Of course you are!
-        </button>
-        
-        <button class="response-button center" id="fireworksButton" onclick="handleFireworksResponse()">
-            The wandering Wizard who made excellent fireworks
-        </button>
-        
-        <button class="response-button center" id="oldTookButton" onclick="handleOldTookResponse()">
-            Old Took used to have them on Midsummer's Eve.
-        </button>
-        
-        <button class="response-button center" id="businessButton" onclick="handleBusinessResponse()">
-            No idea you were still in business.
-        </button>
+
+        <!-- Quick Replies Area -->
+        <div class="quick-replies" id="quickReplies">
+            <button class="response-button center" id="responseButton" onclick="handleResponse()">
+                Good morning!
+            </button>
+            
+            <button class="response-button center" id="thankYouButton" onclick="handleThankYouResponse()">
+                Thank you!
+            </button>
+            
+            <button class="response-button center" id="finalResponseButton" onclick="handleFinalResponse()">
+                All of them at once, I suppose.
+            </button>
+            
+            <button class="response-button center" id="helpResponseButton" onclick="handleHelpResponse()">
+                Can I help you?? 
+            </button>
+            
+            <button class="response-button center" id="nextResponseButton" onclick="handleNextResponse()">
+                Of course you are!
+            </button>
+            
+            <button class="response-button center" id="fireworksButton" onclick="handleFireworksResponse()">
+                The wandering Wizard who made excellent fireworks
+            </button>
+            
+            <button class="response-button center" id="oldTookButton" onclick="handleOldTookResponse()">
+                Old Took used to have them on Midsummer's Eve.
+            </button>
+            
+            <button class="response-button center" id="businessButton" onclick="handleBusinessResponse()">
+                No idea you were still in business.
+            </button>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area" id="inputArea" style="display: none;">
+            <input type="text" class="input-field" placeholder="Message" readonly>
+            <div class="input-actions">
+                <button>📎</button>
+                <button>🎤</button>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Live timestamp functions
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        function formatMessageTime() {
+            const now = new Date();
+            return now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function formatDate() {
+            const now = new Date();
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (now.toDateString() === today.toDateString()) return 'Today';
+            else if (now.toDateString() === yesterday.toDateString()) return 'Yesterday';
+            else return now.toLocaleDateString([], {month: 'long', day: 'numeric'});
+        }
+
+        function addTimestampToMessage(messageElement, isUser = false) {
+            const timestamp = document.createElement('div');
+            timestamp.className = 'message-timestamp';
+            timestamp.innerHTML = formatMessageTime() + (isUser ? ' <span class="read-receipt">✓✓</span>' : '');
+            messageElement.appendChild(timestamp);
+        }
+
+        function createUserMessage(text) {
+            const chatArea = document.getElementById('chatArea');
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message-bubble message-right';
+            userMessage.textContent = text;
+            addTimestampToMessage(userMessage, true);
+            chatArea.appendChild(userMessage);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            return userMessage;
+        }
+
+        function createGandalfMessage(text) {
+            const chatArea = document.getElementById('chatArea');
+            const gandalfMessage = document.createElement('div');
+            gandalfMessage.className = 'message-bubble message-left';
+            gandalfMessage.textContent = text;
+            addTimestampToMessage(gandalfMessage);
+            gandalfMessage.style.animation = 'slideInLeft 0.3s ease-out';
+            chatArea.appendChild(gandalfMessage);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            return gandalfMessage;
+        }
+
+        function styleButton(button, position = 'center') {
+            button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            button.style.color = 'white';
+            button.style.border = 'none';
+            button.style.padding = '8px 16px';
+            button.style.borderRadius = '20px';
+            button.style.fontSize = '13px';
+            button.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif';
+            button.style.cursor = 'pointer';
+            button.style.fontWeight = '500';
+            button.style.lineHeight = '1.3';
+            button.style.whiteSpace = 'nowrap';
+            button.style.textAlign = 'center';
+            button.style.boxShadow = '0 2px 8px rgba(102, 126, 234, 0.3)';
+            button.style.transition = 'all 0.3s ease';
+            button.style.position = 'absolute';
+            button.style.bottom = '12px';
+            
+            if (position === 'left') {
+                button.style.left = '25%';
+                button.style.transform = 'translateX(-50%)';
+                button.style.right = 'auto';
+            } else if (position === 'right') {
+                button.style.right = '25%';
+                button.style.transform = 'translateX(50%)';
+                button.style.left = 'auto';
+            } else {
+                button.style.left = '50%';
+                button.style.transform = 'translateX(-50%)';
+            }
+            
+            button.style.display = 'block';
+        }
+
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
             const envelopeContainer = document.getElementById('envelopeContainer');
             const chatArea = document.getElementById('chatArea');
+            const headerBar = document.getElementById('headerBar');
+            const inputArea = document.getElementById('inputArea');
+            const quickReplies = document.getElementById('quickReplies');
             const responseButton = document.getElementById('responseButton');
             const thankYouButton = document.getElementById('thankYouButton');
             const gandalfImage = document.getElementById('gandalfImage');
@@ -574,34 +936,31 @@
             
             setTimeout(() => {
                 envelopeContainer.style.display = 'none';
+                headerBar.style.display = 'flex';
                 chatArea.style.display = 'block';
+                quickReplies.style.display = 'block';
+                inputArea.style.display = 'flex';
+                
+                document.getElementById('currentDate').textContent = formatDate();
+                addTimestampToMessage(document.getElementById('firstMessage'));
                 
                 setTimeout(() => {
                     gandalfImage.style.display = 'block';
                     gandalfImage.classList.add('grow-turn');
                     
                     setTimeout(() => {
-                        responseButton.classList.add('left');
-                        responseButton.style.display = 'block';
-                        thankYouButton.classList.add('right');
-                        thankYouButton.style.display = 'block';
+                        styleButton(responseButton, 'left');
+                        styleButton(thankYouButton, 'right');
                     }, 1000);
                 }, 1200);
             }, 800);
         }
 
+        // Handlers
         function handleResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const responseButton = document.getElementById('responseButton');
-            const thankYouButton = document.getElementById('thankYouButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Good morning!';
-            chatArea.appendChild(userMessage);
-            
-            responseButton.style.display = 'none';
-            thankYouButton.style.display = 'none';
+            createUserMessage('Good morning!');
+            document.getElementById('responseButton').style.display = 'none';
+            document.getElementById('thankYouButton').style.display = 'none';
             
             const gandalfResponses = [
                 "What do you mean?",
@@ -610,36 +969,20 @@
                 "or that you feel good this morning",
                 "or that it is a morning to be good on?"
             ];
-            
-            gandalfResponses.forEach((response, index) => {
-                setTimeout(() => {
-                    const gandalfMessage = document.createElement('div');
-                    gandalfMessage.className = 'message-bubble message-left';
-                    gandalfMessage.textContent = response;
-                    gandalfMessage.style.animation = 'slideInLeft 0.6s ease-out';
-                    chatArea.appendChild(gandalfMessage);
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                }, (index + 1) * 1500);
+            gandalfResponses.forEach((text, i) => {
+                setTimeout(() => createGandalfMessage(text), (i+1)*1500);
             });
-            
+
             setTimeout(() => {
                 const finalButton = document.getElementById('finalResponseButton');
-                finalButton.style.display = 'block';
-            }, gandalfResponses.length * 1500 + 1000);
+                styleButton(finalButton, 'center');
+            }, gandalfResponses.length*1500 + 1000);
         }
 
         function handleThankYouResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const responseButton = document.getElementById('responseButton');
-            const thankYouButton = document.getElementById('thankYouButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Thank you!';
-            chatArea.appendChild(userMessage);
-            
-            responseButton.style.display = 'none';
-            thankYouButton.style.display = 'none';
+            createUserMessage('Thank you!');
+            document.getElementById('responseButton').style.display = 'none';
+            document.getElementById('thankYouButton').style.display = 'none';
             
             const gandalfResponses = [
                 "What do you mean?",
@@ -648,140 +991,67 @@
                 "or that you feel thankful this birthday",
                 "or that this is a birthday to be thankful on?"
             ];
-            
-            gandalfResponses.forEach((response, index) => {
-                setTimeout(() => {
-                    const gandalfMessage = document.createElement('div');
-                    gandalfMessage.className = 'message-bubble message-left';
-                    gandalfMessage.textContent = response;
-                    gandalfMessage.style.animation = 'slideInLeft 0.6s ease-out';
-                    chatArea.appendChild(gandalfMessage);
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                }, (index + 1) * 1500);
+            gandalfResponses.forEach((text, i) => {
+                setTimeout(() => createGandalfMessage(text), (i+1)*1500);
             });
-            
+
             setTimeout(() => {
                 const finalButton = document.getElementById('finalResponseButton');
-                finalButton.style.display = 'block';
-            }, gandalfResponses.length * 1500 + 1000);
+                styleButton(finalButton, 'center');
+            }, gandalfResponses.length*1500 + 1000);
         }
 
         function handleFinalResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const finalButton = document.getElementById('finalResponseButton');
-            const helpButton = document.getElementById('helpResponseButton');
-            
-            const finalUserMessage = document.createElement('div');
-            finalUserMessage.className = 'message-bubble message-right';
-            finalUserMessage.textContent = 'All of them at once, I suppose.';
-            finalUserMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(finalUserMessage);
-            
-            finalButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
+            createUserMessage('All of them at once, I suppose.');
+            document.getElementById('finalResponseButton').style.display = 'none';
             setTimeout(() => {
-                helpButton.style.display = 'block';
+                const helpButton = document.getElementById('helpResponseButton');
+                styleButton(helpButton, 'center');
             }, 1500);
         }
 
         function handleHelpResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const helpButton = document.getElementById('helpResponseButton');
-            const nextButton = document.getElementById('nextResponseButton');
-            
-            const helpUserMessage = document.createElement('div');
-            helpUserMessage.className = 'message-bubble message-right';
-            helpUserMessage.textContent = 'Can I help you??';
-            helpUserMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(helpUserMessage);
-            
-            helpButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
+            createUserMessage('Can I help you??');
+            document.getElementById('helpResponseButton').style.display = 'none';
             setTimeout(() => {
-                const gandalfAdventureMessage = document.createElement('div');
-                gandalfAdventureMessage.className = 'message-bubble message-left';
-                gandalfAdventureMessage.textContent = 'I am looking for someone to share in an adventure.';
-                gandalfAdventureMessage.style.animation = 'slideInLeft 0.6s ease-out';
-                chatArea.appendChild(gandalfAdventureMessage);
-                chatArea.scrollTop = chatArea.scrollHeight;
-                
+                createGandalfMessage('I am looking for someone to share in an adventure.');
                 setTimeout(() => {
-                    nextButton.style.display = 'block';
+                    const nextButton = document.getElementById('nextResponseButton');
+                    styleButton(nextButton, 'center');
                 }, 1500);
             }, 1500);
         }
 
         function handleNextResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const nextButton = document.getElementById('nextResponseButton');
-            const fireworksButton = document.getElementById('fireworksButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Of course you are!';
-            userMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(userMessage);
-            
-            nextButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
+            createUserMessage('Of course you are!');
+            document.getElementById('nextResponseButton').style.display = 'none';
             setTimeout(() => {
-                fireworksButton.style.display = 'block';
+                const fireworksButton = document.getElementById('fireworksButton');
+                styleButton(fireworksButton, 'center');
             }, 1000);
         }
 
         function handleFireworksResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const fireworksButton = document.getElementById('fireworksButton');
-            const oldTookButton = document.getElementById('oldTookButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'The wandering Wizard who made excellent fireworks';
-            userMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(userMessage);
-            
-            fireworksButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
+            createUserMessage('The wandering Wizard who made excellent fireworks');
+            document.getElementById('fireworksButton').style.display = 'none';
             setTimeout(() => {
-                oldTookButton.style.display = 'block';
+                const oldTookButton = document.getElementById('oldTookButton');
+                styleButton(oldTookButton, 'center');
             }, 1000);
         }
 
         function handleOldTookResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const oldTookButton = document.getElementById('oldTookButton');
-            const businessButton = document.getElementById('businessButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'Old Took used to have them on Midsummer\'s Eve.';
-            userMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(userMessage);
-            
-            oldTookButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-            
+            createUserMessage("Old Took used to have them on Midsummer's Eve.");
+            document.getElementById('oldTookButton').style.display = 'none';
             setTimeout(() => {
-                businessButton.style.display = 'block';
+                const businessButton = document.getElementById('businessButton');
+                styleButton(businessButton, 'center');
             }, 1000);
         }
 
         function handleBusinessResponse() {
-            const chatArea = document.getElementById('chatArea');
-            const businessButton = document.getElementById('businessButton');
-            
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message-bubble message-right';
-            userMessage.textContent = 'No idea you were still in business.';
-            userMessage.style.animation = 'slideInRight 0.6s ease-out';
-            chatArea.appendChild(userMessage);
-            
-            businessButton.style.display = 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
+            createUserMessage('No idea you were still in business.');
+            document.getElementById('businessButton').style.display = 'none';
             
             const gandalfMessages = [
                 "Well, I'm pleased to find you remember something about me",
@@ -791,22 +1061,15 @@
                 "It'll be very good for you and most amusing for me."
             ];
             
-            gandalfMessages.forEach((message, index) => {
+            gandalfMessages.forEach((text, i) => {
                 setTimeout(() => {
-                    const gandalfMessage = document.createElement('div');
-                    gandalfMessage.className = 'message-bubble message-left';
-                    gandalfMessage.textContent = message;
-                    gandalfMessage.style.animation = 'slideInLeft 0.6s ease-out';
-                    chatArea.appendChild(gandalfMessage);
-                    chatArea.scrollTop = chatArea.scrollHeight;
-                    
-                    if (message === "even if it's only my fireworks.") {
-                        createFireworks();
-                    }
-                }, 1500 + (index * 1500));
+                    createGandalfMessage(text);
+                    if(text === "even if it's only my fireworks.") createFireworks();
+                }, 1500 + i*1500);
             });
-            
+
             setTimeout(() => {
+                const chatArea = document.getElementById('chatArea');
                 const stickerMessage = document.createElement('div');
                 stickerMessage.className = 'message-bubble message-left';
                 stickerMessage.style.background = 'transparent';
@@ -845,8 +1108,7 @@
                     chatArea.appendChild(runeContainer);
                     chatArea.scrollTop = chatArea.scrollHeight;
                 }, 2000);
-                
-            }, 1500 + (gandalfMessages.length * 1500));
+            }, 1500 + gandalfMessages.length*1500);
         }
 
         function createFireworks() {
@@ -924,7 +1186,13 @@
             }
         }
 
+        // Start live clock and envelope float animation
         document.addEventListener('DOMContentLoaded', function() {
+            // Update time every second
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Envelope floating animation
             const envelope = document.getElementById('envelope');
             if (envelope) {
                 setInterval(() => {
