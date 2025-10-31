@@ -1,19 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dutch Words Practice</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .word-pair { display: flex; justify-content: space-between; margin: 10px 0; }
-        .word { cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; border-radius: 5px; }
-        .matched { background-color: #c8ffc8; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dutch Words Practice</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { display: flex; justify-content: space-between; margin-top: 10px; }
+    .column { width: 45%; }
+    .word { cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; border-radius: 5px; margin: 5px 0; user-select: none; transition: background 0.3s; }
+    .selected { background-color: #ffff99; }
+    .matched { background-color: #c8ffc8; }
+    .wrong { background-color: #ffc8c8; }
+    #next-button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+</style>
 </head>
 <body>
-    <h1>Dutch Words Practice</h1>
-    <div id="words-container"></div>
-    <script src="app.js"></script>
+<h1>Dutch Words Practice</h1>
+<div class="container">
+    <div id="dutch-column" class="column"></div>
+    <div id="english-column" class="column"></div>
+</div>
+<button id="next-button">Next 10 words</button>
+<script>
+// Words database (Dutch + English, including past and participle forms)
+const words = [
+    { dutch: "Dag", english: "Hello" },
+    { dutch: "Hallo", english: "Hi" },
+    { dutch: "Goeiedag", english: "Good day" },
+    { dutch: "Goeiemorgen", english: "Good morning" },
+    { dutch: "Goeiemiddag", english: "Good afternoon" },
+    { dutch: "Goeienavond", english: "Good evening" },
+    { dutch: "Hoe heet jij?", english: "What is your name?" },
+    { dutch: "Wie ben jij?", english: "Who are you?" },
+    { dutch: "Wat is jouw naam?", english: "What is your name?" },
+    { dutch: "Aangenaam", english: "Nice to meet you" },
+    // verbs past and participle forms
+    { dutch: "voelde", english: "felt" },
+    { dutch: "gevoeld", english: "felt (participle)" },
+    { dutch: "luisterde", english: "listened" },
+    { dutch: "geluisterd", english: "listened (participle)" },
+    { dutch: "danste", english: "danced" },
+    { dutch: "gedanst", english: "danced (participle)" },
+    { dutch: "maakte", english: "made" },
+    { dutch: "gemaakt", english: "made (participle)" },
+    { dutch: "praatte", english: "talked" },
+    { dutch: "gepraat", english: "talked (participle)" },
+    { dutch: "leerde", english: "learned" },
+    { dutch: "geleerd", english: "learned (participle)" },
+    { dutch: "studeerde", english: "studied" },
+    { dutch: "gestudeerd", english: "studied (participle)" },
+    { dutch: "hoorde", english: "heard" },
+    { dutch: "gehoord", english: "heard (participle)" },
+    { dutch: "raakte aan", english: "touched" },
+    { dutch: "aangeraakt", english: "touched (participle)" },
+    // Add all remaining verbs past/participle following the same pattern
+];
+
+// State
+let selectedDutch = null;
+let selectedEnglish = null;
+
+// Shuffle helper
+function shuffleArray(array) {
+    return array.sort(() => 0.5 - Math.random());
+}
+
+// Display 10 random words
+function displayWords() {
+    const pairs = shuffleArray([...words]).slice(0, 10);
+    const dutchColumn = document.getElementById('dutch-column');
+    const englishColumn = document.getElementById('english-column');
+    dutchColumn.innerHTML = '';
+    englishColumn.innerHTML = '';
+
+    const dutchWords = shuffleArray(pairs.map(w => ({ text: w.dutch, translation: w.english })));
+    const englishWords = shuffleArray(pairs.map(w => ({ text: w.english, translation: w.dutch })));
+
+    dutchWords.forEach(word => {
+        const div = document.createElement('div');
+        div.className = 'word';
+        div.textContent = word.text;
+        div.dataset.translation = word.translation;
+        div.onclick = () => selectWord(div, 'dutch');
+        dutchColumn.appendChild(div);
+    });
+
+    englishWords.forEach(word => {
+        const div = document.createElement('div');
+        div.className = 'word';
+        div.textContent = word.text;
+        div.dataset.translation = word.translation;
+        div.onclick = () => selectWord(div, 'english');
+        englishColumn.appendChild(div);
+    });
+}
+
+// Handle selection
+function selectWord(div, type) {
+    if (type === 'dutch') {
+        if (selectedDutch) selectedDutch.classList.remove('selected');
+        selectedDutch = div;
+        div.classList.add('selected');
+    } else {
+        if (selectedEnglish) selectedEnglish.classList.remove('selected');
+        selectedEnglish = div;
+        div.classList.add('selected');
+    }
+    checkMatch();
+}
+
+// Check match visually
+function checkMatch() {
+    if (selectedDutch && selectedEnglish) {
+        if (selectedDutch.dataset.translation === selectedEnglish.textContent) {
+            selectedDutch.classList.add('matched');
+            selectedEnglish.classList.add('matched');
+        } else {
+            selectedDutch.classList.add('wrong');
+            selectedEnglish.classList.add('wrong');
+            setTimeout(() => {
+                selectedDutch.classList.remove('wrong');
+                selectedEnglish.classList.remove('wrong');
+            }, 800);
+        }
+        selectedDutch.classList.remove('selected');
+        selectedEnglish.classList.remove('selected');
+        selectedDutch = null;
+        selectedEnglish = null;
+    }
+}
+
+// Next button
+document.getElementById('next-button').onclick = () => {
+    selectedDutch = null;
+    selectedEnglish = null;
+    displayWords();
+};
+
+// Initial display
+displayWords();
+</script>
 </body>
 </html>
