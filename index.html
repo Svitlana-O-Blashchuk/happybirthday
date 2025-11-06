@@ -1,145 +1,2240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dutch Words Practice</title>
-<style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .container { display: flex; justify-content: space-between; margin-top: 10px; }
-    .column { width: 45%; }
-    .word { cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; border-radius: 5px; margin: 5px 0; user-select: none; transition: background 0.3s; }
-    .selected { background-color: #ffff99; }
-    .matched { background-color: #c8ffc8; }
-    .wrong { background-color: #ffc8c8; }
-    #next-button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Word Games</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Menu Screen */
+        .menu-screen {
+            text-align: center;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 40px auto;
+        }
+
+        .menu-btn {
+            padding: 25px 40px;
+            font-size: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-btn:hover {
+            background: #5568d3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .menu-btn.secondary {
+            background: #764ba2;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .menu-btn.secondary:hover {
+            background: #654189;
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.6);
+        }
+
+        /* Game Screens */
+        .game-screen {
+            display: none;
+        }
+
+        .game-screen.active {
+            display: block;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            background: #999;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #777;
+        }
+
+        /* Matching Game Styles */
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .column-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .word-card {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 16px;
+            user-select: none;
+        }
+
+        .word-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .word-card.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .word-card.matched {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* Memory Game Styles */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: #667eea;
+            border: 3px solid #5568d3;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-card:hover:not(.flipped):not(.matched) {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+
+        .memory-card.flipped {
+            background: #f8f9fa;
+            color: #333;
+            border-color: #e0e0e0;
+            cursor: default;
+        }
+
+        .memory-card.matched {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        .memory-card::before {
+            content: "?";
+            position: absolute;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.8);
+            transition: opacity 0.3s;
+        }
+
+        .memory-card.flipped::before,
+        .memory-card.matched::before {
+            opacity: 0;
+        }
+
+        .card-content {
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-align: center;
+            padding: 10px;
+            word-break: break-word;
+        }
+
+        .memory-card.flipped .card-content,
+        .memory-card.matched .card-content {
+            opacity: 1;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .congratulations {
+            text-align: center;
+            padding: 20px;
+            background: #4caf50;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .congratulations.show {
+            display: block;
+        }
+
+        /* Articles Game Styles */
+        .article-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 2fr;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .article-row > *:nth-child(1) {
+            /* Article input - left */
+        }
+
+        .article-row > *:nth-child(2) {
+            /* Noun - middle */
+        }
+
+        .article-row > *:nth-child(3) {
+            /* Translation input - right */
+        }
+
+        .article-row:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .article-row.correct {
+            background: #d4edda;
+            border-color: #4caf50;
+        }
+
+        .article-row.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .article-noun {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .article-input-container {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .article-input {
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-transform: lowercase;
+        }
+
+        .article-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .translation-input {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .translation-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .feedback {
+            font-size: 14px;
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .feedback.correct-text {
+            color: #155724;
+            background: #d4edda;
+        }
+
+        .feedback.incorrect-text {
+            color: #721c24;
+            background: #f8d7da;
+        }
+
+        /* Verification Game Styles */
+        .verification-game-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .verification-progress-container {
+            margin-bottom: 30px;
+        }
+
+        .verification-progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .verification-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .verification-progress-text {
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .word-pair-display {
+            text-align: center;
+            margin: 40px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .dutch-word {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .english-word {
+            font-size: 36px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .timer-display {
+            text-align: center;
+            font-size: 72px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 30px 0;
+            min-height: 90px;
+        }
+
+        .timer-display.warning {
+            color: #f39c12;
+        }
+
+        .timer-display.danger {
+            color: #e74c3c;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .verification-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .verify-btn {
+            padding: 20px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .verify-btn.match {
+            background: #4caf50;
+            color: white;
+        }
+
+        .verify-btn.match:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        .verify-btn.no-match {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .verify-btn.no-match:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+        }
+
+        .verify-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-message {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .result-message.correct {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .result-message.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .next-word-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            display: none;
+            margin-top: 20px;
+        }
+
+        .next-word-btn.show {
+            display: block;
+        }
+
+        .next-word-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Verbs Game Styles */
+        .verbs-game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .verbs-progress {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            font-size: 14px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        .english-word {
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 60px 0 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .verb-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .verb-button {
+            padding: 20px;
+            font-size: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verb-button:hover:not(.revealed) {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .verb-button.revealed {
+            background: #f8f9fa;
+            color: #333;
+            cursor: default;
+            box-shadow: none;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .verb-button-label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .verb-button-text {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .verb-button.revealed .verb-button-label {
+            opacity: 0.6;
+        }
+
+        .next-verb-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            display: none;
+        }
+
+        .next-verb-btn.show {
+            display: block;
+        }
+
+        .next-verb-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Knowledge Check Game Styles */
+        .knowledge-word-display {
+            text-align: center;
+            margin: 60px 0 40px;
+            padding: 50px;
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            color: white;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .knowledge-english-word {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-dutch-word {
+            font-size: 36px;
+            font-weight: 500;
+            opacity: 0.95;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .knowledge-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .knowledge-btn {
+            padding: 20px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .knowledge-btn.know-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+        .knowledge-btn.know-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+        }
+
+        .knowledge-btn.dont-know-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .knowledge-btn.dont-know-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+        }
+
+        .knowledge-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .knowledge-progress-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .knowledge-progress-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .knowledge-progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .knowledge-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 100%);
+            transition: width 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .knowledge-progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-stats {
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .stat-value.known-stat {
+            color: #4caf50;
+        }
+
+        .stat-value.unknown-stat {
+            color: #e74c3c;
+        }
+
+        .knowledge-stats-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .knowledge-stats-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .knowledge-stats-content h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .stats-summary {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            flex: 1;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .stat-box.known-box {
+            background: #d4edda;
+            border: 2px solid #4caf50;
+        }
+
+        .stat-box.unknown-box {
+            background: #f8d7da;
+            border: 2px solid #e74c3c;
+        }
+
+        .stat-box.total-box {
+            background: #e7f3ff;
+            border: 2px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-box.known-box .stat-number {
+            color: #4caf50;
+        }
+
+        .stat-box.unknown-box .stat-number {
+            color: #e74c3c;
+        }
+
+        .stat-box.total-box .stat-number {
+            color: #667eea;
+        }
+
+        .stat-label-text {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-percentage {
+            font-size: 72px;
+            font-weight: bold;
+            color: #9b59b6;
+            margin: 30px 0;
+        }
+
+        .stats-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .stats-buttons .knowledge-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-<h1>Dutch Words Practice</h1>
-<div class="container">
-    <div id="dutch-column" class="column"></div>
-    <div id="english-column" class="column"></div>
-</div>
-<button id="next-button">Next 10 words</button>
-<script>
-// Words database (Dutch + English, including past and participle forms)
-const words = [
-    { dutch: "Dag", english: "Hello" },
-    { dutch: "Hallo", english: "Hi" },
-    { dutch: "Goeiedag", english: "Good day" },
-    { dutch: "Goeiemorgen", english: "Good morning" },
-    { dutch: "Goeiemiddag", english: "Good afternoon" },
-    { dutch: "Goeienavond", english: "Good evening" },
-    { dutch: "Hoe heet jij?", english: "What is your name?" },
-    { dutch: "Wie ben jij?", english: "Who are you?" },
-    { dutch: "Wat is jouw naam?", english: "What is your name?" },
-    { dutch: "Aangenaam", english: "Nice to meet you" },
-    // verbs past and participle forms
-    { dutch: "voelde", english: "felt" },
-    { dutch: "gevoeld", english: "felt (participle)" },
-    { dutch: "luisterde", english: "listened" },
-    { dutch: "geluisterd", english: "listened (participle)" },
-    { dutch: "danste", english: "danced" },
-    { dutch: "gedanst", english: "danced (participle)" },
-    { dutch: "maakte", english: "made" },
-    { dutch: "gemaakt", english: "made (participle)" },
-    { dutch: "praatte", english: "talked" },
-    { dutch: "gepraat", english: "talked (participle)" },
-    { dutch: "leerde", english: "learned" },
-    { dutch: "geleerd", english: "learned (participle)" },
-    { dutch: "studeerde", english: "studied" },
-    { dutch: "gestudeerd", english: "studied (participle)" },
-    { dutch: "hoorde", english: "heard" },
-    { dutch: "gehoord", english: "heard (participle)" },
-    { dutch: "raakte aan", english: "touched" },
-    { dutch: "aangeraakt", english: "touched (participle)" },
-    // Add all remaining verbs past/participle following the same pattern
-];
+    <!-- Menu Screen -->
+    <div class="container">
+        <div id="menuScreen" class="menu-screen">
+            <h1>🇳🇱 Dutch Word Games 🇬🇧</h1>
+            <p class="info">Choose a game mode to practice Dutch vocabulary!</p>
+            <div class="menu-buttons">
+                <button class="menu-btn" onclick="startGame('matching')">
+                    📝 Matching Game<br>
+                    <small>Match Dutch words with English translations</small>
+                </button>
+                <button class="menu-btn secondary" onclick="startGame('memory')">
+                    🎴 Memory Game<br>
+                    <small>Flip cards to find matching pairs</small>
+                </button>
+                <button class="menu-btn" onclick="startGame('articles')" style="background: #f39c12; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);">
+                    📚 Articles Game<br>
+                    <small>Type articles (de/het) and translations for nouns</small>
+                </button>
+                <button class="menu-btn secondary" onclick="startGame('verbs')" style="background: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
+                    🔤 Verbs Practice<br>
+                    <small>Practice Dutch verbs with past tense and past participle</small>
+                </button>
+                <button class="menu-btn secondary" onclick="startGame('verification')" style="background: #16a085; box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);">
+                    ✅ Word Verification<br>
+                    <small>Words flash for 800ms, then verify if they match!</small>
+                </button>
+                <button class="menu-btn" onclick="startGame('knowledge')" style="background: #9b59b6; box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);">
+                    🧠 Knowledge Check<br>
+                    <small>Mark words you know (green) or don't know (red)</small>
+                </button>
+            </div>
+        </div>
 
-// State
-let selectedDutch = null;
-let selectedEnglish = null;
+        <!-- Matching Game Screen -->
+        <div id="matchingGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>📝 Matching Game</h1>
+            <p class="info">Match the Dutch words with their English translations!</p>
+            
+            <div class="score" id="matchingScore">Pairs matched: 0 / 10</div>
+            <div class="score" id="matchingProgress" style="color: #666; font-size: 16px;">Progress: 0 / 104</div>
+            <div class="congratulations" id="matchingCongratulations">
+                🎉 Great job! You matched all pairs! Click "Next 10 Words" to continue.
+            </div>
 
-// Shuffle helper
-function shuffleArray(array) {
-    return array.sort(() => 0.5 - Math.random());
-}
+            <div class="game-area">
+                <div class="column">
+                    <div class="column-title">Dutch Words</div>
+                    <div id="dutch-column"></div>
+                </div>
+                <div class="column">
+                    <div class="column-title">English Translations</div>
+                    <div id="english-column"></div>
+                </div>
+            </div>
 
-// Display 10 random words
-function displayWords() {
-    const pairs = shuffleArray([...words]).slice(0, 10);
-    const dutchColumn = document.getElementById('dutch-column');
-    const englishColumn = document.getElementById('english-column');
-    dutchColumn.innerHTML = '';
-    englishColumn.innerHTML = '';
+            <div class="controls">
+                <button id="matchingNextBtn" onclick="loadNextBatch('matching')" disabled>Next 10 Words</button>
+            </div>
+        </div>
 
-    const dutchWords = shuffleArray(pairs.map(w => ({ text: w.dutch, translation: w.english })));
-    const englishWords = shuffleArray(pairs.map(w => ({ text: w.english, translation: w.dutch })));
+        <!-- Memory Game Screen -->
+        <div id="memoryGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>🎴 Memory Game</h1>
+            <p class="info">Flip cards to find matching pairs!</p>
+            
+            <div class="score" id="memoryScore">Pairs matched: 0 / 10</div>
+            <div class="score" id="memoryProgress" style="color: #666; font-size: 16px;">Progress: 0 / 104</div>
+            <div class="congratulations" id="memoryCongratulations">
+                🎉 Great job! You matched all pairs! Click "Next 10 Words" to continue.
+            </div>
 
-    dutchWords.forEach(word => {
-        const div = document.createElement('div');
-        div.className = 'word';
-        div.textContent = word.text;
-        div.dataset.translation = word.translation;
-        div.onclick = () => selectWord(div, 'dutch');
-        dutchColumn.appendChild(div);
-    });
+            <div class="memory-grid" id="memory-grid"></div>
 
-    englishWords.forEach(word => {
-        const div = document.createElement('div');
-        div.className = 'word';
-        div.textContent = word.text;
-        div.dataset.translation = word.translation;
-        div.onclick = () => selectWord(div, 'english');
-        englishColumn.appendChild(div);
-    });
-}
+            <div class="controls">
+                <button id="memoryNextBtn" onclick="loadNextBatch('memory')" disabled>Next 10 Words</button>
+            </div>
+        </div>
 
-// Handle selection
-function selectWord(div, type) {
-    if (type === 'dutch') {
-        if (selectedDutch) selectedDutch.classList.remove('selected');
-        selectedDutch = div;
-        div.classList.add('selected');
-    } else {
-        if (selectedEnglish) selectedEnglish.classList.remove('selected');
-        selectedEnglish = div;
-        div.classList.add('selected');
-    }
-    checkMatch();
-}
+        <!-- Articles Game Screen -->
+        <div id="articlesGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>📚 Articles Game</h1>
+            <p class="info">Type the article (de/het) and English translation for each noun!</p>
+            
+            <div class="score" id="articlesProgress" style="color: #666; font-size: 16px;">Total nouns: 0</div>
+            <div class="congratulations" id="articlesResults" style="display: none;"></div>
 
-// Check match visually
-function checkMatch() {
-    if (selectedDutch && selectedEnglish) {
-        if (selectedDutch.dataset.translation === selectedEnglish.textContent) {
-            selectedDutch.classList.add('matched');
-            selectedEnglish.classList.add('matched');
-        } else {
-            selectedDutch.classList.add('wrong');
-            selectedEnglish.classList.add('wrong');
-            setTimeout(() => {
-                selectedDutch.classList.remove('wrong');
-                selectedEnglish.classList.remove('wrong');
+            <div id="articles-list" style="max-width: 800px; margin: 0 auto;"></div>
+
+            <div class="controls">
+                <button id="checkArticlesBtn" onclick="checkArticles()">Check Answers</button>
+                <button id="articlesResetBtn" onclick="resetArticles()" style="display: none;">Try Again</button>
+            </div>
+        </div>
+
+        <!-- Verbs Game Screen -->
+        <div id="verbsGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>🔤 Verbs Practice</h1>
+            <p class="info">Click the buttons to reveal the Dutch infinitive, past tense, and past participle!</p>
+            
+            <div class="verbs-game-container">
+                <div class="verbs-progress" id="verbsProgress">0 / 0</div>
+                <div class="english-word" id="englishVerbWord">Loading...</div>
+                <div class="verb-buttons" id="verbButtons"></div>
+                <button class="next-verb-btn" id="nextVerbBtn" onclick="nextVerb()">Next Verb →</button>
+            </div>
+        </div>
+
+        <!-- Verification Game Screen -->
+        <div id="verificationGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>✅ Word Verification</h1>
+            <p class="info">The word pair will flash for 800 milliseconds, then verify if they match!</p>
+            
+            <div class="verification-game-container">
+                <div class="verification-progress-container">
+                    <div class="verification-progress-bar">
+                        <div class="verification-progress-fill" id="verificationProgressFill"></div>
+                    </div>
+                    <div class="verification-progress-text" id="verificationProgressText">0 / 0</div>
+                </div>
+
+                <div class="timer-display" id="timerDisplay">50</div>
+
+                <div class="word-pair-display" id="wordPairDisplay">
+                    <div class="dutch-word" id="dutchWordDisplay">Loading...</div>
+                    <div class="english-word" id="englishWordDisplay">Loading...</div>
+                </div>
+
+                <div class="verification-buttons" id="verificationButtons" style="display: none;">
+                    <button class="verify-btn match" onclick="verifyMatch(true)">✓ Match</button>
+                    <button class="verify-btn no-match" onclick="verifyMatch(false)">✗ Don't Match</button>
+                </div>
+
+                <div class="result-message" id="resultMessage"></div>
+
+                <button class="next-word-btn" id="nextWordBtn" onclick="nextWord()">Next Word →</button>
+            </div>
+        </div>
+
+        <!-- Knowledge Check Game Screen -->
+        <div id="knowledgeGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>🧠 Knowledge Check</h1>
+            <p class="info">Mark words you know (green) or don't know (red)!</p>
+            
+            <div style="display: flex; gap: 30px; max-width: 1200px; margin: 0 auto;">
+                <!-- Main Content Area -->
+                <div style="flex: 1;">
+                    <div class="knowledge-word-display" id="knowledgeWordDisplay">
+                        <div class="knowledge-english-word" id="knowledgeEnglishWord">Loading...</div>
+                        <div class="knowledge-dutch-word" id="knowledgeDutchWord" style="display: none;"></div>
+                    </div>
+
+                    <div class="knowledge-buttons" id="knowledgeButtons">
+                        <button class="knowledge-btn know-btn" onclick="markKnowledge(true)">
+                            ✓ I Know This
+                        </button>
+                        <button class="knowledge-btn dont-know-btn" onclick="markKnowledge(false)">
+                            ✗ I Don't Know This
+                        </button>
+                    </div>
+
+                    <div class="knowledge-controls" style="margin-top: 30px; text-align: center;">
+                        <button id="showAnswerBtn" onclick="showAnswer()" style="display: none;">Show Answer</button>
+                        <button id="nextKnowledgeBtn" onclick="nextKnowledgeWord()" style="display: none;">Next Word →</button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar Sidebar -->
+                <div style="width: 200px; flex-shrink: 0;">
+                    <div class="knowledge-progress-container">
+                        <div class="knowledge-progress-title">Progress</div>
+                        <div class="knowledge-progress-bar">
+                            <div class="knowledge-progress-fill" id="knowledgeProgressFill"></div>
+                        </div>
+                        <div class="knowledge-progress-text" id="knowledgeProgressText">0 / 0</div>
+                        
+                        <div class="knowledge-stats" style="margin-top: 30px;">
+                            <div class="stat-item">
+                                <span class="stat-label">Known:</span>
+                                <span class="stat-value known-stat" id="knownCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Unknown:</span>
+                                <span class="stat-value unknown-stat" id="unknownCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Modal -->
+            <div id="knowledgeStatsModal" class="knowledge-stats-modal" style="display: none;">
+                <div class="knowledge-stats-content">
+                    <h2>📊 Statistics</h2>
+                    <div class="stats-summary">
+                        <div class="stat-box known-box">
+                            <div class="stat-number" id="finalKnownCount">0</div>
+                            <div class="stat-label-text">Words You Know</div>
+                        </div>
+                        <div class="stat-box unknown-box">
+                            <div class="stat-number" id="finalUnknownCount">0</div>
+                            <div class="stat-label-text">Words You Don't Know</div>
+                        </div>
+                        <div class="stat-box total-box">
+                            <div class="stat-number" id="finalTotalCount">0</div>
+                            <div class="stat-label-text">Total Words</div>
+                        </div>
+                    </div>
+                    <div class="stat-percentage" id="knowledgePercentage">0%</div>
+                    <div class="stats-buttons">
+                        <button onclick="restartKnowledgeGame()" class="knowledge-btn know-btn">Try Again</button>
+                        <button onclick="showMenu()" class="knowledge-btn dont-know-btn">Back to Menu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All word pairs
+        const allWordPairs = [
+            { dutch: "vragen", english: "to ask" },
+            { dutch: "mogen", english: "to be allowed to/may" },
+            { dutch: "excuseren", english: "to apologize/excuse" },
+            { dutch: "aankomen", english: "to arrive" },
+            { dutch: "raken", english: "to hit/reach/touch" },
+            { dutch: "kiezen", english: "to choose" },
+            { dutch: "verjaren", english: "to expire" },
+            { dutch: "helpen", english: "to help" },
+            { dutch: "eruitzien", english: "to look like" },
+            { dutch: "vullen", english: "to fill" },
+            { dutch: "verkopen", english: "to sell" },
+            { dutch: "vieren", english: "to celebrate" },
+            { dutch: "zanger", english: "singer" },
+            { dutch: "regisseur", english: "director" },
+            { dutch: "modeontwerper", english: "fashion designer" },
+            { dutch: "kalender", english: "calendar" },
+            { dutch: "hulp", english: "help" },
+            { dutch: "mevrouw", english: "madam/Mrs" },
+            { dutch: "meneer", english: "sir" },
+            { dutch: "vorm", english: "form/shape" },
+            { dutch: "ui", english: "onion" },
+            { dutch: "lente", english: "spring" },
+            { dutch: "herfst", english: "autumn/fall" },
+            { dutch: "verjaardag", english: "birthday" },
+            { dutch: "koning", english: "king" },
+            { dutch: "koningin", english: "queen" },
+            { dutch: "werkschema", english: "work schedule" },
+            { dutch: "keer", english: "time/turn" },
+            { dutch: "voormiddag", english: "morning" },
+            { dutch: "namiddag", english: "afternoon" },
+            { dutch: "weekdag", english: "weekday" },
+            { dutch: "sluitingsdag", english: "closing day" },
+            { dutch: "krant", english: "newspaper" },
+            { dutch: "weekendkrant", english: "weekend newspaper" },
+            { dutch: "plaats", english: "place" },
+            { dutch: "gemeente", english: "municipality" },
+            { dutch: "cursus", english: "course" },
+            { dutch: "boodschap", english: "message/shopping" },
+            { dutch: "kennis", english: "knowledge/acquaintance" },
+            { dutch: "schat", english: "treasure/sweetheart" },
+            { dutch: "bakker", english: "baker" },
+            { dutch: "bericht", english: "message" },
+            { dutch: "gemeentehuis", english: "town hall" },
+            { dutch: "weekend", english: "weekend" },
+            { dutch: "zwembad", english: "swimming pool" },
+            { dutch: "bad", english: "bath" },
+            { dutch: "werkwoord", english: "verb" },
+            { dutch: "gehakt", english: "minced meat" },
+            { dutch: "seizoen", english: "season" },
+            { dutch: "boeket", english: "bouquet" },
+            { dutch: "open", english: "open" },
+            { dutch: "vrij", english: "free" },
+            { dutch: "druk", english: "busy" },
+            { dutch: "doorlopend", english: "continuous" },
+            { dutch: "ondersteunend", english: "supportive" },
+            { dutch: "informeel", english: "informal" },
+            { dutch: "formeel", english: "formal" },
+            { dutch: "zeker", english: "certain/sure" },
+            { dutch: "jarig", english: "having a birthday" },
+            { dutch: "laat", english: "late" },
+            { dutch: "gelukkig", english: "happy" },
+            { dutch: "koninklijk", english: "royal" },
+            { dutch: "naartoe", english: "towards/to" },
+            { dutch: "bij", english: "at/by/with" },
+            { dutch: "meestal", english: "usually" },
+            { dutch: "dus", english: "so/therefore" },
+            { dutch: "geboortedatum", english: "date of birth" },
+            { dutch: "bevestigingsmail", english: "confirmation email" },
+            { dutch: "gast", english: "guest" },
+            { dutch: "regio", english: "region" },
+            { dutch: "voorkeur", english: "preference" },
+            { dutch: "punt", english: "point" },
+            { dutch: "nummer", english: "number" },
+            { dutch: "ambulance", english: "ambulance" },
+            { dutch: "wachtdienst", english: "on-call service" },
+            { dutch: "storm", english: "storm" },
+            { dutch: "overstroming", english: "flood" },
+            { dutch: "lid", english: "member" },
+            { dutch: "buurt", english: "neighborhood" },
+            { dutch: "jaartal", english: "year" },
+            { dutch: "vereiste", english: "requirement" },
+            { dutch: "tankstation", english: "gas station" },
+            { dutch: "tanken", english: "to refuel" },
+            { dutch: "herhalen", english: "to repeat" },
+            { dutch: "controleren", english: "to check" },
+            { dutch: "bellen", english: "to call" },
+            { dutch: "inslikken", english: "to swallow" },
+            { dutch: "oproepen", english: "to call up/summon" },
+            { dutch: "verstaan", english: "to understand" },
+            { dutch: "mobiel", english: "mobile" },
+            { dutch: "biologisch", english: "biological/organic" },
+            { dutch: "giftig", english: "toxic/poisonous" },
+            { dutch: "dringend", english: "urgent" },
+            { dutch: "nodig", english: "necessary" },
+            { dutch: "kwijt", english: "lost" },
+            { dutch: "bijna", english: "almost" },
+            { dutch: "traag", english: "slow" },
+            { dutch: "ver", english: "far" },
+            { dutch: "liever", english: "rather/preferably" },
+            { dutch: "overal", english: "everywhere" },
+            { dutch: "iemand", english: "someone" },
+            { dutch: "elk", english: "each" },
+            { dutch: "zich", english: "oneself" }
+        ];
+
+        let currentGameType = null;
+        let currentBatch = [];
+        let usedIndices = new Set();
+
+        // Nouns with their articles
+        const nounsWithArticles = {
+            "zanger": "de",
+            "regisseur": "de",
+            "modeontwerper": "de",
+            "kalender": "de",
+            "hulp": "de",
+            "mevrouw": "de",
+            "meneer": "de",
+            "vorm": "de",
+            "ui": "de",
+            "lente": "de",
+            "herfst": "de",
+            "verjaardag": "de",
+            "koning": "de",
+            "koningin": "de",
+            "werkschema": "het",
+            "keer": "de",
+            "voormiddag": "de",
+            "namiddag": "de",
+            "weekdag": "de",
+            "sluitingsdag": "de",
+            "krant": "de",
+            "weekendkrant": "de",
+            "plaats": "de",
+            "gemeente": "de",
+            "cursus": "de",
+            "boodschap": "de",
+            "kennis": "de",
+            "schat": "de",
+            "bakker": "de",
+            "bericht": "het",
+            "gemeentehuis": "het",
+            "weekend": "het",
+            "zwembad": "het",
+            "bad": "het",
+            "werkwoord": "het",
+            "gehakt": "het",
+            "seizoen": "het",
+            "boeket": "het",
+            "geboortedatum": "de",
+            "bevestigingsmail": "de",
+            "gast": "de",
+            "regio": "de",
+            "voorkeur": "de",
+            "punt": "het",
+            "nummer": "het",
+            "ambulance": "de",
+            "wachtdienst": "de",
+            "storm": "de",
+            "overstroming": "de",
+            "lid": "het",
+            "buurt": "de",
+            "jaartal": "het",
+            "vereiste": "het",
+            "tankstation": "het"
+        };
+
+        // Update progress display
+        function updateProgress() {
+            const used = usedIndices.size;
+            const total = allWordPairs.length;
+            const remaining = total - used;
+            
+            if (document.getElementById('matchingProgress')) {
+                document.getElementById('matchingProgress').textContent = `Progress: ${used} / ${total} (${remaining} remaining)`;
+            }
+            if (document.getElementById('memoryProgress')) {
+                document.getElementById('memoryProgress').textContent = `Progress: ${used} / ${total} (${remaining} remaining)`;
+            }
+        }
+
+        // Matching game variables
+        let matchedPairs = 0;
+        let selectedDutch = null;
+        let selectedEnglish = null;
+        let selectedDutchIndex = null;
+        let selectedEnglishIndex = null;
+
+        // Memory game variables
+        let flippedCards = [];
+        let matchedCards = new Set();
+        let isChecking = false;
+
+        // Verbs with their conjugations
+        const verbsData = [
+            { english: "to ask", infinitive: "vragen", past: "vroeg", pastParticiple: "gevraagd" },
+            { english: "to be allowed to/may", infinitive: "mogen", past: "mocht", pastParticiple: "gemogen" },
+            { english: "to apologize/excuse", infinitive: "excuseren", past: "excuseerde", pastParticiple: "geëxcuseerd" },
+            { english: "to arrive", infinitive: "aankomen", past: "kwam aan", pastParticiple: "aangekomen" },
+            { english: "to hit/reach/touch", infinitive: "raken", past: "raakte", pastParticiple: "geraakt" },
+            { english: "to choose", infinitive: "kiezen", past: "koos", pastParticiple: "gekozen" },
+            { english: "to expire", infinitive: "verjaren", past: "verjaarde", pastParticiple: "verjaard" },
+            { english: "to help", infinitive: "helpen", past: "hielp", pastParticiple: "geholpen" },
+            { english: "to look like", infinitive: "eruitzien", past: "zag eruit", pastParticiple: "eruitgezien" },
+            { english: "to fill", infinitive: "vullen", past: "vulde", pastParticiple: "gevuld" },
+            { english: "to sell", infinitive: "verkopen", past: "verkocht", pastParticiple: "verkocht" },
+            { english: "to celebrate", infinitive: "vieren", past: "vierde", pastParticiple: "gevierd" },
+            { english: "to refuel", infinitive: "tanken", past: "tankte", pastParticiple: "getankt" },
+            { english: "to repeat", infinitive: "herhalen", past: "herhaalde", pastParticiple: "herhaald" },
+            { english: "to check", infinitive: "controleren", past: "controleerde", pastParticiple: "gecontroleerd" },
+            { english: "to call", infinitive: "bellen", past: "belde", pastParticiple: "gebeld" },
+            { english: "to swallow", infinitive: "inslikken", past: "slikte in", pastParticiple: "ingeslikt" },
+            { english: "to call up/summon", infinitive: "oproepen", past: "riep op", pastParticiple: "opgeroepen" },
+            { english: "to understand", infinitive: "verstaan", past: "verstond", pastParticiple: "verstaan" }
+        ];
+
+        // Verb game variables
+        let currentVerbIndex = 0;
+        let verbsUsed = new Set(); // Store English translations as unique identifiers
+        let shuffledVerbs = [];
+
+        // Verification game variables
+        let verificationWordPairs = [];
+        let currentVerificationIndex = 0;
+        let verificationTimer = null;
+        let currentWordPair = null;
+        let isVerificationPhase = false;
+
+        // Menu Functions
+        function showMenu() {
+            // Clear any running timers
+            if (verificationTimer) {
+                clearInterval(verificationTimer);
+                verificationTimer = null;
+            }
+            
+            document.getElementById('menuScreen').style.display = 'block';
+            document.getElementById('matchingGameScreen').classList.remove('active');
+            document.getElementById('memoryGameScreen').classList.remove('active');
+            document.getElementById('articlesGameScreen').classList.remove('active');
+            document.getElementById('verbsGameScreen').classList.remove('active');
+            document.getElementById('verificationGameScreen').classList.remove('active');
+            document.getElementById('knowledgeGameScreen').classList.remove('active');
+            currentGameType = null;
+        }
+
+        function startGame(gameType) {
+            currentGameType = gameType;
+            document.getElementById('menuScreen').style.display = 'none';
+            document.getElementById('matchingGameScreen').classList.remove('active');
+            document.getElementById('memoryGameScreen').classList.remove('active');
+            document.getElementById('articlesGameScreen').classList.remove('active');
+            document.getElementById('verbsGameScreen').classList.remove('active');
+            document.getElementById('verificationGameScreen').classList.remove('active');
+            document.getElementById('knowledgeGameScreen').classList.remove('active');
+            
+            if (gameType === 'matching') {
+                document.getElementById('matchingGameScreen').classList.add('active');
+                updateProgress();
+                loadNextBatch(gameType);
+            } else if (gameType === 'memory') {
+                document.getElementById('memoryGameScreen').classList.add('active');
+                updateProgress();
+                loadNextBatch(gameType);
+            } else if (gameType === 'articles') {
+                document.getElementById('articlesGameScreen').classList.add('active');
+                loadArticlesGame();
+            } else if (gameType === 'verbs') {
+                document.getElementById('verbsGameScreen').classList.add('active');
+                loadVerbsGame();
+            } else if (gameType === 'verification') {
+                document.getElementById('verificationGameScreen').classList.add('active');
+                loadVerificationGame();
+            } else if (gameType === 'knowledge') {
+                document.getElementById('knowledgeGameScreen').classList.add('active');
+                loadKnowledgeGame();
+            }
+        }
+
+        // Shuffle array
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Get next 10 unused word pairs
+        function getNextBatch() {
+            const unused = allWordPairs.filter((_, index) => !usedIndices.has(index));
+            
+            if (unused.length === 0) {
+                // Reset if all words have been used
+                usedIndices.clear();
+                return shuffle(allWordPairs).slice(0, 10);
+            }
+            
+            return shuffle(unused).slice(0, 10);
+        }
+
+        // MATCHING GAME FUNCTIONS
+        function createWordCard(text, type, index) {
+            const card = document.createElement('div');
+            card.className = 'word-card';
+            card.textContent = text;
+            card.dataset.index = index;
+            card.dataset.type = type;
+            card.onclick = () => selectCard(card, type, index);
+            return card;
+        }
+
+        function selectCard(card, type, index) {
+            if (card.classList.contains('matched')) return;
+
+            if (type === 'dutch') {
+                if (selectedDutch) {
+                    selectedDutch.classList.remove('selected');
+                }
+                selectedDutch = card;
+                card.classList.add('selected');
+                selectedDutchIndex = index;
+            } else {
+                if (selectedEnglish) {
+                    selectedEnglish.classList.remove('selected');
+                }
+                selectedEnglish = card;
+                card.classList.add('selected');
+                selectedEnglishIndex = index;
+            }
+
+            if (selectedDutch && selectedEnglish) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            if (selectedDutchIndex === selectedEnglishIndex) {
+                selectedDutch.classList.add('matched');
+                selectedEnglish.classList.add('matched');
+                selectedDutch.classList.remove('selected');
+                selectedEnglish.classList.remove('selected');
+                
+                matchedPairs++;
+                document.getElementById('matchingScore').textContent = `Pairs matched: ${matchedPairs} / 10`;
+                
+                selectedDutch = null;
+                selectedEnglish = null;
+                selectedDutchIndex = null;
+                selectedEnglishIndex = null;
+
+                if (matchedPairs === 10) {
+                    document.getElementById('matchingCongratulations').classList.add('show');
+                    document.getElementById('matchingNextBtn').disabled = false;
+                }
+            } else {
+                setTimeout(() => {
+                    selectedDutch.classList.remove('selected');
+                    selectedEnglish.classList.remove('selected');
+                    selectedDutch = null;
+                    selectedEnglish = null;
+                    selectedDutchIndex = null;
+                    selectedEnglishIndex = null;
+                }, 500);
+            }
+        }
+
+        // MEMORY GAME FUNCTIONS
+        function createMemoryCard(text, pairIndex, type) {
+            const card = document.createElement('div');
+            card.className = 'memory-card';
+            card.dataset.pairIndex = pairIndex;
+            card.dataset.type = type;
+            
+            const content = document.createElement('div');
+            content.className = 'card-content';
+            content.textContent = text;
+            card.appendChild(content);
+            
+            card.onclick = () => flipCard(card);
+            return card;
+        }
+
+        function flipCard(card) {
+            if (isChecking || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                return;
+            }
+
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                isChecking = true;
+                setTimeout(checkMemoryMatch, 500);
+            }
+        }
+
+        function checkMemoryMatch() {
+            const [card1, card2] = flippedCards;
+            const pair1 = parseInt(card1.dataset.pairIndex);
+            const pair2 = parseInt(card2.dataset.pairIndex);
+            const type1 = card1.dataset.type;
+            const type2 = card2.dataset.type;
+
+            // Check if they're from the same pair and one is Dutch, one is English
+            if (pair1 === pair2 && type1 !== type2) {
+                // Match!
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedCards.add(pair1);
+                
+                const score = matchedCards.size;
+                document.getElementById('memoryScore').textContent = `Pairs matched: ${score} / 10`;
+
+                if (score === 10) {
+                    document.getElementById('memoryCongratulations').classList.add('show');
+                    document.getElementById('memoryNextBtn').disabled = false;
+                }
+            } else {
+                // No match, flip back
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+            }
+
+            flippedCards = [];
+            isChecking = false;
+        }
+
+        // Load next batch of 10 words
+        function loadNextBatch(gameType) {
+            const batch = getNextBatch();
+            const indices = batch.map(pair => allWordPairs.findIndex(p => 
+                p.dutch === pair.dutch && p.english === pair.english
+            ));
+            
+            indices.forEach(idx => usedIndices.add(idx));
+
+            currentBatch = batch;
+
+            if (gameType === 'matching') {
+                // Reset matching game state
+                matchedPairs = 0;
+                selectedDutch = null;
+                selectedEnglish = null;
+                selectedDutchIndex = null;
+                selectedEnglishIndex = null;
+
+                document.getElementById('dutch-column').innerHTML = '';
+                document.getElementById('english-column').innerHTML = '';
+                document.getElementById('matchingCongratulations').classList.remove('show');
+                document.getElementById('matchingNextBtn').disabled = true;
+                document.getElementById('matchingScore').textContent = `Pairs matched: 0 / 10`;
+                updateProgress();
+
+                const dutchWithIndices = batch.map((pair, idx) => ({ ...pair, originalIndex: idx }));
+                const englishWithIndices = batch.map((pair, idx) => ({ ...pair, originalIndex: idx }));
+
+                const shuffledDutch = shuffle(dutchWithIndices);
+                const shuffledEnglish = shuffle(englishWithIndices);
+
+                shuffledDutch.forEach((item) => {
+                    const card = createWordCard(item.dutch, 'dutch', item.originalIndex);
+                    document.getElementById('dutch-column').appendChild(card);
+                });
+
+                shuffledEnglish.forEach((item) => {
+                    const card = createWordCard(item.english, 'english', item.originalIndex);
+                    document.getElementById('english-column').appendChild(card);
+                });
+            } else {
+                // Reset memory game state
+                flippedCards = [];
+                matchedCards.clear();
+                isChecking = false;
+
+                document.getElementById('memory-grid').innerHTML = '';
+                document.getElementById('memoryCongratulations').classList.remove('show');
+                document.getElementById('memoryNextBtn').disabled = true;
+                document.getElementById('memoryScore').textContent = `Pairs matched: 0 / 10`;
+                updateProgress();
+
+                // Create 20 cards (10 Dutch + 10 English)
+                const cards = [];
+                batch.forEach((pair, idx) => {
+                    cards.push(createMemoryCard(pair.dutch, idx, 'dutch'));
+                    cards.push(createMemoryCard(pair.english, idx, 'english'));
+                });
+
+                // Shuffle all cards
+                const shuffledCards = shuffle(cards);
+                shuffledCards.forEach(card => {
+                    document.getElementById('memory-grid').appendChild(card);
+                });
+            }
+        }
+
+        // ARTICLES GAME FUNCTIONS
+        let articlesData = [];
+
+        function loadArticlesGame() {
+            // Filter allWordPairs to get only nouns
+            articlesData = allWordPairs.filter(pair => nounsWithArticles.hasOwnProperty(pair.dutch));
+            
+            // Sort alphabetically
+            articlesData.sort((a, b) => a.dutch.localeCompare(b.dutch));
+            
+            document.getElementById('articlesProgress').textContent = `Total nouns: ${articlesData.length}`;
+            document.getElementById('articles-list').innerHTML = '';
+            document.getElementById('articlesResults').style.display = 'none';
+            document.getElementById('articlesResults').innerHTML = '';
+            document.getElementById('checkArticlesBtn').style.display = 'inline-block';
+            document.getElementById('articlesResetBtn').style.display = 'none';
+
+            articlesData.forEach((noun, index) => {
+                const row = document.createElement('div');
+                row.className = 'article-row';
+                row.id = `article-row-${index}`;
+                
+                const articleInput = document.createElement('input');
+                articleInput.type = 'text';
+                articleInput.className = 'article-input';
+                articleInput.id = `article-${index}`;
+                articleInput.placeholder = 'de/het';
+                articleInput.maxLength = 3;
+                
+                const nounSpan = document.createElement('div');
+                nounSpan.className = 'article-noun';
+                nounSpan.textContent = noun.dutch;
+                
+                const translationInput = document.createElement('input');
+                translationInput.type = 'text';
+                translationInput.className = 'translation-input';
+                translationInput.id = `translation-${index}`;
+                translationInput.placeholder = 'English translation...';
+                
+                row.appendChild(articleInput);
+                row.appendChild(nounSpan);
+                row.appendChild(translationInput);
+                
+                document.getElementById('articles-list').appendChild(row);
+            });
+        }
+
+        function checkArticles() {
+            let correctCount = 0;
+            let totalCount = articlesData.length;
+            
+            articlesData.forEach((noun, index) => {
+                const row = document.getElementById(`article-row-${index}`);
+                const articleInput = document.getElementById(`article-${index}`);
+                const translationInput = document.getElementById(`translation-${index}`);
+                
+                const userArticle = articleInput.value.trim().toLowerCase();
+                const correctArticle = nounsWithArticles[noun.dutch].toLowerCase();
+                const userTranslation = translationInput.value.trim().toLowerCase();
+                const correctTranslation = noun.english.toLowerCase();
+                
+                // Check both article and translation
+                const articleCorrect = userArticle === correctArticle;
+                const translationCorrect = userTranslation === correctTranslation || 
+                                         correctTranslation.includes(userTranslation) ||
+                                         userTranslation.includes(correctTranslation.split('/')[0].trim());
+                
+                // Remove existing feedback
+                const existingFeedback = row.querySelector('.feedback');
+                if (existingFeedback) {
+                    existingFeedback.remove();
+                }
+                
+                if (articleCorrect && translationCorrect) {
+                    row.classList.add('correct');
+                    row.classList.remove('incorrect');
+                    articleInput.style.borderColor = '#4caf50';
+                    translationInput.style.borderColor = '#4caf50';
+                    correctCount++;
+                } else {
+                    row.classList.add('incorrect');
+                    row.classList.remove('correct');
+                    articleInput.style.borderColor = '#dc3545';
+                    translationInput.style.borderColor = '#dc3545';
+                    
+                    // Show feedback
+                    const feedback = document.createElement('div');
+                    feedback.className = 'feedback';
+                    let feedbackText = '';
+                    
+                    if (!articleCorrect && !translationCorrect) {
+                        feedback.className += ' incorrect-text';
+                        feedbackText = `Correct: ${correctArticle} ${noun.dutch} = ${noun.english}`;
+                    } else if (!articleCorrect) {
+                        feedback.className += ' incorrect-text';
+                        feedbackText = `Article should be: ${correctArticle}`;
+                    } else if (!translationCorrect) {
+                        feedback.className += ' incorrect-text';
+                        feedbackText = `Translation should be: ${noun.english}`;
+                    }
+                    
+                    feedback.textContent = feedbackText;
+                    row.appendChild(feedback);
+                }
+            });
+            
+            // Show results
+            const resultsDiv = document.getElementById('articlesResults');
+            resultsDiv.style.display = 'block';
+            
+            if (correctCount === totalCount) {
+                resultsDiv.className = 'congratulations show';
+                resultsDiv.innerHTML = `🎉 Perfect! You got all ${totalCount} correct!`;
+            } else {
+                resultsDiv.className = 'congratulations show';
+                resultsDiv.style.background = '#fff3cd';
+                resultsDiv.style.color = '#856404';
+                resultsDiv.innerHTML = `📊 Results: ${correctCount} / ${totalCount} correct`;
+            }
+            
+            document.getElementById('checkArticlesBtn').style.display = 'none';
+            document.getElementById('articlesResetBtn').style.display = 'inline-block';
+        }
+
+        function resetArticles() {
+            articlesData.forEach((noun, index) => {
+                const row = document.getElementById(`article-row-${index}`);
+                const articleInput = document.getElementById(`article-${index}`);
+                const translationInput = document.getElementById(`translation-${index}`);
+                
+                row.classList.remove('correct', 'incorrect');
+                articleInput.value = '';
+                translationInput.value = '';
+                articleInput.style.borderColor = '#ddd';
+                translationInput.style.borderColor = '#ddd';
+                
+                const feedback = row.querySelector('.feedback');
+                if (feedback) {
+                    feedback.remove();
+                }
+            });
+            
+            document.getElementById('articlesResults').style.display = 'none';
+            document.getElementById('checkArticlesBtn').style.display = 'inline-block';
+            document.getElementById('articlesResetBtn').style.display = 'none';
+        }
+
+        // VERBS GAME FUNCTIONS
+        function loadVerbsGame() {
+            // Shuffle verbs if needed
+            if (shuffledVerbs.length === 0 || currentVerbIndex >= shuffledVerbs.length) {
+                const unusedVerbs = verbsData.filter(verb => !verbsUsed.has(verb.english));
+                
+                if (unusedVerbs.length === 0) {
+                    // Reset if all verbs have been used
+                    verbsUsed.clear();
+                    shuffledVerbs = shuffle([...verbsData]);
+                } else {
+                    shuffledVerbs = shuffle(unusedVerbs);
+                }
+                
+                currentVerbIndex = 0;
+            }
+            
+            loadCurrentVerb();
+        }
+
+        function loadCurrentVerb() {
+            const verb = shuffledVerbs[currentVerbIndex];
+            const totalUsed = verbsUsed.size;
+            const total = verbsData.length;
+            
+            // Update progress
+            document.getElementById('verbsProgress').textContent = `${totalUsed + 1} / ${total}`;
+            
+            // Display English word
+            document.getElementById('englishVerbWord').textContent = verb.english;
+            
+            // Create buttons
+            const buttonsContainer = document.getElementById('verbButtons');
+            buttonsContainer.innerHTML = '';
+            
+            // Create three buttons: infinitive, past, past participle
+            const buttonTypes = [
+                { label: 'Infinitive', value: verb.infinitive, type: 'infinitive' },
+                { label: 'Past Tense', value: verb.past, type: 'past' },
+                { label: 'Past Participle', value: verb.pastParticiple, type: 'pastParticiple' }
+            ];
+            
+            // Shuffle button order for variety
+            const shuffledButtons = shuffle(buttonTypes);
+            
+            shuffledButtons.forEach((btnData, index) => {
+                const button = document.createElement('button');
+                button.className = 'verb-button';
+                button.dataset.type = btnData.type;
+                button.dataset.revealed = 'false';
+                
+                button.innerHTML = `
+                    <div class="verb-button-label">${btnData.label}</div>
+                    <div class="verb-button-text">?</div>
+                `;
+                
+                button.onclick = () => revealVerbForm(button, btnData.value, btnData.label);
+                buttonsContainer.appendChild(button);
+            });
+            
+            // Hide next button
+            document.getElementById('nextVerbBtn').classList.remove('show');
+        }
+
+        function revealVerbForm(button, value, label) {
+            if (button.dataset.revealed === 'true') {
+                return; // Already revealed
+            }
+            
+            button.dataset.revealed = 'true';
+            button.classList.add('revealed');
+            button.innerHTML = `
+                <div class="verb-button-label">${label}</div>
+                <div class="verb-button-text">${value}</div>
+            `;
+            
+            // Check if all buttons are revealed
+            const allButtons = document.querySelectorAll('.verb-button');
+            const allRevealed = Array.from(allButtons).every(btn => btn.dataset.revealed === 'true');
+            
+            if (allRevealed) {
+                // Mark current verb as used (using English as identifier)
+                const verb = shuffledVerbs[currentVerbIndex];
+                verbsUsed.add(verb.english);
+                
+                // Show next button
+                document.getElementById('nextVerbBtn').classList.add('show');
+            }
+        }
+
+        function nextVerb() {
+            currentVerbIndex++;
+            
+            // Check if we need to shuffle new verbs
+            if (currentVerbIndex >= shuffledVerbs.length) {
+                shuffledVerbs = [];
+            }
+            
+            loadVerbsGame();
+        }
+
+        // VERIFICATION GAME FUNCTIONS
+        function loadVerificationGame() {
+            // Initialize word pairs - mix correct and incorrect pairs
+            verificationWordPairs = [];
+            
+            // Add all correct pairs
+            allWordPairs.forEach(pair => {
+                verificationWordPairs.push({
+                    dutch: pair.dutch,
+                    english: pair.english,
+                    isMatch: true
+                });
+            });
+            
+            // Add some incorrect pairs by mixing Dutch and English words
+            const incorrectPairs = [];
+            const shuffledPairs = shuffle([...allWordPairs]);
+            
+            for (let i = 0; i < Math.min(20, allWordPairs.length); i++) {
+                const dutchWord = shuffledPairs[i];
+                const englishWord = shuffledPairs[(i + 10) % shuffledPairs.length];
+                
+                // Only add if they don't actually match
+                if (dutchWord.dutch !== englishWord.dutch || dutchWord.english !== englishWord.english) {
+                    incorrectPairs.push({
+                        dutch: dutchWord.dutch,
+                        english: englishWord.english,
+                        isMatch: false
+                    });
+                }
+            }
+            
+            verificationWordPairs = shuffle([...verificationWordPairs, ...incorrectPairs]);
+            currentVerificationIndex = 0;
+            
+            // Add keyboard event listener for Enter key
+            document.addEventListener('keydown', handleVerificationKeyPress);
+            
+            startWordVerification();
+        }
+
+        function handleVerificationKeyPress(event) {
+            // Handle knowledge game shortcuts
+            if (currentGameType === 'knowledge') {
+                // Space key for "I Know This" button
+                if (event.key === ' ') {
+                    const knowBtn = document.querySelector('.knowledge-btn.know-btn');
+                    if (knowBtn && !knowBtn.disabled && !answerShown) {
+                        event.preventDefault();
+                        markKnowledge(true);
+                    }
+                }
+                // Shift key for "I Don't Know This" button
+                else if (event.key === 'Shift') {
+                    const dontKnowBtn = document.querySelector('.knowledge-btn.dont-know-btn');
+                    if (dontKnowBtn && !dontKnowBtn.disabled && !answerShown) {
+                        event.preventDefault();
+                        markKnowledge(false);
+                    }
+                }
+                // Enter key for Next Word button
+                else if (event.key === 'Enter') {
+                    const nextBtn = document.getElementById('nextKnowledgeBtn');
+                    if (nextBtn && nextBtn.style.display !== 'none') {
+                        event.preventDefault();
+                        nextKnowledgeWord();
+                    }
+                }
+                return;
+            }
+            
+            // Handle verification game shortcuts
+            if (currentGameType !== 'verification') {
+                return;
+            }
+            
+            // Space key for Match button
+            if (event.key === ' ') {
+                const verificationButtons = document.getElementById('verificationButtons');
+                if (verificationButtons && verificationButtons.style.display === 'flex' && isVerificationPhase) {
+                    const matchBtn = document.querySelector('.verify-btn.match');
+                    if (matchBtn && !matchBtn.disabled) {
+                        event.preventDefault();
+                        verifyMatch(true);
+                    }
+                }
+            }
+            // Shift key for Don't Match button
+            else if (event.key === 'Shift') {
+                const verificationButtons = document.getElementById('verificationButtons');
+                if (verificationButtons && verificationButtons.style.display === 'flex' && isVerificationPhase) {
+                    const noMatchBtn = document.querySelector('.verify-btn.no-match');
+                    if (noMatchBtn && !noMatchBtn.disabled) {
+                        event.preventDefault();
+                        verifyMatch(false);
+                    }
+                }
+            }
+            // Enter key for Next Word button
+            else if (event.key === 'Enter') {
+                const nextWordBtn = document.getElementById('nextWordBtn');
+                // Only trigger if button is visible
+                if (nextWordBtn && nextWordBtn.classList.contains('show')) {
+                    event.preventDefault();
+                    nextWord();
+                }
+            }
+        }
+
+        function startWordVerification() {
+            if (currentVerificationIndex >= verificationWordPairs.length) {
+                // All words completed, restart
+                verificationWordPairs = shuffle([...verificationWordPairs]);
+                currentVerificationIndex = 0;
+            }
+            
+            currentWordPair = verificationWordPairs[currentVerificationIndex];
+            isVerificationPhase = false;
+            
+            // Hide verification buttons and result first
+            document.getElementById('verificationButtons').style.display = 'none';
+            document.getElementById('resultMessage').classList.remove('correct', 'incorrect');
+            document.getElementById('nextWordBtn').classList.remove('show');
+            
+            // Clear timer display
+            document.getElementById('timerDisplay').textContent = '';
+            document.getElementById('timerDisplay').classList.remove('warning', 'danger');
+            
+            // Update progress
+            updateVerificationProgress();
+            
+            // Clear any existing timer
+            if (verificationTimer) {
+                clearTimeout(verificationTimer);
+            }
+            
+            // Display word pair - ensure it's visible
+            document.getElementById('dutchWordDisplay').textContent = currentWordPair.dutch;
+            document.getElementById('englishWordDisplay').textContent = currentWordPair.english;
+            
+            // Force a reflow to ensure words are displayed before hiding
+            document.getElementById('dutchWordDisplay').offsetHeight;
+            
+            // Show words for 800 milliseconds, then hide them
+            verificationTimer = setTimeout(() => {
+                showVerificationButtons();
             }, 800);
         }
-        selectedDutch.classList.remove('selected');
-        selectedEnglish.classList.remove('selected');
-        selectedDutch = null;
-        selectedEnglish = null;
-    }
-}
 
-// Next button
-document.getElementById('next-button').onclick = () => {
-    selectedDutch = null;
-    selectedEnglish = null;
-    displayWords();
-};
+        function showVerificationButtons() {
+            isVerificationPhase = true;
+            // Hide the words after 800ms flash
+            document.getElementById('dutchWordDisplay').textContent = '?';
+            document.getElementById('englishWordDisplay').textContent = '?';
+            // Show verification buttons
+            document.getElementById('verificationButtons').style.display = 'flex';
+            // Update timer display
+            document.getElementById('timerDisplay').textContent = 'Verify if they match!';
+        }
 
-// Initial display
-displayWords();
-</script>
+        function verifyMatch(userAnswer) {
+            if (!isVerificationPhase) {
+                return; // Can't verify yet
+            }
+            
+            // Disable buttons
+            document.querySelectorAll('.verify-btn').forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            // Show the words again so user can see what they verified
+            document.getElementById('dutchWordDisplay').textContent = currentWordPair.dutch;
+            document.getElementById('englishWordDisplay').textContent = currentWordPair.english;
+            
+            // Check if answer is correct
+            const isCorrect = userAnswer === currentWordPair.isMatch;
+            
+            // Show result
+            const resultMessage = document.getElementById('resultMessage');
+            if (isCorrect) {
+                resultMessage.classList.add('correct');
+                resultMessage.textContent = '✓ Correct!';
+            } else {
+                resultMessage.classList.add('incorrect');
+                resultMessage.textContent = `✗ Incorrect! They ${currentWordPair.isMatch ? 'do' : 'don\'t'} match.`;
+            }
+            
+            // Show next button
+            document.getElementById('nextWordBtn').classList.add('show');
+            
+            // Clear timer
+            if (verificationTimer) {
+                clearInterval(verificationTimer);
+                verificationTimer = null;
+            }
+        }
+
+        function nextWord() {
+            currentVerificationIndex++;
+            
+            // Re-enable buttons
+            document.querySelectorAll('.verify-btn').forEach(btn => {
+                btn.disabled = false;
+            });
+            
+            startWordVerification();
+        }
+
+        function updateVerificationProgress() {
+            const current = currentVerificationIndex + 1;
+            const total = verificationWordPairs.length;
+            const percentage = (current / total) * 100;
+            
+            document.getElementById('verificationProgressFill').style.width = `${percentage}%`;
+            document.getElementById('verificationProgressText').textContent = `${current} / ${total}`;
+        }
+
+        // KNOWLEDGE CHECK GAME FUNCTIONS
+        let knowledgeWordPairs = [];
+        let currentKnowledgeIndex = 0;
+        let knownWords = 0;
+        let unknownWords = 0;
+        let currentKnowledgeWord = null;
+        let answerShown = false;
+
+        function loadKnowledgeGame() {
+            // Shuffle all word pairs
+            knowledgeWordPairs = shuffle([...allWordPairs]);
+            currentKnowledgeIndex = 0;
+            knownWords = 0;
+            unknownWords = 0;
+            answerShown = false;
+            
+            // Add keyboard event listener for shortcuts
+            document.addEventListener('keydown', handleVerificationKeyPress);
+            
+            // Hide stats modal
+            document.getElementById('knowledgeStatsModal').style.display = 'none';
+            
+            // Reset UI
+            document.getElementById('knowledgeDutchWord').style.display = 'none';
+            document.getElementById('showAnswerBtn').style.display = 'none';
+            document.getElementById('nextKnowledgeBtn').style.display = 'none';
+            document.querySelectorAll('.knowledge-btn').forEach(btn => btn.disabled = false);
+            
+            loadCurrentKnowledgeWord();
+        }
+
+        function loadCurrentKnowledgeWord() {
+            if (currentKnowledgeIndex >= knowledgeWordPairs.length) {
+                // All words completed, show statistics
+                showKnowledgeStats();
+                return;
+            }
+            
+            currentKnowledgeWord = knowledgeWordPairs[currentKnowledgeIndex];
+            answerShown = false;
+            
+            // Display English word
+            document.getElementById('knowledgeEnglishWord').textContent = currentKnowledgeWord.english;
+            document.getElementById('knowledgeDutchWord').textContent = currentKnowledgeWord.dutch;
+            document.getElementById('knowledgeDutchWord').style.display = 'none';
+            
+            // Reset buttons
+            document.getElementById('showAnswerBtn').style.display = 'none';
+            document.getElementById('nextKnowledgeBtn').style.display = 'none';
+            document.querySelectorAll('.knowledge-btn').forEach(btn => btn.disabled = false);
+            
+            // Update progress
+            updateKnowledgeProgress();
+        }
+
+        function markKnowledge(knows) {
+            if (answerShown) return;
+            
+            // Disable buttons
+            document.querySelectorAll('.knowledge-btn').forEach(btn => btn.disabled = true);
+            
+            // Update counts
+            if (knows) {
+                knownWords++;
+            } else {
+                unknownWords++;
+            }
+            
+            // Show answer
+            showAnswer();
+            
+            // Update stats
+            updateKnowledgeStats();
+            
+            // Show next button
+            document.getElementById('nextKnowledgeBtn').style.display = 'inline-block';
+        }
+
+        function showAnswer() {
+            if (answerShown) return;
+            answerShown = true;
+            document.getElementById('knowledgeDutchWord').style.display = 'block';
+            document.getElementById('showAnswerBtn').style.display = 'none';
+        }
+
+        function nextKnowledgeWord() {
+            currentKnowledgeIndex++;
+            loadCurrentKnowledgeWord();
+        }
+
+        function updateKnowledgeProgress() {
+            const current = currentKnowledgeIndex + 1;
+            const total = knowledgeWordPairs.length;
+            const percentage = (current / total) * 100;
+            
+            document.getElementById('knowledgeProgressFill').style.width = `${percentage}%`;
+            document.getElementById('knowledgeProgressText').textContent = `${current} / ${total}`;
+        }
+
+        function updateKnowledgeStats() {
+            document.getElementById('knownCount').textContent = knownWords;
+            document.getElementById('unknownCount').textContent = unknownWords;
+        }
+
+        function showKnowledgeStats() {
+            const total = knowledgeWordPairs.length;
+            const percentage = Math.round((knownWords / total) * 100);
+            
+            document.getElementById('finalKnownCount').textContent = knownWords;
+            document.getElementById('finalUnknownCount').textContent = unknownWords;
+            document.getElementById('finalTotalCount').textContent = total;
+            document.getElementById('knowledgePercentage').textContent = `${percentage}%`;
+            
+            document.getElementById('knowledgeStatsModal').style.display = 'flex';
+        }
+
+        function restartKnowledgeGame() {
+            document.getElementById('knowledgeStatsModal').style.display = 'none';
+            loadKnowledgeGame();
+        }
+    </script>
 </body>
 </html>
