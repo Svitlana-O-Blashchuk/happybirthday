@@ -299,18 +299,6 @@
             transition: all 0.3s;
         }
 
-        .article-row > *:nth-child(1) {
-            /* Article input - left */
-        }
-
-        .article-row > *:nth-child(2) {
-            /* Noun - middle */
-        }
-
-        .article-row > *:nth-child(3) {
-            /* Translation input - right */
-        }
-
         .article-row:hover {
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
@@ -924,38 +912,454 @@
             padding: 15px 30px;
             font-size: 18px;
         }
+
+        /* Word Selection Modal */
+        .word-selection-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .word-selection-content {
+            background: white;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .word-selection-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .word-selection-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .word-selection-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .word-selection-search {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+        }
+
+        .word-selection-list {
+            flex: 1;
+            overflow-y: auto;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 15px;
+            background: #fefefe;
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .word-selection-item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+
+        .word-selection-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .word-selection-item input {
+            transform: scale(1.2);
+        }
+
+        .word-selection-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .word-selection-text .dutch {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .word-selection-text .english {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .word-selection-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .word-selection-save {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .word-selection-save-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .word-selection-save-controls input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+        }
+
+        .saved-selection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .saved-selection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f7f8ff;
+            border: 1px solid #dfe3ff;
+            border-radius: 10px;
+            padding: 10px 14px;
+            gap: 10px;
+        }
+
+        .saved-selection-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .saved-selection-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .saved-selection-count {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .saved-selection-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .edit-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #dfe3ff;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            min-width: 200px;
+            z-index: 2100;
+            display: none;
+            flex-direction: column;
+            padding: 12px;
+            gap: 14px;
+        }
+
+        .edit-dropdown.show {
+            display: flex;
+        }
+
+        .edit-dropdown h4 {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .edit-dropdown button.edit-action {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #eef0ff;
+            color: #3442c4;
+            transition: background 0.2s;
+        }
+
+        .edit-dropdown button.edit-action:hover {
+            background: #d8dcff;
+        }
+
+        /* Het Words Game Styles */
+        .het-word-card {
+            padding: 20px;
+            background: #f8f9fa;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            user-select: none;
+        }
+
+        .het-word-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .het-word-card.selected {
+            background: #3498db;
+            color: white;
+            border-color: #2980b9;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
+        .het-word-card.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #45a049;
+            cursor: default;
+        }
+
+        .het-word-card.incorrect {
+            background: #e74c3c;
+            color: white;
+            border-color: #c0392b;
+            cursor: default;
+        }
+
+        .het-word-card.missed {
+            background: #f39c12;
+            color: white;
+            border-color: #e67e22;
+            cursor: default;
+        }
+
+        /* AI Sentence Generator Styles */
+        .ai-word-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .ai-word-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .ai-word-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .ai-word-display.hidden {
+            color: #adb5bd;
+            font-style: italic;
+        }
+
+        .ai-status {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 15px;
+            min-height: 20px;
+        }
+
+        .ai-status.success {
+            color: #27ae60;
+        }
+
+        .ai-status.error {
+            color: #e74c3c;
+        }
+
+        .ai-status.loading {
+            color: #3498db;
+        }
+
+        .ai-sentence-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+        }
+
+        .ai-sentence-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .ai-sentence-display {
+            font-size: 18px;
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 60px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .ai-sentence-display.empty {
+            color: #adb5bd;
+            font-style: italic;
+        }
+
+        .ai-game-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .ai-btn-show-dutch {
+            background: #3498db;
+            color: white;
+        }
+
+        .ai-btn-show-dutch:hover:not(:disabled) {
+            background: #2980b9;
+        }
+
+        .ai-btn-generate {
+            background: #27ae60;
+            color: white;
+        }
+
+        .ai-btn-generate:hover:not(:disabled) {
+            background: #1e8449;
+        }
+
+        .ai-btn-new-word {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .ai-btn-new-word:hover:not(:disabled) {
+            background: #7f8c8d;
+        }
     </style>
 </head>
 <body>
+    <div id="wordSelectionModal" class="word-selection-modal">
+        <div class="word-selection-content">
+            <div class="word-selection-header">
+                <h2>Select Words to Practice</h2>
+                <div class="word-selection-actions">
+                    <button type="button" onclick="selectAllWords()">Select All</button>
+                    <button type="button" onclick="clearAllWords()">Clear All</button>
+                    <div style="position: relative;">
+                        <button type="button" onclick="toggleEditDropdown()" id="editSelectionBtn">Edit Current</button>
+                        <div id="editSelectionDropdown" class="edit-dropdown">
+                            <h4>Edit current selection</h4>
+                            <button type="button" class="edit-action" onclick="toggleSelectMode('add')">Add from saved selection</button>
+                            <button type="button" class="edit-action" onclick="toggleSelectMode('remove')">Remove via saved selection</button>
+                            <button type="button" class="edit-action" onclick="exitSelectMode()">Finish editing</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="text" id="wordSelectionSearch" class="word-selection-search" placeholder="Search Dutch or English..." oninput="filterWordSelection(this.value)">
+            <div id="wordSelectionList" class="word-selection-list"></div>
+            <div class="word-selection-save">
+                <div class="word-selection-save-controls">
+                    <input type="text" id="saveSelectionName" placeholder="Save current selection as...">
+                    <button type="button" onclick="saveCurrentSelection()">Save Selection</button>
+                </div>
+                <div id="savedSelectionList" class="saved-selection-list"></div>
+            </div>
+            <div class="word-selection-footer">
+                <button type="button" onclick="cancelWordSelection()">Cancel</button>
+                <button type="button" onclick="confirmWordSelection()" id="confirmWordSelectionBtn">Start Game</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Menu Screen -->
     <div class="container">
         <div id="menuScreen" class="menu-screen">
             <h1>🇳🇱 Dutch Word Games 🇬🇧</h1>
             <p class="info">Choose a game mode to practice Dutch vocabulary!</p>
             <div class="menu-buttons">
-                <button class="menu-btn" onclick="startGame('matching')">
+                <button class="menu-btn" onclick="prepareGame('matching')">
                     📝 Matching Game<br>
                     <small>Match Dutch words with English translations</small>
                 </button>
-                <button class="menu-btn secondary" onclick="startGame('memory')">
+                <button class="menu-btn secondary" onclick="prepareGame('memory')">
                     🎴 Memory Game<br>
                     <small>Flip cards to find matching pairs</small>
                 </button>
-                <button class="menu-btn" onclick="startGame('articles')" style="background: #f39c12; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);">
+                <button class="menu-btn" onclick="prepareGame('articles')" style="background: #f39c12; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);">
                     📚 Articles Game<br>
                     <small>Type articles (de/het) and translations for nouns</small>
                 </button>
-                <button class="menu-btn secondary" onclick="startGame('verbs')" style="background: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
+                <button class="menu-btn secondary" onclick="prepareGame('verbs')" style="background: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
                     🔤 Verbs Practice<br>
                     <small>Practice Dutch verbs with past tense and past participle</small>
                 </button>
-                <button class="menu-btn secondary" onclick="startGame('verification')" style="background: #16a085; box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);">
+                <button class="menu-btn secondary" onclick="prepareGame('verification')" style="background: #16a085; box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);">
                     ✅ Word Verification<br>
                     <small>Words flash for 800ms, then verify if they match!</small>
                 </button>
-                <button class="menu-btn" onclick="startGame('knowledge')" style="background: #9b59b6; box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);">
+                <button class="menu-btn" onclick="prepareGame('knowledge')" style="background: #9b59b6; box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);">
                     🧠 Knowledge Check<br>
                     <small>Mark words you know (green) or don't know (red)</small>
+                </button>
+                <button class="menu-btn secondary" onclick="prepareGame('hetwords')" style="background: #3498db; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);">
+                    🎯 Het Words Game<br>
+                    <small>Select all words with article "het"</small>
+                </button>
+                <button class="menu-btn" onclick="prepareGame('aisentence')" style="background: #27ae60; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
+                    ✨ AI Sentence Generator<br>
+                    <small>Learn words and generate sentences with AI</small>
                 </button>
             </div>
         </div>
@@ -966,10 +1370,10 @@
             <h1>📝 Matching Game</h1>
             <p class="info">Match the Dutch words with their English translations!</p>
             
-            <div class="score" id="matchingScore">Pairs matched: 0 / 10</div>
-            <div class="score" id="matchingProgress" style="color: #666; font-size: 16px;">Progress: 0 / 104</div>
+            <div class="score" id="matchingScore">Pairs matched: 0 / 0</div>
+            <div class="score" id="matchingProgress" style="color: #666; font-size: 16px;">Progress: 0 / 0</div>
             <div class="congratulations" id="matchingCongratulations">
-                🎉 Great job! You matched all pairs! Click "Next 10 Words" to continue.
+                🎉 Great job! You matched all pairs! Click "Next Words" to continue.
             </div>
 
             <div class="game-area">
@@ -984,7 +1388,7 @@
             </div>
 
             <div class="controls">
-                <button id="matchingNextBtn" onclick="loadNextBatch('matching')" disabled>Next 10 Words</button>
+                <button id="matchingNextBtn" onclick="loadNextBatch('matching')" disabled>Next Words</button>
             </div>
         </div>
 
@@ -994,16 +1398,16 @@
             <h1>🎴 Memory Game</h1>
             <p class="info">Flip cards to find matching pairs!</p>
             
-            <div class="score" id="memoryScore">Pairs matched: 0 / 10</div>
-            <div class="score" id="memoryProgress" style="color: #666; font-size: 16px;">Progress: 0 / 104</div>
+            <div class="score" id="memoryScore">Pairs matched: 0 / 0</div>
+            <div class="score" id="memoryProgress" style="color: #666; font-size: 16px;">Progress: 0 / 0</div>
             <div class="congratulations" id="memoryCongratulations">
-                🎉 Great job! You matched all pairs! Click "Next 10 Words" to continue.
+                🎉 Great job! You matched all pairs! Click "Next Words" to continue.
             </div>
 
             <div class="memory-grid" id="memory-grid"></div>
 
             <div class="controls">
-                <button id="memoryNextBtn" onclick="loadNextBatch('memory')" disabled>Next 10 Words</button>
+                <button id="memoryNextBtn" onclick="loadNextBatch('memory')" disabled>Next Words</button>
             </div>
         </div>
 
@@ -1148,11 +1552,71 @@
                 </div>
             </div>
         </div>
+
+        <!-- Het Words Game Screen -->
+        <div id="hetWordsGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>🎯 Het Words Game</h1>
+            <p class="info">Click on all words that use the article "het"! When you select all "het" words correctly, you win!</p>
+            
+            <div class="score" id="hetWordsProgress" style="color: #666; font-size: 16px;">Select all "het" words: 0 / 0</div>
+            <div class="congratulations" id="hetWordsCongratulations" style="display: none;">
+                🎉 Perfect! You found all "het" words!
+            </div>
+
+            <div id="hetWordsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 30px 0; max-width: 1200px; margin-left: auto; margin-right: auto;"></div>
+
+            <div class="controls">
+                <button id="checkHetWordsBtn" onclick="checkHetWords()">Check Answers</button>
+                <button id="resetHetWordsBtn" onclick="resetHetWords()" style="display: none;">Try Again</button>
+            </div>
+        </div>
+
+        <!-- AI Sentence Generator Game Screen -->
+        <div id="aiSentenceGameScreen" class="game-screen">
+            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
+            <h1>✨ AI Sentence Generator</h1>
+            <p class="info">Learn words and generate sentences with AI!</p>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="ai-word-section">
+                    <div class="ai-word-label">English</div>
+                    <div class="ai-word-display" id="aiEnglishWord">-</div>
+
+                    <div class="ai-word-label">Nederlands</div>
+                    <div class="ai-word-display hidden" id="aiDutchWord">(druk op 'Toon Nederlands')</div>
+                </div>
+
+                <div class="ai-game-buttons">
+                    <button class="ai-btn-show-dutch" id="aiBtnShowDutch" onclick="aiShowDutch()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
+                        🇳🇱 Toon Nederlands
+                    </button>
+                    <button class="ai-btn-generate" id="aiBtnGenerate" onclick="aiGenerateSentence()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
+                        ✨ Genereer zin
+                    </button>
+                    <button class="ai-btn-new-word" id="aiBtnNewWord" onclick="aiPickNewWord()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
+                        🔄 Nieuw woord
+                    </button>
+                </div>
+
+                <div class="ai-status" id="aiStatus"></div>
+
+                <div class="ai-sentence-section">
+                    <div class="ai-sentence-label">AI-Zin</div>
+                    <div class="ai-sentence-display empty" id="aiSentenceDisplay">
+                        (druk op 'Genereer zin' om een zin te maken)
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        // OpenAI API key
+        const OPENAI_API_KEY = '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';
+
         // All word pairs
-        const allWordPairs = [
+        const wordPairsData = [
             { dutch: "vragen", english: "to ask" },
             { dutch: "mogen", english: "to be allowed to/may" },
             { dutch: "excuseren", english: "to apologize/excuse" },
@@ -1255,12 +1719,770 @@
             { dutch: "overal", english: "everywhere" },
             { dutch: "iemand", english: "someone" },
             { dutch: "elk", english: "each" },
-            { dutch: "zich", english: "oneself" }
+            { dutch: "zich", english: "oneself" },
+            { dutch: "onderstrepen", english: "to underline" },
+            { dutch: "markeren", english: "to mark/highlight" },
+            { dutch: "ontspannen", english: "to relax" },
+            { dutch: "tijdens", english: "during" },
+            { dutch: "want", english: "because" },
+            { dutch: "thuiskomen", english: "to come home" },
+            { dutch: "Vlaming", english: "Flemish person" },
+            { dutch: "bekende", english: "acquaintance" },
+            { dutch: "milieu", english: "environment" },
+            { dutch: "pension", english: "boarding house/guesthouse" },
+            { dutch: "winkelen", english: "to shop" },
+            { dutch: "was", english: "laundry" },
+            { dutch: "stofzuigen", english: "to vacuum" },
+            { dutch: "afwassen", english: "to do the dishes" },
+            { dutch: "sporten", english: "to play sports/exercise" },
+            { dutch: "relaxen", english: "to relax" },
+            { dutch: "serie", english: "series/TV show" },
+            { dutch: "boterham", english: "sandwich" },
+            { dutch: "werkloos", english: "unemployed" },
+            { dutch: "huishouden", english: "household" },
+            { dutch: "winkelcentrum", english: "shopping center" },
+            { dutch: "centrum", english: "center" },
+            { dutch: "bushalte", english: "bus stop" },
+            { dutch: "halte", english: "stop" },
+            { dutch: "verdergaan", english: "to continue/go on" },
+            { dutch: "richting", english: "direction/towards" },
+            { dutch: "noorden", english: "north" },
+            { dutch: "kot", english: "room/student room" },
+            { dutch: "vlak", english: "flat/level" },
+            { dutch: "cinema", english: "cinema" },
+            { dutch: "museum", english: "museum" },
+            { dutch: "uitstap", english: "excursion/trip" },
+            { dutch: "toegangsprijs", english: "entrance price" },
+            { dutch: "volwassene", english: "adult" },
+            { dutch: "friet", english: "fries" },
+            { dutch: "kliken", english: "to click" },
+            { dutch: "groep", english: "group" },
+            { dutch: "kerstmis", english: "Christmas" },
+            { dutch: "betalen", english: "to pay" },
+            { dutch: "sturen", english: "to send" },
+            { dutch: "grotendeels", english: "largely/mostly" },
+            { dutch: "ceremonie", english: "ceremony" },
+            { dutch: "trouwceremonie", english: "wedding ceremony" },
+            { dutch: "omstandigheid", english: "circumstance" },
+            { dutch: "werkelijk", english: "actually/real" },
+            { dutch: "overeenkomen", english: "to agree" },
+            { dutch: "looproute", english: "walking route" },
+            { dutch: "route", english: "route" },
+            { dutch: "voorzichtig", english: "careful" },
+            { dutch: "slaan", english: "to hit/strike" },
+            { dutch: "bar", english: "bar" },
+            { dutch: "beleefd", english: "polite" },
+            { dutch: "afspreken", english: "to arrange/to agree" },
+            { dutch: "ingang", english: "entrance" },
+            { dutch: "spijtig", english: "regrettable/sorry" },
+            { dutch: "stadhuis", english: "city hall" },
+            { dutch: "teken", english: "sign/symbol" },
+            { dutch: "leesteken", english: "punctuation mark" },
+            { dutch: "verzenden", english: "to send" },
+            { dutch: "vooraf", english: "in advance/beforehand" },
+            { dutch: "bijvoegen", english: "to attach/add" },
+            { dutch: "verwijderen", english: "to remove/delete" },
+            { dutch: "reageren", english: "to react/respond" },
+            { dutch: "even", english: "just/moment" },
+            { dutch: "wegvervolgen", english: "to continue on the way" },
+            { dutch: "op bezoek", english: "visiting" },
+            { dutch: "zonder", english: "without" },
+            { dutch: "duiden", english: "to indicate/mean" },
+            { dutch: "bezig", english: "busy/occupied" },
+            { dutch: "nevenschikking", english: "coordination" },
+            { dutch: "combineren", english: "to combine" },
+            { dutch: "reden", english: "reason" },
+            { dutch: "huwelijk", english: "marriage/wedding" },
+            { dutch: "bedanken", english: "to thank" },
+            { dutch: "daarop", english: "on that/thereupon" },
+            { dutch: "glas", english: "glass" },
+            { dutch: "verontschuldigen", english: "to apologize/excuse" },
+            { dutch: "afscheiden", english: "to separate/isolate" },
+            { dutch: "zo", english: "so/thus" },
+            { dutch: "tekening", english: "drawing" },
+            { dutch: "meegaan", english: "to go along/come along" },
+            { dutch: "meenemen", english: "to take along" },
+            { dutch: "uitnodigen", english: "to invite" },
+            { dutch: "delen", english: "to share/divide" },
+            { dutch: "toekomst", english: "future" },
+            { dutch: "wijzen", english: "to point/show" },
+            { dutch: "mogelijkheid", english: "possibility" },
+            { dutch: "noodzakelijk", english: "necessary" },
+            { dutch: "zetten", english: "to put/place" },
+            { dutch: "turnen", english: "to do gymnastics" },
+            { dutch: "koord", english: "rope/cord" },
+            { dutch: "speld", english: "pin/brooch" },
+            { dutch: "scharen", english: "scissors" },
+            { dutch: "rok", english: "skirt" },
+            { dutch: "schommel", english: "swing" },
+            { dutch: "eenvoudig", english: "simple" },
+            { dutch: "instructie", english: "instruction" },
+            { dutch: "aanvaarden", english: "to accept" },
+            { dutch: "schriftelijk", english: "written/in writing" },
+            { dutch: "training", english: "training" },
+            { dutch: "uitspraak", english: "pronunciation" },
+            { dutch: "uitspreken", english: "to pronounce" },
+            { dutch: "schrijfregel", english: "writing rule" },
+            { dutch: "regel", english: "rule" },
+            { dutch: "algemeen", english: "general/generally" },
+            { dutch: "haak", english: "hook/bracket" },
+            { dutch: "gelijk", english: "equal/same/immediately" },
+            { dutch: "baard", english: "beard" },
+            { dutch: "vocaal", english: "vowel" },
+            { dutch: "kolom", english: "column" },
+            { dutch: "midden", english: "middle" },
+            { dutch: "spreekuur", english: "consultation hours" },
+            { dutch: "uurregeling", english: "time schedule" },
+            { dutch: "regeling", english: "arrangement/regulation" },
+            { dutch: "huisarts", english: "general practitioner/family doctor" },
+            { dutch: "arts", english: "doctor/physician" },
+            { dutch: "enkel", english: "ankle/only" },
+            { dutch: "afspraak", english: "appointment" },
+            { dutch: "formulier", english: "form" },
+            { dutch: "selecteren", english: "to select" },
+            { dutch: "tijdstrip", english: "time strip" },
+            { dutch: "strip", english: "strip" },
+            { dutch: "gegeven", english: "given/data" },
+            { dutch: "schelen", english: "to matter/to care" },
+            { dutch: "klacht", english: "complaint" },
+            { dutch: "niezen", english: "to sneeze" },
+            { dutch: "hoesten", english: "to cough" },
+            { dutch: "lichaamsdeel", english: "body part" },
+            { dutch: "deel", english: "part" },
+            { dutch: "buik", english: "stomach/abdomen" },
+            { dutch: "lichaam", english: "body" },
+            { dutch: "knie", english: "knee" },
+            { dutch: "rug", english: "back" },
+            { dutch: "schouder", english: "shoulder" },
+            { dutch: "tand", english: "tooth" },
+            { dutch: "teen", english: "toe" },
+            { dutch: "vinger", english: "finger" },
+            { dutch: "voet", english: "foot" },
+            { dutch: "wens", english: "wish" },
+            { dutch: "doorgeven", english: "to pass on/to report" },
+            { dutch: "hopelijk", english: "hopefully" },
+            { dutch: "hart", english: "heart" },
+            { dutch: "long", english: "lung" },
+            { dutch: "keel", english: "throat" },
+            { dutch: "onderzoeken", english: "to examine/to investigate" },
+            { dutch: "beterschap", english: "recovery/get well" },
+            { dutch: "eens", english: "once/at all" },
+            { dutch: "hoest", english: "cough" },
+            { dutch: "adem", english: "breath" },
+            { dutch: "diep", english: "deep" },
+            { dutch: "uitdoen", english: "to take off/to extinguish" },
+            { dutch: "zand", english: "sand" },
+            { dutch: "allergie", english: "allergy" },
+            { dutch: "schrift", english: "notebook/writing" },
+            { dutch: "voorschrift", english: "prescription" },
+            { dutch: "verkrijgen", english: "to obtain" },
+            { dutch: "verkrijgenbaar", english: "available" },
+            { dutch: "inname", english: "intake/ingestion" },
+            { dutch: "tablet", english: "tablet" },
+            { dutch: "minimaal", english: "minimal/minimum" },
+            { dutch: "maximaal", english: "maximal/maximum" },
+            { dutch: "verpakking", english: "packaging" },
+            { dutch: "verpakken", english: "to pack" },
+            { dutch: "goedkoop", english: "cheap" },
+            { dutch: "antibioticum", english: "antibiotic" },
+            { dutch: "lepel", english: "spoon" },
+            { dutch: "eetlepel", english: "tablespoon" },
+            { dutch: "dikwijls", english: "often" },
+            { dutch: "innemen", english: "to take (medicine)" },
+            { dutch: "spray", english: "spray" },
+            { dutch: "neusspray", english: "nasal spray" },
+            { dutch: "zuigtablet", english: "lozenge/sucking tablet" },
+            { dutch: "zuigen", english: "to suck" },
+            { dutch: "siroop", english: "syrup" },
+            { dutch: "hoestsiroop", english: "cough syrup" },
+            { dutch: "tegen", english: "against" },
+            { dutch: "gebruiken", english: "to use" },
+            { dutch: "bronchitis", english: "bronchitis" },
+            { dutch: "ontsteking", english: "inflammation" },
+            { dutch: "keelontsteking", english: "throat infection" },
+            { dutch: "letten", english: "to pay attention" },
+            { dutch: "opletten", english: "to pay attention/to watch out" },
+            { dutch: "achteraan", english: "at the back" },
+            { dutch: "alle", english: "all" },
+            { dutch: "opsomming", english: "enumeration/list" },
+            { dutch: "uitsteken", english: "to stick out" },
+            { dutch: "aandoen", english: "to put on/to affect" },
+            { dutch: "creme", english: "cream" },
+            { dutch: "helemaal", english: "completely/entirely" },
+            { dutch: "zonnecreme", english: "sunscreen" },
+            { dutch: "inademen", english: "to inhale" },
+            { dutch: "uitademen", english: "to exhale" },
+            { dutch: "steek", english: "stitch/sting" },
+            { dutch: "fris", english: "fresh" },
+            { dutch: "voldoende", english: "sufficient/enough" },
+            { dutch: "echt", english: "real/really" },
+            { dutch: "zoet", english: "sweet" },
+            { dutch: "favoriet", english: "favorite" },
+            { dutch: "sommig", english: "some" },
+            { dutch: "hartig", english: "savory" },
+            { dutch: "traditioneel", english: "traditional" },
+            { dutch: "volkoren", english: "whole grain" },
+            { dutch: "zoals", english: "such as/like" },
+            { dutch: "daarbij", english: "in addition/with it" },
+            { dutch: "minder", english: "less" },
+            { dutch: "aanvullen", english: "to supplement/fill up" },
+            { dutch: "steunen", english: "to support" },
+            { dutch: "doorlopen", english: "to continue/walk through" },
+            { dutch: "strepen", english: "stripes/lines" },
+            { dutch: "bestaan", english: "to exist" },
+            { dutch: "smeren", english: "to spread/smear" },
+            { dutch: "uiteten", english: "to eat out" },
+            { dutch: "spannen", english: "to tighten/stretch" },
+            { dutch: "bijten", english: "to bite" },
+            { dutch: "grijpen", english: "to grab/seize" },
+            { dutch: "voldoen", english: "to satisfy/meet" },
+            { dutch: "kauwen", english: "to chew" },
+            { dutch: "adviseren", english: "to advise" },
+            { dutch: "haver", english: "oats" },
+            { dutch: "mout", english: "malt" },
+            { dutch: "havermout", english: "oatmeal/porridge" },
+            { dutch: "yogurt", english: "yogurt" },
+            { dutch: "bloemkool", english: "cauliflower" },
+            { dutch: "kool", english: "cabbage" },
+            { dutch: "voedingsdriehoek", english: "nutrition triangle/food pyramid" },
+            { dutch: "voeding", english: "nutrition/food" },
+            { dutch: "driehoek", english: "triangle" },
+            { dutch: "hoek", english: "corner" },
+            { dutch: "chocolade", english: "chocolate" },
+            { dutch: "koek", english: "biscuit/cookie" },
+            { dutch: "frisdrank", english: "soft drink/soda" },
+            { dutch: "drank", english: "drink/beverage" },
+            { dutch: "restgroep", english: "rest group/other foods" },
+            { dutch: "tomatensaus", english: "tomato sauce" },
+            { dutch: "saus", english: "sauce" },
+            { dutch: "tomaat", english: "tomato" },
+            { dutch: "zoetekauw", english: "person with a sweet tooth" },
+            { dutch: "eetgewoonte", english: "eating habit" },
+            { dutch: "gewoonte", english: "habit" },
+            { dutch: "sporter", english: "athlete/sporty person" },
+            { dutch: "voorbeeld", english: "example" },
+            { dutch: "advies", english: "advice" },
+            { dutch: "dienst", english: "service/duty/shift" },
+            { dutch: "kapper", english: "hairdresser/barber" },
+            { dutch: "wassalon", english: "laundromat" },
+            { dutch: "salon", english: "salon" },
+            { dutch: "apotheek", english: "pharmacy" },
+            { dutch: "post", english: "post/mail" },
+            { dutch: "bank", english: "bank" },
+            { dutch: "frituur", english: "chip shop/snack bar" },
+            { dutch: "mutualiteit", english: "health insurance fund" },
+            { dutch: "krandwinkel", english: "newspaper shop" },
+            { dutch: "klerenwinkel", english: "clothes shop" },
+            { dutch: "bakkerij", english: "bakery" },
+            { dutch: "soep", english: "soup" },
+            { dutch: "cornflakes", english: "cornflakes" },
+            { dutch: "muesli", english: "muesli" },
+            { dutch: "ontbijtgraan", english: "breakfast cereal" },
+            { dutch: "graanproduct", english: "grain product" },
+            { dutch: "melkproducten", english: "dairy products" },
+            { dutch: "hummus", english: "hummus" },
+            { dutch: "hesp", english: "ham" },
+            { dutch: "confituur", english: "jam" },
+            { dutch: "beleg", english: "topping/spread" },
+            { dutch: "broodmaaltijd", english: "bread meal" },
+            { dutch: "maaltijd", english: "meal" },
+            { dutch: "gemiddelde", english: "average" },
+            { dutch: "aardappel", english: "potato" },
+            { dutch: "dessert", english: "dessert" },
+            { dutch: "mes", english: "knife" },
+            { dutch: "kop", english: "cup/mug" },
+            { dutch: "vork", english: "fork" },
+            { dutch: "stok", english: "stick" },
+            { dutch: "inleiding", english: "introduction" },
+            { dutch: "tekst", english: "text" },
+            { dutch: "volkorenbrood", english: "wholemeal bread" },
+            { dutch: "de kom", english: "the bowl" },
+            { dutch: "test", english: "test" },
+            { dutch: "volkorengraanproducten", english: "whole grain products" },
+            { dutch: "volkorenpasta", english: "wholewheat pasta" },
+            { dutch: "pasta", english: "pasta" },
+            { dutch: "informatie", english: "information" },
+            { dutch: "maag", english: "stomach" },
+            { dutch: "gerecht", english: "dish/meal" },
+            { dutch: "bestek", english: "cutlery" },
+            { dutch: "margarine", english: "margarine" },
+            { dutch: "frequentie", english: "frequency" },
+            { dutch: "vergelijken", english: "to compare" },
+            { dutch: "aanduiden", english: "to indicate/mark" },
+            { dutch: "bestellen", english: "to order" },
+            { dutch: "persoonlijk", english: "personal" },
+            { dutch: "soort", english: "kind/type/sort" },
+            { dutch: "benoemen", english: "to name/to call/to appoint" },
+            { dutch: "verschillend", english: "different" },
+            { dutch: "pluralis", english: "plural" },
+            { dutch: "substantief", english: "noun/substantive" },
+            { dutch: "olijfolie", english: "olive oil" },
+            { dutch: "olie", english: "oil" },
+            { dutch: "tandenborstel", english: "toothbrush" },
+            { dutch: "borstel", english: "brush" },
+            { dutch: "wasmiddel", english: "detergent/laundry detergent" },
+            { dutch: "middel", english: "means/method" },
+            { dutch: "banaan", english: "banana" },
+            { dutch: "plattegrond", english: "floor plan/map" },
+            { dutch: "plat", english: "flat" },
+            { dutch: "grond", english: "ground/floor" },
+            { dutch: "meebrengen", english: "to bring along" },
+            { dutch: "ijskast", english: "refrigerator" },
+            { dutch: "dicht", english: "closed/tight" },
+            { dutch: "koopzondag", english: "shopping Sunday" },
+            { dutch: "waarop", english: "on which/whereupon" },
+            { dutch: "vast", english: "fixed/certain/solid" },
+            { dutch: "supermarktketen", english: "supermarket chain" },
+            { dutch: "keten", english: "chain" },
+            { dutch: "zout", english: "salt" },
+            { dutch: "zuivelproduct", english: "dairy product" },
+            { dutch: "kast", english: "cabinet/closet" },
+            { dutch: "gang", english: "hallway/corridor" },
+            { dutch: "mouw", english: "sleeve" },
+            { dutch: "douche", english: "shower" },
+            { dutch: "dof", english: "dull/matte" },
+            { dutch: "combinatie", english: "combination" },
+            { dutch: "knoflook", english: "garlic" },
+            { dutch: "wortel", english: "carrot" },
+            { dutch: "kikkererwt", english: "chickpea" },
+            { dutch: "erwt", english: "pea" },
+            { dutch: "kikker", english: "frog" },
+            { dutch: "paprika", english: "bell pepper/paprika" },
+            { dutch: "room", english: "cream" },
+            { dutch: "roomijs", english: "ice cream" },
+            { dutch: "shampoo", english: "shampoo" },
+            { dutch: "sinaasappel", english: "orange (fruit)" },
+            { dutch: "sla", english: "lettuce" },
+            { dutch: "spaghetti", english: "spaghetti" },
+            { dutch: "stuk", english: "piece" },
+            { dutch: "druif", english: "grape" },
+            { dutch: "fruitsap", english: "fruit juice" },
+            { dutch: "sap", english: "juice" },
+            { dutch: "winkelwagen", english: "shopping cart" },
+            { dutch: "wagen", english: "cart/car" },
+            { dutch: "afdeling", english: "department/section" },
+            { dutch: "charcuterie", english: "deli/delicatessen" },
+            { dutch: "zelfscankassa", english: "self-checkout" },
+            { dutch: "zuivel", english: "dairy" },
+            { dutch: "diepvries", english: "freezer" },
+            { dutch: "beenhouwerij", english: "butcher shop" },
+            { dutch: "aubergine", english: "eggplant" },
+            { dutch: "biefstuk", english: "steak" },
+            { dutch: "komkommer", english: "cucumber" },
+            { dutch: "citroen", english: "lemon" },
+            { dutch: "courgette", english: "zucchini" },
+            { dutch: "volgorde", english: "order/sequence" },
+            { dutch: "kaart", english: "card/map" },
+            { dutch: "bankkaart", english: "bank card" },
+            { dutch: "blik", english: "can/tin" },
+            { dutch: "boodschappenlijst", english: "shopping list" },
+            { dutch: "kassa", english: "cash register/checkout" },
+            { dutch: "pot", english: "pot/jar" },
+            { dutch: "lijst", english: "list" },
+            { dutch: "pak", english: "package/pack" },
+            { dutch: "supermarkt", english: "supermarket" },
+            { dutch: "tros", english: "bunch/cluster" },
+            { dutch: "plezier", english: "pleasure" },
+            { dutch: "herfstweer", english: "autumn weather" },
+            { dutch: "beroep", english: "profession" },
+            { dutch: "terras", english: "terrace" },
+            { dutch: "baksel", english: "baked good" },
+            { dutch: "mengsel", english: "mixture" },
+            { dutch: "ogenblik", english: "moment" },
+            { dutch: "poeder", english: "powder" },
+            { dutch: "trimester", english: "trimester" },
+            { dutch: "bedrijf", english: "company" },
+            { dutch: "sciencefictionboek", english: "science fiction book" },
+            { dutch: "doel", english: "goal" },
+            { dutch: "stapeltje", english: "small stack" },
+            { dutch: "bankbiljet", english: "banknote" },
+            { dutch: "hetzelfde", english: "the same" },
+            { dutch: "modder", english: "mud" },
+            { dutch: "poel", english: "pool" },
+            { dutch: "modderpoel", english: "mud puddle" },
+            { dutch: "laars", english: "boot" },
+            { dutch: "hoop", english: "hope" },
+            { dutch: "banketbakker", english: "pastry chef" },
+            { dutch: "bom", english: "bomb" },
+            { dutch: "lokomotief", english: "locomotive" },
+            { dutch: "raaf", english: "raven" },
+            { dutch: "regenjas", english: "raincoat" },
+            { dutch: "schuur", english: "barn/shed" },
+            { dutch: "theekop", english: "teacup" },
+            { dutch: "sleutel", english: "key" },
+            { dutch: "vriendin", english: "girlfriend/female friend" },
+            { dutch: "zus", english: "sister" },
+            { dutch: "kant", english: "side/edge" },
+            { dutch: "kraam", english: "stall/stand" },
+            { dutch: "oom", english: "uncle" },
+            { dutch: "tante", english: "aunt" },
+            { dutch: "beuk", english: "beech tree" },
+            { dutch: "blouse", english: "blouse" },
+            { dutch: "bron", english: "source/spring" },
+            { dutch: "ergernis", english: "annoyance" },
+            { dutch: "klant", english: "customer" },
+            { dutch: "lezing", english: "lecture/reading" },
+            { dutch: "nervositeit", english: "nervousness" },
+            { dutch: "pet", english: "cap" },
+            { dutch: "pinda", english: "peanut" },
+            { dutch: "rekening", english: "bill/account" },
+            { dutch: "slijterij", english: "liquor store" },
+            { dutch: "spijkerbroek", english: "jeans" },
+            { dutch: "stropdas", english: "tie" },
+            { dutch: "trui", english: "sweater" },
+            { dutch: "verzekering", english: "insurance" },
+            { dutch: "vla", english: "custard" },
+            { dutch: "voorbereiding", english: "preparation" },
+            { dutch: "voordeur", english: "front door" },
+            { dutch: "student", english: "student" },
+            { dutch: "uitwisseling", english: "exchange" },
+            { dutch: "tennisbaan", english: "tennis court" },
+            { dutch: "baan", english: "job/court" },
+            { dutch: "basketbalspeler", english: "basketball player" },
+            { dutch: "speler", english: "player" },
+            { dutch: "elektricien", english: "electrician" },
+            { dutch: "schrijfster", english: "female writer" },
+            { dutch: "knuffel", english: "hug/cuddle" },
+            { dutch: "gek", english: "fool/madman" },
+            { dutch: "loempia", english: "spring roll" },
+            { dutch: "begripsvraag", english: "comprehension question" },
+            { dutch: "rit", english: "ride/trip" },
+            { dutch: "zakenman", english: "businessman" },
+            { dutch: "uitwisselingsstudent", english: "exchange student" },
+            { dutch: "samenvatting", english: "summary" },
+            { dutch: "passen", english: "to fit/to suit" },
+            { dutch: "laten", english: "to let/to allow" },
+            { dutch: "raden", english: "to guess" },
+            { dutch: "schoonmaken", english: "to clean" },
+            { dutch: "bakken", english: "to bake" },
+            { dutch: "snijden", english: "to cut" },
+            { dutch: "dragen", english: "to carry/to wear" },
+            { dutch: "voorbereiden", english: "to prepare" },
+            { dutch: "roepen", english: "to call/to shout" },
+            { dutch: "inpakken", english: "to pack" },
+            { dutch: "uitwisselen", english: "to exchange" },
+            { dutch: "bereiken", english: "to reach/to achieve" },
+            { dutch: "oefenen", english: "to practice" },
+            { dutch: "aanmoedigen", english: "to encourage" },
+            { dutch: "verbazen", english: "to amaze" },
+            { dutch: "aankleden", english: "to dress" },
+            { dutch: "douchen", english: "to shower" },
+            { dutch: "zorgen", english: "to care/to worry" },
+            { dutch: "sparen", english: "to save" },
+            { dutch: "merken", english: "to notice/to mark" },
+            { dutch: "binnenkomen", english: "to enter" },
+            { dutch: "wijzen", english: "to point" },
+            { dutch: "tweeën", english: "to do something together" },
+            { dutch: "glimlachen", english: "to smile" },
+            { dutch: "gebeuren", english: "to happen" },
+            { dutch: "inchecken", english: "to check in" },
+            { dutch: "zwaaien", english: "to wave" },
+            { dutch: "opstijgen", english: "to take off (airplane)" },
+            { dutch: "bouwen", english: "to move" },
+            { dutch: "op iemand passen", english: "to look after someone" },
+            { dutch: "meekomen", english: "to come along" },
+            { dutch: "veilig", english: "safe" },
+            { dutch: "vies", english: "dirty" },
+            { dutch: "fantastisch", english: "fantastic" },
+            { dutch: "grijs", english: "gray" },
+            { dutch: "heerlijk", english: "delicious" },
+            { dutch: "natuurlijk", english: "natural/naturally" },
+            { dutch: "komend", english: "coming/upcoming" },
+            { dutch: "stevig", english: "sturdy/strong" },
+            { dutch: "eigen", english: "own" },
+            { dutch: "geweldig", english: "great/awesome" },
+            { dutch: "verschillend", english: "different" },
+            { dutch: "voordat", english: "before" },
+            { dutch: "allemaal", english: "all/everyone" },
+            { dutch: "neer", english: "down" },
+            { dutch: "iedereen", english: "everyone" },
+            { dutch: "net", english: "just/neat" },
+            { dutch: "ongeveer", english: "approximately" },
+            { dutch: "dankzij", english: "thanks to" },
+            { dutch: "dezelfde", english: "the same" },
+            { dutch: "nadat", english: "after" },
+            { dutch: "elkaar", english: "each other" },
+            { dutch: "gedag", english: "goodbye" },
+            { dutch: "bezoeken", english: "to visit" },
+            { dutch: "champinion", english: "mushroom" },
+            { dutch: "doelpunt", english: "goal (sports)" },
+            { dutch: "gratis", english: "free" },
+            { dutch: "naiien", english: "to sew" },
+            { dutch: "naald", english: "needle" },
+            { dutch: "rijles", english: "driving lesson" },
+            { dutch: "rits", english: "zipper" },
+            { dutch: "stelen", english: "to steal" },
+            { dutch: "stof", english: "dust/fabric" },
+            { dutch: "bioscoop", english: "cinema" },
+            { dutch: "boor", english: "drill" },
+            { dutch: "buurman", english: "neighbor (male)" },
+            { dutch: "lijken", english: "to seem/to appear" },
+            { dutch: "meubel", english: "furniture" },
+            { dutch: "mossel", english: "mussel" },
+            { dutch: "paskamer", english: "fitting room" },
+            { dutch: "schaatsen", english: "to skate" },
+            { dutch: "schotel", english: "dish/plate" },
+            { dutch: "uitmaken", english: "to break up/to turn off" },
+            { dutch: "uitstekend", english: "excellent" },
+            { dutch: "opwachten", english: "to wait for" },
+            { dutch: "schaap", english: "sheep" },
+            { dutch: "meedoen", english: "to participate" },
+            { dutch: "speelgoed", english: "toy" },
+            { dutch: "toverstaf", english: "magic wand" },
+            { dutch: "tover", english: "magic" },
+            { dutch: "ergens", english: "somewhere" },
+            { dutch: "eenzaam", english: "lonely" },
+            { dutch: "uitlikken", english: "to lick out" },
+            { dutch: "ademhalen", english: "to breathe" },
+            { dutch: "volgens", english: "according to" },
+            { dutch: "los", english: "loose/detached" },
+            { dutch: "pleister", english: "band-aid/plaster" },
+            { dutch: "opdoen", english: "to pick up/to acquire" },
+            { dutch: "opnemen", english: "to record/to take in" },
+            { dutch: "zuster", english: "sister" },
+            { dutch: "opzoeken", english: "to look up" },
+            { dutch: "zorg", english: "care/worry" },
+            { dutch: "kietelen", english: "tickles" },
+            { dutch: "knorren", english: "to grunt/to snore" },
+            { dutch: "verrassing", english: "surprise" },
+            { dutch: "papegaai", english: "parrot" },
+            { dutch: "haast", english: "hurry/haste" },
+            { dutch: "duivel", english: "devil" },
+            { dutch: "vooruit", english: "forward/come on" },
+            { dutch: "verlegen", english: "shy" },
+            { dutch: "alsof", english: "as if" },
+            { dutch: "lawaai", english: "noise" },
+            { dutch: "maar eens", english: "but once/just once" },
+            { dutch: "toch", english: "yet/still/though" },
+            { dutch: "nadenken", english: "to think/to reflect" },
+            { dutch: "nog meer", english: "even more/still more" },
+            { dutch: "aardbei", english: "strawberry" },
+            { dutch: "afhalen", english: "to pick up/to collect" },
+            { dutch: "bak", english: "bowl/container" },
+            { dutch: "boon", english: "bean" },
+            { dutch: "bos", english: "bunch/bouquet" },
+            { dutch: "drop", english: "licorice" },
+            { dutch: "gordijn", english: "curtain" },
+            { dutch: "inlijsten", english: "to frame" },
+            { dutch: "krat", english: "crate" },
+            { dutch: "krentenbol", english: "currant bun" },
+            { dutch: "kussen", english: "cushion/pillow" },
+            { dutch: "laken", english: "sheet" },
+            { dutch: "lusten", english: "to like/to fancy" },
+            { dutch: "meloen", english: "melon" },
+            { dutch: "ophangen", english: "to hang up" },
+            { dutch: "peterselie", english: "parsley" },
+            { dutch: "roken", english: "to smoke" },
+            { dutch: "schillen", english: "to peel" },
+            { dutch: "staal", english: "steel" },
+            { dutch: "uitlaten", english: "to let out/to walk (dog)" },
+            { dutch: "verdieping", english: "floor/story" },
+            { dutch: "vlakbij", english: "nearby" },
+            { dutch: "vuilnis", english: "garbage/trash" },
+            { dutch: "balcon", english: "balcony" },
+            { dutch: "boer", english: "farmer" },
+            { dutch: "huren", english: "to rent" },
+            { dutch: "komijn", english: "cumin" },
+            { dutch: "maat", english: "size/friend" },
+            { dutch: "spoor", english: "track/trail" },
+            { dutch: "vet", english: "fat/greasy" },
+            { dutch: "vierkant", english: "square" },
+            { dutch: "zuur", english: "sour" },
+            { dutch: "achterop", english: "on the back" },
+            { dutch: "beddengoed", english: "bedding" },
+            { dutch: "cijfer", english: "number/figure" },
+            { dutch: "fijn", english: "fine/nice" },
+            { dutch: "gaaf", english: "cool/awesome" },
+            { dutch: "klasgenoot", english: "classmate" },
+            { dutch: "maaier", english: "mower" },
+            { dutch: "naast", english: "next to" },
+            { dutch: "pakken", english: "to grab/to pack" },
+            { dutch: "verliefd", english: "in love" },
+            { dutch: "verschonen", english: "to change (diaper/clothes)" },
+            { dutch: "zaak", english: "business/case" },
+            { dutch: "bezorgen", english: "to deliver" },
+            { dutch: "bruid", english: "bride" },
+            { dutch: "legen", english: "to empty" },
+            { dutch: "mondkapje", english: "face mask" },
+            { dutch: "lippenstift", english: "lipstick" },
+            { dutch: "kelner", english: "waiter" },
+            { dutch: "minstens", english: "at least" },
+            { dutch: "ontvangen", english: "to receive" },
+            { dutch: "eens wat", english: "once what/something" },
+            { dutch: "aantrekken", english: "to put on/to attract" },
+            { dutch: "afmaken", english: "to finish/to complete" },
+            { dutch: "leerling", english: "pupil/student" },
+            { dutch: "oversteken", english: "to cross (street)" },
+            { dutch: "wedstrijd", english: "competition/match" },
+            { dutch: "wiskunde", english: "mathematics" },
+            { dutch: "decennium", english: "decade" },
+            { dutch: "eeuw", english: "century" },
+            { dutch: "vorig", english: "previous/last" },
+            { dutch: "eergisteren", english: "day before yesterday" },
+            { dutch: "overmorgen", english: "day after tomorrow" },
+            { dutch: "geleden", english: "ago" },
+            { dutch: "vanaf", english: "from/starting from" },
+            { dutch: "tegen", english: "just before/against" },
+            { dutch: "over", english: "in time/over/about" },
+            { dutch: "aflopen", english: "to expire/to run out" },
+            { dutch: "regelmatig", english: "regular/regularly" },
+            { dutch: "zelden", english: "rarely/seldom" },
+            { dutch: "vervolgens", english: "subsequently/then" },
+            { dutch: "verder", english: "further/continuing" },
+            { dutch: "tenslotte", english: "finally/eventually" },
+            { dutch: "pas", english: "recently/only just" },
+            { dutch: "straks", english: "soon/in a moment" },
+            { dutch: "vroeger", english: "earlier/before" },
+            { dutch: "ooit", english: "ever/once" },
+            { dutch: "jemig", english: "wow/gosh" },
+            { dutch: "opereren", english: "to operate/to perform surgery" },
+            { dutch: "opschieten", english: "to hurry up/to make progress" },
+            { dutch: "vergadering", english: "meeting" },
+            { dutch: "wakker", english: "awake" },
+            { dutch: "weleens", english: "sometimes/ever" },
+            { dutch: "ananas", english: "pineapple" },
+            { dutch: "asperge", english: "asparagus" },
+            { dutch: "contant", english: "cash" },
+            { dutch: "duur", english: "expensive" },
+            { dutch: "gracht", english: "canal" },
+            { dutch: "perzik", english: "peach" },
+            { dutch: "proefwerk", english: "test/exam" },
+            { dutch: "heus", english: "really/truly" },
+            { dutch: "gezelschap", english: "company/group" },
+            { dutch: "hemel", english: "heaven/sky" },
+            { dutch: "redden", english: "to save/to handle (a situation)" },
+            { dutch: "hebben er zin in", english: "to feel like/to want to do something" },
+            { dutch: "echt waar", english: "really/true" },
+            { dutch: "eng", english: "scary" },
+            { dutch: "trots", english: "proud" },
+            { dutch: "verven", english: "to paint" },
+            { dutch: "cirkel", english: "circle" },
+            { dutch: "verkeerde", english: "wrong/incorrect" },
+            { dutch: "stengel", english: "stem/stalk" },
+            { dutch: "schilderij", english: "painting" },
+            { dutch: "bedoelen", english: "to mean/intend" },
+            { dutch: "brug", english: "bridge" },
+            { dutch: "gat", english: "hole" },
+            { dutch: "kapot", english: "broken" },
+            { dutch: "luchtbed", english: "airbed" },
+            { dutch: "mager", english: "thin/lean" },
+            { dutch: "opblazen", english: "to blow up/inflate" },
+            { dutch: "slaapzaak", english: "sleepwear" },
+            { dutch: "spullen", english: "stuff/things" },
+            { dutch: "toren", english: "tower" },
+            { dutch: "uitkijken", english: "to look out/watch out" },
+            { dutch: "verte", english: "distance" },
+            { dutch: "vesting", english: "fortress" },
+            { dutch: "vlooienmarkt", english: "flea market" },
+            { dutch: "voetganger", english: "pedestrian" },
+            { dutch: "metaal", english: "metal" },
+            { dutch: "wol", english: "wool" },
+            { dutch: "zijde", english: "silk/side" },
+            { dutch: "heut", english: "heut" },
+            { dutch: "ijzer", english: "iron" },
+            { dutch: "steen", english: "stone" },
+            { dutch: "katoen", english: "cotton" },
+            { dutch: "zilver", english: "silver" },
+            { dutch: "brons", english: "bronze" },
+            { dutch: "leer", english: "leather" },
+            { dutch: "koper", english: "copper/buyer" },
+            { dutch: "tevreden", english: "satisfied" },
+            { dutch: "aantrekkelijk", english: "attractive" },
+            { dutch: "achter", english: "behind/after" },
+            { dutch: "antiek", english: "antique" },
+            { dutch: "augurk", english: "pickle" },
+            { dutch: "baas", english: "boss" },
+            { dutch: "bekleding", english: "upholstery/covering" },
+            { dutch: "bel", english: "bell" },
+            { dutch: "bijkeuken", english: "pantry/scullery" },
+            { dutch: "bijpassend", english: "matching" },
+            { dutch: "eiland", english: "island" },
+            { dutch: "enthousiast", english: "enthusiastic" },
+            { dutch: "fietstocht", english: "bike trip" },
+            { dutch: "fornius", english: "stove" },
+            { dutch: "gebak", english: "pastry/cake" },
+            { dutch: "handschoen", english: "glove" },
+            { dutch: "haring", english: "herring" },
+            { dutch: "hoofddoek", english: "headscarf" },
+            { dutch: "kabeljauw", english: "cod" },
+            { dutch: "kandelaar", english: "candlestick" },
+            { dutch: "kist", english: "box/chest" },
+            { dutch: "klimaat", english: "climate" },
+            { dutch: "koelkast", english: "refrigerator" },
+            { dutch: "langhaarig", english: "long-haired" },
+            { dutch: "marmer", english: "marble" },
+            { dutch: "mosterd", english: "mustard" },
+            { dutch: "muts", english: "cap/hat" },
+            { dutch: "ruim", english: "spacious/roomy" },
+            { dutch: "sieraad", english: "jewelry" },
+            { dutch: "sjaal", english: "scarf" },
+            { dutch: "slagroom", english: "whipped cream" },
+            { dutch: "sollicitant", english: "applicant" },
+            { dutch: "staat", english: "state/condition" },
+            { dutch: "standbeeld", english: "statue" },
+            { dutch: "stoven", english: "to stew" },
+            { dutch: "strak", english: "tight/tightly" },
+            { dutch: "trap", english: "stairs/steps" },
+            { dutch: "tuniek", english: "tunic" },
+            { dutch: "wand", english: "wall" },
+            { dutch: "wijd", english: "wide" },
+            { dutch: "zalm", english: "salmon" },
+            { dutch: "datum", english: "date" },
+            { dutch: "schema", english: "schedule" },
+            { dutch: "stap", english: "step" },
+            { dutch: "leeftijd", english: "age" },
+            { dutch: "puistje", english: "pimple" },
+            { dutch: "sterk", english: "strong" },
+            { dutch: "zacht", english: "soft" },
+            { dutch: "beneden", english: "below/downstairs" },
+            { dutch: "heen", english: "away/towards" },
+            { dutch: "nergens", english: "nowhere" },
+            { dutch: "vandaan", english: "from/away from" },
+            { dutch: "verder", english: "further/more" },
+            { dutch: "tenslotte", english: "finally/eventually" },
+            { dutch: "telkens", english: "each time/repeatedly" },
+            { dutch: "aldoor", english: "continuously/always" },
+            { dutch: "steeds", english: "always/continuously" },
+            { dutch: "thans", english: "now/currently" },
+            { dutch: "ineens", english: "suddenly/all at once" },
+            { dutch: "eindelijk", english: "finally/at last" },
+            { dutch: "meteen", english: "immediately/right away" },
+            { dutch: "plotseling", english: "suddenly" },
+            { dutch: "dadelijk", english: "immediately/right away" },
+            { dutch: "nooit meer", english: "never again" },
+            { dutch: "alweer", english: "again/already" },
+            { dutch: "nog nooit", english: "never yet" },
+            { dutch: "nog even", english: "just a moment" },
+            { dutch: "nog net", english: "just barely" },
+            { dutch: "pas nog", english: "just now/recently" },
+            { dutch: "storen", english: "to disturb/bother" },
+            { dutch: "schoot", english: "lap" },
+            { dutch: "meekijken", english: "to watch along" },
+            { dutch: "stil", english: "quiet/silent" },
+            { dutch: "vrolijk", english: "cheerful/happy" },
+            { dutch: "ding", english: "thing" },
+            { dutch: "uitzetten", english: "to turn off" },
+            { dutch: "aanzetten", english: "to turn on" },
+            { dutch: "disk", english: "disk" },
+            { dutch: "ja hoor", english: "yes, sure/of course" },
+            { dutch: "terwijl", english: "while/meanwhile" },
+            { dutch: "beurt", english: "turn/turn-taking" },
+            { dutch: "aan de hand zijn", english: "to be at hand/to be relevant" }
         ];
+
+        const allWordPairs = wordPairsData.map((pair, index) => ({ id: index, ...pair }));
+        const wordIdLookup = new Map(allWordPairs.map(pair => [pair.dutch, pair.id]));
 
         let currentGameType = null;
         let currentBatch = [];
-        let usedIndices = new Set();
+        let usedWordIds = new Set();
+        let pendingGameType = null;
+        let selectedWordIds = new Set(allWordPairs.map(pair => pair.id));
+        let temporarySelection = new Set(selectedWordIds);
+        let activeWordPool = [...allWordPairs];
+        const SAVED_SELECTIONS_KEY = 'dutchWordGamesSavedSelections';
+        let savedSelections = {};
+        let selectionEditMode = null; // null, 'add', or 'remove'
 
         // Nouns with their articles
         const nounsWithArticles = {
@@ -1317,20 +2539,673 @@
             "buurt": "de",
             "jaartal": "het",
             "vereiste": "het",
-            "tankstation": "het"
+            "tankstation": "het",
+            "Vlaming": "de",
+            "bekende": "de",
+            "milieu": "het",
+            "pension": "het",
+            "was": "de",
+            "serie": "de",
+            "boterham": "de",
+            "huishouden": "het",
+            "winkelcentrum": "het",
+            "centrum": "het",
+            "bushalte": "de",
+            "halte": "de",
+            "richting": "de",
+            "noorden": "het",
+            "kot": "het",
+            "vlak": "het",
+            "cinema": "de",
+            "museum": "het",
+            "uitstap": "de",
+            "toegangsprijs": "de",
+            "volwassene": "de",
+            "friet": "de",
+            "groep": "de",
+            "kerstmis": "de",
+            "ceremonie": "de",
+            "trouwceremonie": "de",
+            "omstandigheid": "de",
+            "looproute": "de",
+            "route": "de",
+            "bar": "de",
+            "ingang": "de",
+            "stadhuis": "het",
+            "teken": "het",
+            "leesteken": "het",
+            "nevenschikking": "de",
+            "reden": "de",
+            "huwelijk": "het",
+            "glas": "het",
+            "tekening": "de",
+            "toekomst": "de",
+            "mogelijkheid": "de",
+            "koord": "het",
+            "speld": "de",
+            "scharen": "de",
+            "rok": "de",
+            "schommel": "de",
+            "instructie": "de",
+            "training": "de",
+            "uitspraak": "de",
+            "schrijfregel": "de",
+            "regel": "de",
+            "haak": "de",
+            "baard": "de",
+            "vocaal": "de",
+            "kolom": "de",
+            "midden": "het",
+            "spreekuur": "het",
+            "uurregeling": "de",
+            "regeling": "de",
+            "huisarts": "de",
+            "arts": "de",
+            "enkel": "de",
+            "afspraak": "de",
+            "formulier": "het",
+            "tijdstrip": "de",
+            "strip": "de",
+            "gegeven": "het",
+            "klacht": "de",
+            "lichaamsdeel": "het",
+            "deel": "het",
+            "buik": "de",
+            "lichaam": "het",
+            "knie": "de",
+            "rug": "de",
+            "schouder": "de",
+            "tand": "de",
+            "teen": "de",
+            "vinger": "de",
+            "voet": "de",
+            "wens": "de",
+            "hart": "het",
+            "long": "de",
+            "keel": "de",
+            "beterschap": "de",
+            "hoest": "de",
+            "adem": "de",
+            "zand": "het",
+            "allergie": "de",
+            "schrift": "het",
+            "voorschrift": "het",
+            "inname": "de",
+            "tablet": "de",
+            "verpakking": "de",
+            "antibioticum": "het",
+            "lepel": "de",
+            "eetlepel": "de",
+            "spray": "de",
+            "neusspray": "de",
+            "zuigtablet": "de",
+            "siroop": "de",
+            "hoestsiroop": "de",
+            "bronchitis": "de",
+            "ontsteking": "de",
+            "keelontsteking": "de",
+            "opsomming": "de",
+            "creme": "de",
+            "zonnecreme": "de",
+            "steek": "de",
+            "soort": "de",
+            "pluralis": "de",
+            "substantief": "het",
+            "olijfolie": "de",
+            "olie": "de",
+            "tandenborstel": "de",
+            "borstel": "de",
+            "wasmiddel": "het",
+            "middel": "het",
+            "banaan": "de",
+            "plattegrond": "de",
+            "grond": "de",
+            "ijskast": "de",
+            "koopzondag": "de",
+            "supermarktketen": "de",
+            "keten": "de",
+            "zout": "het",
+            "zuivelproduct": "het",
+            "kast": "de",
+            "gang": "de",
+            "mouw": "de",
+            "douche": "de",
+            "combinatie": "de",
+            "knoflook": "de",
+            "wortel": "de",
+            "kikkererwt": "de",
+            "erwt": "de",
+            "kikker": "de",
+            "paprika": "de",
+            "room": "de",
+            "roomijs": "het",
+            "shampoo": "de",
+            "sinaasappel": "de",
+            "sla": "de",
+            "spaghetti": "de",
+            "stuk": "het",
+            "druif": "de",
+            "fruitsap": "het",
+            "sap": "het",
+            "winkelwagen": "de",
+            "wagen": "de",
+            "afdeling": "de",
+            "charcuterie": "de",
+            "zelfscankassa": "de",
+            "zuivel": "de",
+            "diepvries": "de",
+            "beenhouwerij": "de",
+            "aubergine": "de",
+            "biefstuk": "de",
+            "komkommer": "de",
+            "citroen": "de",
+            "courgette": "de",
+            "volgorde": "de",
+            "kaart": "de",
+            "bankkaart": "de",
+            "blik": "het",
+            "boodschappenlijst": "de",
+            "kassa": "de",
+            "pot": "de",
+            "lijst": "de",
+            "pak": "het",
+            "supermarkt": "de",
+            "tros": "de",
+            "plezier": "het",
+            "herfstweer": "het",
+            "beroep": "het",
+            "terras": "het",
+            "baksel": "het",
+            "mengsel": "het",
+            "ogenblik": "het",
+            "poeder": "het",
+            "trimester": "het",
+            "bedrijf": "het",
+            "sciencefictionboek": "het",
+            "doel": "het",
+            "stapeltje": "het",
+            "bankbiljet": "het",
+            "modder": "de",
+            "poel": "de",
+            "modderpoel": "de",
+            "laars": "de",
+            "hoop": "de",
+            "banketbakker": "de",
+            "bom": "de",
+            "lokomotief": "de",
+            "raaf": "de",
+            "regenjas": "de",
+            "schuur": "de",
+            "theekop": "de",
+            "sleutel": "de",
+            "vriendin": "de",
+            "zus": "de",
+            "kant": "de",
+            "kraam": "de",
+            "oom": "de",
+            "tante": "de",
+            "beuk": "de",
+            "blouse": "de",
+            "bron": "de",
+            "ergernis": "de",
+            "klant": "de",
+            "lezing": "de",
+            "nervositeit": "de",
+            "pet": "de",
+            "pinda": "de",
+            "rekening": "de",
+            "slijterij": "de",
+            "spijkerbroek": "de",
+            "stropdas": "de",
+            "trui": "de",
+            "verzekering": "de",
+            "vla": "de",
+            "voorbereiding": "de",
+            "voordeur": "de",
+            "student": "de",
+            "uitwisseling": "de",
+            "tennisbaan": "de",
+            "baan": "de",
+            "basketbalspeler": "de",
+            "speler": "de",
+            "elektricien": "de",
+            "schrijfster": "de",
+            "knuffel": "de",
+            "gek": "de",
+            "loempia": "de",
+            "begripsvraag": "de",
+            "rit": "de",
+            "zakenman": "de",
+            "uitwisselingsstudent": "de",
+            "samenvatting": "de",
+            "champinion": "de",
+            "doelpunt": "het",
+            "naald": "de",
+            "rijles": "de",
+            "rits": "de",
+            "stof": "de",
+            "bioscoop": "de",
+            "boor": "de",
+            "buurman": "de",
+            "meubel": "het",
+            "mossel": "de",
+            "paskamer": "de",
+            "schotel": "de",
+            "schaap": "het",
+            "speelgoed": "het",
+            "toverstaf": "de",
+            "pleister": "de",
+            "zuster": "de",
+            "verrassing": "de",
+            "papegaai": "de",
+            "haast": "de",
+            "duivel": "de",
+            "aardbei": "de",
+            "bak": "de",
+            "boon": "de",
+            "bos": "het",
+            "drop": "de",
+            "gordijn": "het",
+            "krat": "de",
+            "krentenbol": "de",
+            "kussen": "het",
+            "laken": "het",
+            "meloen": "de",
+            "peterselie": "de",
+            "staal": "het",
+            "verdieping": "de",
+            "vuilnis": "het",
+            "balcon": "het",
+            "boer": "de",
+            "komijn": "de",
+            "maat": "de",
+            "spoor": "het",
+            "vet": "het",
+            "vierkant": "het",
+            "beddengoed": "het",
+            "cijfer": "het",
+            "klasgenoot": "de",
+            "maaier": "de",
+            "zaak": "de",
+            "bruid": "de",
+            "mondkapje": "het",
+            "lippenstift": "de",
+            "kelner": "de",
+            "leerling": "de",
+            "wedstrijd": "de",
+            "wiskunde": "de",
+            "decennium": "het",
+            "eeuw": "de",
+            "vergadering": "de",
+            "ananas": "de",
+            "asperge": "de",
+            "gracht": "de",
+            "perzik": "de",
+            "proefwerk": "het",
+            "gezelschap": "het",
+            "hemel": "de",
+            "cirkel": "de",
+            "stengel": "de",
+            "schilderij": "het",
+            "schoot": "de",
+            "ding": "het",
+            "disk": "de",
+            "beurt": "de"
         };
+
+        function openWordSelectionModal() {
+            const modal = document.getElementById('wordSelectionModal');
+            if (!modal) return;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWordSelectionModal() {
+            const modal = document.getElementById('wordSelectionModal');
+            if (!modal) return;
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function renderWordSelectionList(filterText = '') {
+            const listEl = document.getElementById('wordSelectionList');
+            if (!listEl) return;
+
+            const query = filterText.trim().toLowerCase();
+            const filteredPairs = allWordPairs.filter(pair => {
+                if (!query) return true;
+                return pair.dutch.toLowerCase().includes(query) || pair.english.toLowerCase().includes(query);
+            });
+
+            listEl.innerHTML = '';
+
+            if (filteredPairs.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.style.gridColumn = '1 / -1';
+                emptyState.style.textAlign = 'center';
+                emptyState.style.color = '#666';
+                emptyState.textContent = 'No words found. Try adjusting your search or select all words.';
+                listEl.appendChild(emptyState);
+                return;
+            }
+
+            filteredPairs.forEach(pair => {
+                const item = document.createElement('label');
+                item.className = 'word-selection-item';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = temporarySelection.has(pair.id);
+                checkbox.onchange = (event) => {
+                    if (event.target.checked) {
+                        temporarySelection.add(pair.id);
+                    } else {
+                        temporarySelection.delete(pair.id);
+                    }
+                };
+
+                const textWrapper = document.createElement('div');
+                textWrapper.className = 'word-selection-text';
+
+                const dutchSpan = document.createElement('span');
+                dutchSpan.className = 'dutch';
+                dutchSpan.textContent = pair.dutch;
+
+                const englishSpan = document.createElement('span');
+                englishSpan.className = 'english';
+                englishSpan.textContent = pair.english;
+
+                textWrapper.appendChild(dutchSpan);
+                textWrapper.appendChild(englishSpan);
+
+                item.appendChild(checkbox);
+                item.appendChild(textWrapper);
+
+                listEl.appendChild(item);
+            });
+        }
+
+        function renderSavedSelectionList() {
+            const listEl = document.getElementById('savedSelectionList');
+            if (!listEl) return;
+
+            listEl.innerHTML = '';
+
+            const names = Object.keys(savedSelections).sort((a, b) => a.localeCompare(b));
+
+            if (names.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.style.color = '#666';
+                emptyState.style.fontSize = '14px';
+                emptyState.textContent = 'No saved selections yet.';
+                listEl.appendChild(emptyState);
+                return;
+            }
+
+            names.forEach(name => {
+                const selectionIds = savedSelections[name] || [];
+                const item = document.createElement('div');
+                item.className = 'saved-selection-item';
+
+                const details = document.createElement('div');
+                details.className = 'saved-selection-details';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'saved-selection-name';
+                nameSpan.textContent = name;
+
+                const countSpan = document.createElement('span');
+                countSpan.className = 'saved-selection-count';
+                countSpan.textContent = `${selectionIds.length} word${selectionIds.length === 1 ? '' : 's'}`;
+
+                details.appendChild(nameSpan);
+                details.appendChild(countSpan);
+
+                const actions = document.createElement('div');
+                actions.className = 'saved-selection-actions';
+
+                const useBtn = document.createElement('button');
+                useBtn.type = 'button';
+                useBtn.textContent = selectionEditMode === 'add'
+                    ? 'Add'
+                    : selectionEditMode === 'remove'
+                        ? 'Remove'
+                        : 'Use';
+                useBtn.onclick = () => applySavedSelection(name, selectionEditMode);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.onclick = () => deleteSavedSelection(name);
+
+                actions.appendChild(useBtn);
+                actions.appendChild(deleteBtn);
+
+                item.appendChild(details);
+                item.appendChild(actions);
+
+                listEl.appendChild(item);
+            });
+        }
+
+        function loadSavedSelections() {
+            try {
+                const stored = localStorage.getItem(SAVED_SELECTIONS_KEY);
+                savedSelections = stored ? JSON.parse(stored) : {};
+            } catch (error) {
+                console.warn('Unable to load saved selections', error);
+                savedSelections = {};
+            }
+            renderSavedSelectionList();
+        }
+
+        function persistSavedSelections() {
+            try {
+                localStorage.setItem(SAVED_SELECTIONS_KEY, JSON.stringify(savedSelections));
+            } catch (error) {
+                console.warn('Unable to save selections', error);
+            }
+        }
+
+        function saveCurrentSelection() {
+            const nameInput = document.getElementById('saveSelectionName');
+            if (!nameInput) return;
+
+            const name = nameInput.value.trim();
+            if (!name) {
+                alert('Please enter a name for your selection.');
+                return;
+            }
+
+            if (temporarySelection.size === 0) {
+                alert('Select at least one word before saving.');
+                return;
+            }
+
+            if (savedSelections[name] && !confirm(`"${name}" already exists. Overwrite it?`)) {
+                return;
+            }
+
+            savedSelections[name] = Array.from(temporarySelection);
+            persistSavedSelections();
+            renderSavedSelectionList();
+            nameInput.value = '';
+        }
+
+        function applySavedSelection(name, mode = null) {
+            const saved = savedSelections[name];
+            if (!saved) return;
+
+            if (mode === 'add') {
+                saved.forEach(id => temporarySelection.add(id));
+            } else if (mode === 'remove') {
+                saved.forEach(id => temporarySelection.delete(id));
+            } else {
+                temporarySelection = new Set(saved);
+            }
+
+            const searchValue = document.getElementById('wordSelectionSearch')?.value || '';
+            renderWordSelectionList(searchValue);
+            if (mode) {
+                exitSelectMode();
+            }
+        }
+
+        function deleteSavedSelection(name) {
+            if (!savedSelections[name]) return;
+            if (!confirm(`Delete the saved selection "${name}"?`)) {
+                return;
+            }
+            delete savedSelections[name];
+            persistSavedSelections();
+            renderSavedSelectionList();
+        }
+
+        function toggleEditDropdown() {
+            const dropdown = document.getElementById('editSelectionDropdown');
+            if (!dropdown) return;
+            dropdown.classList.toggle('show');
+        }
+
+        function toggleSelectMode(mode) {
+            const dropdown = document.getElementById('editSelectionDropdown');
+            selectionEditMode = selectionEditMode === mode ? null : mode;
+            updateEditModeUI();
+            if (dropdown) dropdown.classList.remove('show');
+        }
+
+        function exitSelectMode() {
+            selectionEditMode = null;
+            updateEditModeUI();
+        }
+
+        function updateEditModeUI() {
+            const editButton = document.getElementById('editSelectionBtn');
+            const dropdown = document.getElementById('editSelectionDropdown');
+            if (selectionEditMode) {
+                if (editButton) {
+                    editButton.textContent = selectionEditMode === 'add'
+                        ? 'Editing: Add Mode'
+                        : 'Editing: Remove Mode';
+                }
+                if (dropdown) {
+                    dropdown.querySelectorAll('.edit-action').forEach(btn => {
+                        if (btn.textContent.startsWith('Add')) {
+                            btn.textContent = selectionEditMode === 'add' ? 'Finish add mode' : 'Add from saved selection';
+                        } else if (btn.textContent.startsWith('Remove')) {
+                            btn.textContent = selectionEditMode === 'remove' ? 'Finish remove mode' : 'Remove via saved selection';
+                        }
+                    });
+                }
+            } else {
+                if (editButton) {
+                    editButton.textContent = 'Edit Current';
+                }
+                renderSavedSelectionList();
+            }
+        }
+
+        function filterWordSelection(value) {
+            renderWordSelectionList(value);
+        }
+
+        function prepareGame(gameType) {
+            pendingGameType = gameType;
+            temporarySelection = new Set(selectedWordIds);
+            selectionEditMode = null;
+
+            const searchInput = document.getElementById('wordSelectionSearch');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+
+            renderWordSelectionList();
+            updateEditModeUI();
+            renderSavedSelectionList();
+            openWordSelectionModal();
+        }
+
+        function selectAllWords() {
+            temporarySelection = new Set(allWordPairs.map(pair => pair.id));
+            const searchValue = document.getElementById('wordSelectionSearch')?.value || '';
+            renderWordSelectionList(searchValue);
+        }
+
+        function clearAllWords() {
+            temporarySelection.clear();
+            const searchValue = document.getElementById('wordSelectionSearch')?.value || '';
+            renderWordSelectionList(searchValue);
+        }
+
+        function cancelWordSelection() {
+            pendingGameType = null;
+            closeWordSelectionModal();
+        }
+
+        function confirmWordSelection() {
+            if (temporarySelection.size === 0) {
+                alert('Please select at least one word to practice.');
+                return;
+            }
+
+            applyWordSelection(temporarySelection);
+            closeWordSelectionModal();
+
+            if (pendingGameType) {
+                startGame(pendingGameType);
+            }
+
+            pendingGameType = null;
+        }
+
+        function applyWordSelection(selectionSet) {
+            selectedWordIds = new Set(selectionSet);
+            activeWordPool = allWordPairs.filter(pair => selectedWordIds.has(pair.id));
+            usedWordIds.clear();
+            currentBatch = [];
+
+            matchedPairs = 0;
+            selectedDutch = null;
+            selectedEnglish = null;
+            selectedDutchIndex = null;
+            selectedEnglishIndex = null;
+
+            flippedCards = [];
+            matchedCards.clear();
+            isChecking = false;
+
+            verbsUsed.clear();
+            shuffledVerbs = [];
+            currentVerbIndex = 0;
+            currentVerbPool = verbsData.filter(verb => {
+                const id = wordIdLookup.get(verb.infinitive);
+                return id !== undefined && selectedWordIds.has(id);
+            });
+
+            knowledgeWordPairs = [];
+            currentKnowledgeIndex = 0;
+            knownWords = 0;
+            unknownWords = 0;
+            answerShown = false;
+
+            updateProgress();
+        }
 
         // Update progress display
         function updateProgress() {
-            const used = usedIndices.size;
-            const total = allWordPairs.length;
-            const remaining = total - used;
+            const used = Math.min(usedWordIds.size, activeWordPool.length);
+            const total = activeWordPool.length;
+            const remaining = Math.max(total - used, 0);
             
             if (document.getElementById('matchingProgress')) {
-                document.getElementById('matchingProgress').textContent = `Progress: ${used} / ${total} (${remaining} remaining)`;
+                document.getElementById('matchingProgress').textContent = total === 0
+                    ? 'Progress: 0 / 0 (No words selected)'
+                    : `Progress: ${used} / ${total} (${remaining} remaining)`;
             }
             if (document.getElementById('memoryProgress')) {
-                document.getElementById('memoryProgress').textContent = `Progress: ${used} / ${total} (${remaining} remaining)`;
+                document.getElementById('memoryProgress').textContent = total === 0
+                    ? 'Progress: 0 / 0 (No words selected)'
+                    : `Progress: ${used} / ${total} (${remaining} remaining)`;
             }
         }
 
@@ -1366,13 +3241,73 @@
             { english: "to call", infinitive: "bellen", past: "belde", pastParticiple: "gebeld" },
             { english: "to swallow", infinitive: "inslikken", past: "slikte in", pastParticiple: "ingeslikt" },
             { english: "to call up/summon", infinitive: "oproepen", past: "riep op", pastParticiple: "opgeroepen" },
-            { english: "to understand", infinitive: "verstaan", past: "verstond", pastParticiple: "verstaan" }
+            { english: "to understand", infinitive: "verstaan", past: "verstond", pastParticiple: "verstaan" },
+            { english: "to underline", infinitive: "onderstrepen", past: "onderstreepte", pastParticiple: "onderstreept" },
+            { english: "to mark/highlight", infinitive: "markeren", past: "markeerde", pastParticiple: "gemarkeerd" },
+            { english: "to relax", infinitive: "ontspannen", past: "ontspande", pastParticiple: "ontspannen" },
+            { english: "to come home", infinitive: "thuiskomen", past: "kwam thuis", pastParticiple: "thuisgekomen" },
+            { english: "to shop", infinitive: "winkelen", past: "winkelde", pastParticiple: "gewinkeld" },
+            { english: "to vacuum", infinitive: "stofzuigen", past: "stofzuigde", pastParticiple: "gestofzuigd" },
+            { english: "to do the dishes", infinitive: "afwassen", past: "waste af", pastParticiple: "afgewassen" },
+            { english: "to play sports/exercise", infinitive: "sporten", past: "sportte", pastParticiple: "gesport" },
+            { english: "to relax", infinitive: "relaxen", past: "relaxte", pastParticiple: "gerelaxt" },
+            { english: "to continue/go on", infinitive: "verdergaan", past: "ging verder", pastParticiple: "verdergegaan" },
+            { english: "to click", infinitive: "kliken", past: "klikte", pastParticiple: "geklikt" },
+            { english: "to pay", infinitive: "betalen", past: "betaalde", pastParticiple: "betaald" },
+            { english: "to send", infinitive: "sturen", past: "stuurde", pastParticiple: "gestuurd" },
+            { english: "to agree", infinitive: "overeenkomen", past: "kwam overeen", pastParticiple: "overeengekomen" },
+            { english: "to hit/strike", infinitive: "slaan", past: "sloeg", pastParticiple: "geslagen" },
+            { english: "to arrange/to agree", infinitive: "afspreken", past: "sprak af", pastParticiple: "afgesproken" },
+            { english: "to send", infinitive: "verzenden", past: "verzond", pastParticiple: "verzonden" },
+            { english: "to attach/add", infinitive: "bijvoegen", past: "voegde bij", pastParticiple: "bijgevoegd" },
+            { english: "to remove/delete", infinitive: "verwijderen", past: "verwijderde", pastParticiple: "verwijderd" },
+            { english: "to react/respond", infinitive: "reageren", past: "reageerde", pastParticiple: "gereageerd" },
+            { english: "to continue on the way", infinitive: "wegvervolgen", past: "volgde weg", pastParticiple: "weggevolgd" },
+            { english: "to indicate/mean", infinitive: "duiden", past: "duidde", pastParticiple: "geduid" },
+            { english: "to combine", infinitive: "combineren", past: "combineerde", pastParticiple: "gecombineerd" },
+            { english: "to thank", infinitive: "bedanken", past: "bedankte", pastParticiple: "bedankt" },
+            { english: "to apologize/excuse", infinitive: "verontschuldigen", past: "verontschuldigde", pastParticiple: "verontschuldigd" },
+            { english: "to separate/isolate", infinitive: "afscheiden", past: "scheidde af", pastParticiple: "afgescheiden" },
+            { english: "to go along/come along", infinitive: "meegaan", past: "ging mee", pastParticiple: "meegaan" },
+            { english: "to take along", infinitive: "meenemen", past: "nam mee", pastParticiple: "meegenomen" },
+            { english: "to invite", infinitive: "uitnodigen", past: "nodigde uit", pastParticiple: "uitgenodigd" },
+            { english: "to share/divide", infinitive: "delen", past: "deelde", pastParticiple: "gedeeld" },
+            { english: "to point/show", infinitive: "wijzen", past: "wees", pastParticiple: "gewezen" },
+            { english: "to put/place", infinitive: "zetten", past: "zette", pastParticiple: "gezet" },
+            { english: "to do gymnastics", infinitive: "turnen", past: "turnde", pastParticiple: "geturnd" },
+            { english: "to accept", infinitive: "aanvaarden", past: "aanvaardde", pastParticiple: "aanvaard" },
+            { english: "to pronounce", infinitive: "uitspreken", past: "sprak uit", pastParticiple: "uitgesproken" },
+            { english: "to select", infinitive: "selecteren", past: "selecteerde", pastParticiple: "geselecteerd" },
+            { english: "to matter/to care", infinitive: "schelen", past: "scheelde", pastParticiple: "gescheeld" },
+            { english: "to sneeze", infinitive: "niezen", past: "nieste", pastParticiple: "geniest" },
+            { english: "to cough", infinitive: "hoesten", past: "hoestte", pastParticiple: "gehoest" },
+            { english: "to pass on/to report", infinitive: "doorgeven", past: "gaf door", pastParticiple: "doorgegeven" },
+            { english: "to examine/to investigate", infinitive: "onderzoeken", past: "onderzocht", pastParticiple: "onderzocht" },
+            { english: "to take off/to extinguish", infinitive: "uitdoen", past: "deed uit", pastParticiple: "uitgedaan" },
+            { english: "to obtain", infinitive: "verkrijgen", past: "verkreeg", pastParticiple: "verkregen" },
+            { english: "to pack", infinitive: "verpakken", past: "verpakte", pastParticiple: "verpakt" },
+            { english: "to take (medicine)", infinitive: "innemen", past: "nam in", pastParticiple: "ingenomen" },
+            { english: "to suck", infinitive: "zuigen", past: "zoog", pastParticiple: "gezogen" },
+            { english: "to use", infinitive: "gebruiken", past: "gebruikte", pastParticiple: "gebruikt" },
+            { english: "to pay attention", infinitive: "letten", past: "lette", pastParticiple: "gelet" },
+            { english: "to pay attention/to watch out", infinitive: "opletten", past: "let op", pastParticiple: "opgelet" },
+            { english: "to stick out", infinitive: "uitsteken", past: "stak uit", pastParticiple: "uitgestoken" },
+            { english: "to put on/to affect", infinitive: "aandoen", past: "deed aan", pastParticiple: "aangedaan" },
+            { english: "to inhale", infinitive: "inademen", past: "ademde in", pastParticiple: "ingeademd" },
+            { english: "to exhale", infinitive: "uitademen", past: "ademde uit", pastParticiple: "uitgeademd" },
+            { english: "to name/to call/to appoint", infinitive: "benoemen", past: "benoemde", pastParticiple: "benoemd" },
+            { english: "to bring along", infinitive: "meebrengen", past: "bracht mee", pastParticiple: "megebracht" },
+            { english: "to disturb/bother", infinitive: "storen", past: "stoorde", pastParticiple: "gestoord" },
+            { english: "to watch along", infinitive: "meekijken", past: "keek mee", pastParticiple: "meegekeken" },
+            { english: "to turn off", infinitive: "uitzetten", past: "zette uit", pastParticiple: "uitgezet" },
+            { english: "to turn on", infinitive: "aanzetten", past: "zette aan", pastParticiple: "aangezet" }
         ];
 
         // Verb game variables
         let currentVerbIndex = 0;
         let verbsUsed = new Set(); // Store English translations as unique identifiers
         let shuffledVerbs = [];
+        let currentVerbPool = [...verbsData];
 
         // Verification game variables
         let verificationWordPairs = [];
@@ -1388,6 +3323,8 @@
                 clearInterval(verificationTimer);
                 verificationTimer = null;
             }
+
+            closeWordSelectionModal();
             
             document.getElementById('menuScreen').style.display = 'block';
             document.getElementById('matchingGameScreen').classList.remove('active');
@@ -1396,6 +3333,8 @@
             document.getElementById('verbsGameScreen').classList.remove('active');
             document.getElementById('verificationGameScreen').classList.remove('active');
             document.getElementById('knowledgeGameScreen').classList.remove('active');
+            document.getElementById('hetWordsGameScreen').classList.remove('active');
+            document.getElementById('aiSentenceGameScreen').classList.remove('active');
             currentGameType = null;
         }
 
@@ -1408,6 +3347,8 @@
             document.getElementById('verbsGameScreen').classList.remove('active');
             document.getElementById('verificationGameScreen').classList.remove('active');
             document.getElementById('knowledgeGameScreen').classList.remove('active');
+            document.getElementById('hetWordsGameScreen').classList.remove('active');
+            document.getElementById('aiSentenceGameScreen').classList.remove('active');
             
             if (gameType === 'matching') {
                 document.getElementById('matchingGameScreen').classList.add('active');
@@ -1429,6 +3370,12 @@
             } else if (gameType === 'knowledge') {
                 document.getElementById('knowledgeGameScreen').classList.add('active');
                 loadKnowledgeGame();
+            } else if (gameType === 'hetwords') {
+                document.getElementById('hetWordsGameScreen').classList.add('active');
+                loadHetWordsGame();
+            } else if (gameType === 'aisentence') {
+                document.getElementById('aiSentenceGameScreen').classList.add('active');
+                loadAISentenceGame();
             }
         }
 
@@ -1442,32 +3389,65 @@
             return arr;
         }
 
-        // Get next 10 unused word pairs
+        // Get next batch of word pairs based on current selection
         function getNextBatch() {
-            const unused = allWordPairs.filter((_, index) => !usedIndices.has(index));
-            
-            if (unused.length === 0) {
-                // Reset if all words have been used
-                usedIndices.clear();
-                return shuffle(allWordPairs).slice(0, 10);
+            if (activeWordPool.length === 0) {
+                return [];
             }
-            
-            return shuffle(unused).slice(0, 10);
+
+            const batchSize = Math.min(10, activeWordPool.length);
+            let unused = activeWordPool.filter(pair => !usedWordIds.has(pair.id));
+
+            if (unused.length < batchSize) {
+                usedWordIds.clear();
+                updateProgress();
+                unused = [...activeWordPool];
+            }
+
+            return shuffle(unused).slice(0, batchSize);
         }
 
         // MATCHING GAME FUNCTIONS
-        function createWordCard(text, type, index) {
+        // Function to speak Dutch text using Web Speech API
+        function speakDutch(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'nl-NL'; // Dutch language
+                utterance.rate = 1.0; // Normal speech rate
+                utterance.pitch = 1.0; // Normal pitch
+                utterance.volume = 1.0; // Full volume
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function createWordCard(text, type, index, dutchWord = null) {
             const card = document.createElement('div');
             card.className = 'word-card';
             card.textContent = text;
             card.dataset.index = index;
             card.dataset.type = type;
+            // Store the Dutch word for speech (for English cards, store the corresponding Dutch word)
+            if (dutchWord) {
+                card.dataset.dutchWord = dutchWord;
+            } else if (type === 'dutch') {
+                card.dataset.dutchWord = text;
+            }
             card.onclick = () => selectCard(card, type, index);
             return card;
         }
 
         function selectCard(card, type, index) {
             if (card.classList.contains('matched')) return;
+
+            // Speak the Dutch word when any card is clicked
+            const dutchWord = card.dataset.dutchWord;
+            if (dutchWord) {
+                speakDutch(dutchWord);
+            }
 
             if (type === 'dutch') {
                 if (selectedDutch) {
@@ -1498,16 +3478,29 @@
                 selectedEnglish.classList.remove('selected');
                 
                 matchedPairs++;
-                document.getElementById('matchingScore').textContent = `Pairs matched: ${matchedPairs} / 10`;
+                const totalPairs = currentBatch.length || 0;
+                const scoreElement = document.getElementById('matchingScore');
+                if (scoreElement) {
+                    scoreElement.textContent = totalPairs === 0
+                        ? 'No words available.'
+                        : `Pairs matched: ${matchedPairs} / ${totalPairs}`;
+                }
                 
                 selectedDutch = null;
                 selectedEnglish = null;
                 selectedDutchIndex = null;
                 selectedEnglishIndex = null;
 
-                if (matchedPairs === 10) {
-                    document.getElementById('matchingCongratulations').classList.add('show');
-                    document.getElementById('matchingNextBtn').disabled = false;
+                if (totalPairs > 0 && matchedPairs === totalPairs) {
+                    const congrats = document.getElementById('matchingCongratulations');
+                    if (congrats) {
+                        congrats.innerHTML = `🎉 Great job! You matched all ${totalPairs} pairs! Click "Next Words" to continue.`;
+                        congrats.classList.add('show');
+                    }
+                    const nextBtn = document.getElementById('matchingNextBtn');
+                    if (nextBtn) {
+                        nextBtn.disabled = false;
+                    }
                 }
             } else {
                 setTimeout(() => {
@@ -1522,11 +3515,17 @@
         }
 
         // MEMORY GAME FUNCTIONS
-        function createMemoryCard(text, pairIndex, type) {
+        function createMemoryCard(text, pairIndex, type, dutchWord = null) {
             const card = document.createElement('div');
             card.className = 'memory-card';
             card.dataset.pairIndex = pairIndex;
             card.dataset.type = type;
+            // Store the Dutch word for speech (for English cards, store the corresponding Dutch word)
+            if (dutchWord) {
+                card.dataset.dutchWord = dutchWord;
+            } else if (type === 'dutch') {
+                card.dataset.dutchWord = text;
+            }
             
             const content = document.createElement('div');
             content.className = 'card-content';
@@ -1540,6 +3539,12 @@
         function flipCard(card) {
             if (isChecking || card.classList.contains('flipped') || card.classList.contains('matched')) {
                 return;
+            }
+
+            // Speak the Dutch word when a card is flipped
+            const dutchWord = card.dataset.dutchWord;
+            if (dutchWord) {
+                speakDutch(dutchWord);
             }
 
             card.classList.add('flipped');
@@ -1566,11 +3571,24 @@
                 matchedCards.add(pair1);
                 
                 const score = matchedCards.size;
-                document.getElementById('memoryScore').textContent = `Pairs matched: ${score} / 10`;
+                const totalPairs = currentBatch.length || 0;
+                const scoreElement = document.getElementById('memoryScore');
+                if (scoreElement) {
+                    scoreElement.textContent = totalPairs === 0
+                        ? 'No words available.'
+                        : `Pairs matched: ${score} / ${totalPairs}`;
+                }
 
-                if (score === 10) {
-                    document.getElementById('memoryCongratulations').classList.add('show');
-                    document.getElementById('memoryNextBtn').disabled = false;
+                if (totalPairs > 0 && score === totalPairs) {
+                    const congrats = document.getElementById('memoryCongratulations');
+                    if (congrats) {
+                        congrats.innerHTML = `🎉 Great job! You matched all ${totalPairs} pairs! Click "Next Words" to continue.`;
+                        congrats.classList.add('show');
+                    }
+                    const nextBtn = document.getElementById('memoryNextBtn');
+                    if (nextBtn) {
+                        nextBtn.disabled = false;
+                    }
                 }
             } else {
                 // No match, flip back
@@ -1582,16 +3600,14 @@
             isChecking = false;
         }
 
-        // Load next batch of 10 words
+        // Load next batch of words for matching/memory games
         function loadNextBatch(gameType) {
             const batch = getNextBatch();
-            const indices = batch.map(pair => allWordPairs.findIndex(p => 
-                p.dutch === pair.dutch && p.english === pair.english
-            ));
+            const ids = batch.map(pair => pair.id);
             
-            indices.forEach(idx => usedIndices.add(idx));
-
+            ids.forEach(id => usedWordIds.add(id));
             currentBatch = batch;
+            updateProgress();
 
             if (gameType === 'matching') {
                 // Reset matching game state
@@ -1605,8 +3621,15 @@
                 document.getElementById('english-column').innerHTML = '';
                 document.getElementById('matchingCongratulations').classList.remove('show');
                 document.getElementById('matchingNextBtn').disabled = true;
-                document.getElementById('matchingScore').textContent = `Pairs matched: 0 / 10`;
-                updateProgress();
+                document.getElementById('matchingScore').textContent = batch.length === 0
+                    ? 'No words available. Go back to the menu to pick some words.'
+                    : `Pairs matched: 0 / ${batch.length}`;
+                const matchingCongratulations = document.getElementById('matchingCongratulations');
+                if (matchingCongratulations) {
+                    matchingCongratulations.innerHTML = batch.length === 0
+                        ? 'No words selected. Use the menu to pick words before playing.'
+                        : `🎉 Great job! You matched all ${batch.length} pairs! Click "Next Words" to continue.`;
+                }
 
                 const dutchWithIndices = batch.map((pair, idx) => ({ ...pair, originalIndex: idx }));
                 const englishWithIndices = batch.map((pair, idx) => ({ ...pair, originalIndex: idx }));
@@ -1614,13 +3637,21 @@
                 const shuffledDutch = shuffle(dutchWithIndices);
                 const shuffledEnglish = shuffle(englishWithIndices);
 
+                if (batch.length === 0) {
+                    const dutchColumn = document.getElementById('dutch-column');
+                    const englishColumn = document.getElementById('english-column');
+                    if (dutchColumn) dutchColumn.textContent = 'No Dutch words selected.';
+                    if (englishColumn) englishColumn.textContent = 'No English translations selected.';
+                    return;
+                }
+
                 shuffledDutch.forEach((item) => {
                     const card = createWordCard(item.dutch, 'dutch', item.originalIndex);
                     document.getElementById('dutch-column').appendChild(card);
                 });
 
                 shuffledEnglish.forEach((item) => {
-                    const card = createWordCard(item.english, 'english', item.originalIndex);
+                    const card = createWordCard(item.english, 'english', item.originalIndex, item.dutch);
                     document.getElementById('english-column').appendChild(card);
                 });
             } else {
@@ -1632,18 +3663,37 @@
                 document.getElementById('memory-grid').innerHTML = '';
                 document.getElementById('memoryCongratulations').classList.remove('show');
                 document.getElementById('memoryNextBtn').disabled = true;
-                document.getElementById('memoryScore').textContent = `Pairs matched: 0 / 10`;
-                updateProgress();
+                document.getElementById('memoryScore').textContent = batch.length === 0
+                    ? 'No words available. Go back to the menu to pick some words.'
+                    : `Pairs matched: 0 / ${batch.length}`;
+                const memoryCongratulations = document.getElementById('memoryCongratulations');
+                if (memoryCongratulations) {
+                    memoryCongratulations.innerHTML = batch.length === 0
+                        ? 'No words selected. Use the menu to pick words before playing.'
+                        : `🎉 Great job! You matched all ${batch.length} pairs! Click "Next Words" to continue.`;
+                }
 
                 // Create 20 cards (10 Dutch + 10 English)
                 const cards = [];
                 batch.forEach((pair, idx) => {
                     cards.push(createMemoryCard(pair.dutch, idx, 'dutch'));
-                    cards.push(createMemoryCard(pair.english, idx, 'english'));
+                    cards.push(createMemoryCard(pair.english, idx, 'english', pair.dutch));
                 });
 
                 // Shuffle all cards
                 const shuffledCards = shuffle(cards);
+                if (shuffledCards.length === 0) {
+                    const grid = document.getElementById('memory-grid');
+                    if (grid) {
+                        const message = document.createElement('div');
+                        message.style.gridColumn = '1 / -1';
+                        message.style.textAlign = 'center';
+                        message.style.color = '#666';
+                        message.textContent = 'No words selected. Go back to the menu to choose some before playing.';
+                        grid.appendChild(message);
+                    }
+                    return;
+                }
                 shuffledCards.forEach(card => {
                     document.getElementById('memory-grid').appendChild(card);
                 });
@@ -1655,7 +3705,7 @@
 
         function loadArticlesGame() {
             // Filter allWordPairs to get only nouns
-            articlesData = allWordPairs.filter(pair => nounsWithArticles.hasOwnProperty(pair.dutch));
+            articlesData = activeWordPool.filter(pair => nounsWithArticles.hasOwnProperty(pair.dutch));
             
             // Sort alphabetically
             articlesData.sort((a, b) => a.dutch.localeCompare(b.dutch));
@@ -1666,6 +3716,21 @@
             document.getElementById('articlesResults').innerHTML = '';
             document.getElementById('checkArticlesBtn').style.display = 'inline-block';
             document.getElementById('articlesResetBtn').style.display = 'none';
+
+            if (articlesData.length === 0) {
+                const list = document.getElementById('articles-list');
+                if (list) {
+                    const message = document.createElement('div');
+                    message.style.textAlign = 'center';
+                    message.style.color = '#666';
+                    message.style.padding = '30px';
+                    message.textContent = 'No noun words are included in your current selection. Go back to the menu and pick nouns before playing the Articles Game.';
+                    list.appendChild(message);
+                }
+                document.getElementById('checkArticlesBtn').style.display = 'none';
+                document.getElementById('articlesResetBtn').style.display = 'none';
+                return;
+            }
 
             articlesData.forEach((noun, index) => {
                 const row = document.createElement('div');
@@ -1799,14 +3864,27 @@
 
         // VERBS GAME FUNCTIONS
         function loadVerbsGame() {
+            const progressEl = document.getElementById('verbsProgress');
+            const wordDisplay = document.getElementById('englishVerbWord');
+            const buttonsContainer = document.getElementById('verbButtons');
+            const nextBtn = document.getElementById('nextVerbBtn');
+
+            if (currentVerbPool.length === 0) {
+                if (progressEl) progressEl.textContent = '0 / 0';
+                if (wordDisplay) wordDisplay.textContent = 'No verbs in your current selection.';
+                if (buttonsContainer) buttonsContainer.innerHTML = '';
+                if (nextBtn) nextBtn.classList.remove('show');
+                return;
+            }
+
             // Shuffle verbs if needed
             if (shuffledVerbs.length === 0 || currentVerbIndex >= shuffledVerbs.length) {
-                const unusedVerbs = verbsData.filter(verb => !verbsUsed.has(verb.english));
+                const unusedVerbs = currentVerbPool.filter(verb => !verbsUsed.has(verb.english));
                 
                 if (unusedVerbs.length === 0) {
                     // Reset if all verbs have been used
                     verbsUsed.clear();
-                    shuffledVerbs = shuffle([...verbsData]);
+                    shuffledVerbs = shuffle([...currentVerbPool]);
                 } else {
                     shuffledVerbs = shuffle(unusedVerbs);
                 }
@@ -1818,15 +3896,33 @@
         }
 
         function loadCurrentVerb() {
+            if (currentVerbPool.length === 0) {
+                return;
+            }
+
+            if (shuffledVerbs.length === 0) {
+                shuffledVerbs = shuffle([...currentVerbPool]);
+                currentVerbIndex = 0;
+            }
+
             const verb = shuffledVerbs[currentVerbIndex];
+            if (!verb) {
+                return;
+            }
             const totalUsed = verbsUsed.size;
-            const total = verbsData.length;
+            const total = currentVerbPool.length;
             
             // Update progress
-            document.getElementById('verbsProgress').textContent = `${totalUsed + 1} / ${total}`;
+            const progressEl = document.getElementById('verbsProgress');
+            if (progressEl) {
+                progressEl.textContent = `${Math.min(totalUsed + 1, total)} / ${total}`;
+            }
             
             // Display English word
-            document.getElementById('englishVerbWord').textContent = verb.english;
+            const englishWordEl = document.getElementById('englishVerbWord');
+            if (englishWordEl) {
+                englishWordEl.textContent = verb.english;
+            }
             
             // Create buttons
             const buttonsContainer = document.getElementById('verbButtons');
@@ -1902,9 +3998,30 @@
         function loadVerificationGame() {
             // Initialize word pairs - mix correct and incorrect pairs
             verificationWordPairs = [];
-            
+
+            if (activeWordPool.length === 0) {
+                const dutchDisplay = document.getElementById('dutchWordDisplay');
+                const englishDisplay = document.getElementById('englishWordDisplay');
+                const timerDisplay = document.getElementById('timerDisplay');
+                const buttons = document.getElementById('verificationButtons');
+                const progressText = document.getElementById('verificationProgressText');
+                const progressFill = document.getElementById('verificationProgressFill');
+                const resultMessage = document.getElementById('resultMessage');
+                const nextWordBtn = document.getElementById('nextWordBtn');
+
+                if (dutchDisplay) dutchDisplay.textContent = 'No words selected.';
+                if (englishDisplay) englishDisplay.textContent = 'Choose words from the menu to play.';
+                if (timerDisplay) timerDisplay.textContent = '';
+                if (buttons) buttons.style.display = 'none';
+                if (progressText) progressText.textContent = '0 / 0';
+                if (progressFill) progressFill.style.width = '0%';
+                if (resultMessage) resultMessage.classList.remove('correct', 'incorrect');
+                if (nextWordBtn) nextWordBtn.classList.remove('show');
+                return;
+            }
+
             // Add all correct pairs
-            allWordPairs.forEach(pair => {
+            activeWordPool.forEach(pair => {
                 verificationWordPairs.push({
                     dutch: pair.dutch,
                     english: pair.english,
@@ -1914,9 +4031,9 @@
             
             // Add some incorrect pairs by mixing Dutch and English words
             const incorrectPairs = [];
-            const shuffledPairs = shuffle([...allWordPairs]);
+            const shuffledPairs = shuffle([...activeWordPool]);
             
-            for (let i = 0; i < Math.min(20, allWordPairs.length); i++) {
+            for (let i = 0; i < Math.min(20, activeWordPool.length); i++) {
                 const dutchWord = shuffledPairs[i];
                 const englishWord = shuffledPairs[(i + 10) % shuffledPairs.length];
                 
@@ -2107,9 +4224,9 @@
         }
 
         function updateVerificationProgress() {
-            const current = currentVerificationIndex + 1;
             const total = verificationWordPairs.length;
-            const percentage = (current / total) * 100;
+            const current = total === 0 ? 0 : Math.min(currentVerificationIndex + 1, total);
+            const percentage = total === 0 ? 0 : (current / total) * 100;
             
             document.getElementById('verificationProgressFill').style.width = `${percentage}%`;
             document.getElementById('verificationProgressText').textContent = `${current} / ${total}`;
@@ -2125,7 +4242,7 @@
 
         function loadKnowledgeGame() {
             // Shuffle all word pairs
-            knowledgeWordPairs = shuffle([...allWordPairs]);
+            knowledgeWordPairs = shuffle([...activeWordPool]);
             currentKnowledgeIndex = 0;
             knownWords = 0;
             unknownWords = 0;
@@ -2143,6 +4260,28 @@
             document.getElementById('nextKnowledgeBtn').style.display = 'none';
             document.querySelectorAll('.knowledge-btn').forEach(btn => btn.disabled = false);
             
+            if (knowledgeWordPairs.length === 0) {
+                const englishWordEl = document.getElementById('knowledgeEnglishWord');
+                const dutchWordEl = document.getElementById('knowledgeDutchWord');
+                const knowBtn = document.querySelector('.knowledge-btn.know-btn');
+                const dontKnowBtn = document.querySelector('.knowledge-btn.dont-know-btn');
+                const showAnswerBtn = document.getElementById('showAnswerBtn');
+                const nextBtn = document.getElementById('nextKnowledgeBtn');
+                const progressFill = document.getElementById('knowledgeProgressFill');
+                const progressText = document.getElementById('knowledgeProgressText');
+                if (englishWordEl) englishWordEl.textContent = 'No words in your current selection.';
+                if (dutchWordEl) dutchWordEl.style.display = 'none';
+                if (knowBtn) knowBtn.disabled = true;
+                if (dontKnowBtn) dontKnowBtn.disabled = true;
+                if (showAnswerBtn) showAnswerBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (progressFill) progressFill.style.width = '0%';
+                if (progressText) progressText.textContent = '0 / 0';
+                document.getElementById('knownCount').textContent = '0';
+                document.getElementById('unknownCount').textContent = '0';
+                return;
+            }
+
             loadCurrentKnowledgeWord();
         }
 
@@ -2206,9 +4345,9 @@
         }
 
         function updateKnowledgeProgress() {
-            const current = currentKnowledgeIndex + 1;
             const total = knowledgeWordPairs.length;
-            const percentage = (current / total) * 100;
+            const current = total === 0 ? 0 : Math.min(currentKnowledgeIndex + 1, total);
+            const percentage = total === 0 ? 0 : (current / total) * 100;
             
             document.getElementById('knowledgeProgressFill').style.width = `${percentage}%`;
             document.getElementById('knowledgeProgressText').textContent = `${current} / ${total}`;
@@ -2221,7 +4360,7 @@
 
         function showKnowledgeStats() {
             const total = knowledgeWordPairs.length;
-            const percentage = Math.round((knownWords / total) * 100);
+            const percentage = total === 0 ? 0 : Math.round((knownWords / total) * 100);
             
             document.getElementById('finalKnownCount').textContent = knownWords;
             document.getElementById('finalUnknownCount').textContent = unknownWords;
@@ -2235,6 +4374,350 @@
             document.getElementById('knowledgeStatsModal').style.display = 'none';
             loadKnowledgeGame();
         }
+
+        // HET WORDS GAME FUNCTIONS
+        let hetWordsData = [];
+        let selectedHetWords = new Set();
+
+        function loadHetWordsGame() {
+            // Get all nouns from the active word pool that are in nounsWithArticles
+            hetWordsData = activeWordPool.filter(pair => nounsWithArticles.hasOwnProperty(pair.dutch));
+            
+            // Shuffle the words
+            hetWordsData = shuffle(hetWordsData);
+            
+            // Limit to 20 words for a manageable game
+            if (hetWordsData.length > 20) {
+                hetWordsData = hetWordsData.slice(0, 20);
+            }
+            
+            selectedHetWords.clear();
+            
+            // Reset UI
+            document.getElementById('hetWordsGrid').innerHTML = '';
+            document.getElementById('hetWordsCongratulations').style.display = 'none';
+            document.getElementById('checkHetWordsBtn').style.display = 'inline-block';
+            document.getElementById('resetHetWordsBtn').style.display = 'none';
+            
+            if (hetWordsData.length === 0) {
+                const grid = document.getElementById('hetWordsGrid');
+                const message = document.createElement('div');
+                message.style.gridColumn = '1 / -1';
+                message.style.textAlign = 'center';
+                message.style.color = '#666';
+                message.style.padding = '30px';
+                message.textContent = 'No noun words are included in your current selection. Go back to the menu and pick nouns before playing the Het Words Game.';
+                grid.appendChild(message);
+                document.getElementById('checkHetWordsBtn').style.display = 'none';
+                return;
+            }
+            
+            // Count how many "het" words there are
+            const hetWordsCount = hetWordsData.filter(pair => nounsWithArticles[pair.dutch] === 'het').length;
+            document.getElementById('hetWordsProgress').textContent = `Select all "het" words: 0 / ${hetWordsCount}`;
+            
+            // Create word cards
+            hetWordsData.forEach((pair, index) => {
+                const card = document.createElement('div');
+                card.className = 'het-word-card';
+                card.textContent = pair.dutch;
+                card.dataset.index = index;
+                card.dataset.article = nounsWithArticles[pair.dutch];
+                card.onclick = () => toggleHetWord(card, index);
+                document.getElementById('hetWordsGrid').appendChild(card);
+            });
+        }
+
+        function toggleHetWord(card, index) {
+            // Don't allow toggling if already checked
+            if (card.classList.contains('correct') || card.classList.contains('incorrect') || card.classList.contains('missed')) {
+                return;
+            }
+            
+            if (selectedHetWords.has(index)) {
+                selectedHetWords.delete(index);
+                card.classList.remove('selected');
+            } else {
+                selectedHetWords.add(index);
+                card.classList.add('selected');
+            }
+            
+            // Update progress
+            const hetWordsCount = hetWordsData.filter(pair => nounsWithArticles[pair.dutch] === 'het').length;
+            document.getElementById('hetWordsProgress').textContent = `Select all "het" words: ${selectedHetWords.size} / ${hetWordsCount}`;
+        }
+
+        function checkHetWords() {
+            const hetWordsIndices = new Set();
+            hetWordsData.forEach((pair, index) => {
+                if (nounsWithArticles[pair.dutch] === 'het') {
+                    hetWordsIndices.add(index);
+                }
+            });
+            
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let missedCount = 0;
+            
+            // Check all cards
+            hetWordsData.forEach((pair, index) => {
+                const card = document.querySelector(`.het-word-card[data-index="${index}"]`);
+                if (!card) return;
+                
+                const isHet = nounsWithArticles[pair.dutch] === 'het';
+                const isSelected = selectedHetWords.has(index);
+                
+                // Disable clicking
+                card.style.cursor = 'default';
+                
+                if (isHet && isSelected) {
+                    // Correct: selected a "het" word
+                    card.classList.remove('selected');
+                    card.classList.add('correct');
+                    correctCount++;
+                } else if (!isHet && isSelected) {
+                    // Incorrect: selected a "de" word
+                    card.classList.remove('selected');
+                    card.classList.add('incorrect');
+                    incorrectCount++;
+                } else if (isHet && !isSelected) {
+                    // Missed: didn't select a "het" word
+                    card.classList.add('missed');
+                    missedCount++;
+                } else {
+                    // Correct: didn't select a "de" word
+                    card.classList.add('correct');
+                }
+            });
+            
+            // Show results
+            const progressEl = document.getElementById('hetWordsProgress');
+            const congratsEl = document.getElementById('hetWordsCongratulations');
+            
+            if (missedCount === 0 && incorrectCount === 0) {
+                // Perfect score!
+                progressEl.textContent = `Perfect! All ${correctCount} "het" words selected correctly!`;
+                congratsEl.style.display = 'block';
+            } else {
+                const totalHet = hetWordsIndices.size;
+                progressEl.textContent = `Results: ${correctCount} / ${totalHet} "het" words correct. ${incorrectCount} incorrect selections, ${missedCount} missed.`;
+            }
+            
+            document.getElementById('checkHetWordsBtn').style.display = 'none';
+            document.getElementById('resetHetWordsBtn').style.display = 'inline-block';
+        }
+
+        function resetHetWords() {
+            selectedHetWords.clear();
+            loadHetWordsGame();
+        }
+
+        window.addEventListener('click', (event) => {
+            const dropdown = document.getElementById('editSelectionDropdown');
+            const editBtn = document.getElementById('editSelectionBtn');
+            if (!dropdown || !editBtn) return;
+            if (!dropdown.contains(event.target) && event.target !== editBtn) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // AI SENTENCE GENERATOR GAME FUNCTIONS
+        let aiCurrentWord = null;
+        let aiDutchShown = false;
+        let aiProgress = {}; // Maps word key (dutch|english) -> view count
+
+        // Progress tracking functions for AI game
+        function loadAIProgress() {
+            const saved = localStorage.getItem('vocabProgress');
+            if (saved) {
+                try {
+                    aiProgress = JSON.parse(saved);
+                } catch (e) {
+                    aiProgress = {};
+                }
+            }
+        }
+
+        function saveAIProgress() {
+            try {
+                localStorage.setItem('vocabProgress', JSON.stringify(aiProgress));
+            } catch (e) {
+                console.error('Could not save progress:', e);
+            }
+        }
+
+        function getAIWordKey(wordPair) {
+            // Create a unique key for each word pair
+            return wordPair.dutch + '|' + wordPair.english;
+        }
+
+        function getAIViewCount(wordPair) {
+            const key = getAIWordKey(wordPair);
+            return aiProgress[key] || 0;
+        }
+
+        function incrementAIViewCount(wordPair) {
+            const key = getAIWordKey(wordPair);
+            aiProgress[key] = (aiProgress[key] || 0) + 1;
+            saveAIProgress();
+        }
+
+        // Weighted random selection: words shown fewer times have higher probability
+        function aiPickNewWord() {
+            if (activeWordPool.length === 0) {
+                document.getElementById('aiEnglishWord').textContent = 'No words selected.';
+                document.getElementById('aiDutchWord').textContent = 'Choose words from the menu to play.';
+                document.getElementById('aiDutchWord').classList.remove('hidden');
+                document.getElementById('aiStatus').textContent = 'Please select words from the menu first.';
+                document.getElementById('aiStatus').className = 'ai-status error';
+                return;
+            }
+
+            // Calculate weights: words with fewer views get higher weight
+            const weights = activeWordPool.map(wordPair => {
+                const viewCount = getAIViewCount(wordPair);
+                // Weight = 1 / (viewCount + 1)
+                // 0 views = weight 1.0, 1 view = 0.5, 2 views = 0.33, etc.
+                return 1.0 / (viewCount + 1);
+            });
+
+            // Calculate total weight
+            const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+
+            // Pick random number between 0 and totalWeight
+            let random = Math.random() * totalWeight;
+            
+            // Find which word this corresponds to
+            let selectedIndex = 0;
+            for (let i = 0; i < weights.length; i++) {
+                random -= weights[i];
+                if (random <= 0) {
+                    selectedIndex = i;
+                    break;
+                }
+            }
+
+            aiCurrentWord = activeWordPool[selectedIndex];
+            const viewCount = getAIViewCount(aiCurrentWord);
+            const totalWords = activeWordPool.length;
+            // Count only words in the current selection that have been seen
+            const wordsSeen = activeWordPool.filter(wordPair => {
+                const key = getAIWordKey(wordPair);
+                return aiProgress[key] && aiProgress[key] > 0;
+            }).length;
+            
+            document.getElementById('aiEnglishWord').textContent = aiCurrentWord.english;
+            document.getElementById('aiDutchWord').textContent = '(druk op \'Toon Nederlands\')';
+            document.getElementById('aiDutchWord').classList.add('hidden');
+            document.getElementById('aiSentenceDisplay').textContent = '(druk op \'Genereer zin\' om een zin te maken)';
+            document.getElementById('aiSentenceDisplay').classList.add('empty');
+            document.getElementById('aiStatus').textContent = 
+                `Nieuw woord gekozen. (Dit woord: ${viewCount}x gezien | Totaal: ${wordsSeen}/${totalWords} woorden gezien)`;
+            document.getElementById('aiStatus').className = 'ai-status';
+            
+            aiDutchShown = false;
+        }
+
+        // Show Dutch translation
+        function aiShowDutch() {
+            if (!aiCurrentWord) return;
+            
+            // Record that this word was shown
+            incrementAIViewCount(aiCurrentWord);
+            
+            document.getElementById('aiDutchWord').textContent = aiCurrentWord.dutch;
+            document.getElementById('aiDutchWord').classList.remove('hidden');
+            aiDutchShown = true;
+        }
+
+        // Generate sentence using OpenAI API
+        async function aiGenerateSentence() {
+            if (!aiCurrentWord) {
+                updateAIStatus('Kies eerst een woord.', 'error');
+                return;
+            }
+
+            if (!aiDutchShown) {
+                updateAIStatus('Toon eerst de Nederlandse vertaling.', 'error');
+                return;
+            }
+
+            const dutchWord = aiCurrentWord.dutch;
+            const btnGenerate = document.getElementById('aiBtnGenerate');
+            const sentenceDisplay = document.getElementById('aiSentenceDisplay');
+
+            // Disable button and show loading
+            btnGenerate.disabled = true;
+            btnGenerate.textContent = '⏳ Genereren...';
+            updateAIStatus('Zin wordt gegenereerd met AI...', 'loading');
+            sentenceDisplay.textContent = '';
+            sentenceDisplay.classList.remove('empty');
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'Je bent een Nederlandse taaldocent die eenvoudige A1-zinnen maakt voor studenten.'
+                            },
+                            {
+                                role: 'user',
+                                content: `Schrijf één korte, eenvoudige Nederlandse zin op A1-niveau die het woord "${dutchWord}" gebruikt. ` +
+                                        `Gebruik alleen simpele woorden over alledaagse dingen zoals huis, eten, school, werk of familie. ` +
+                                        `Houd de zin kort en duidelijk (maximaal 10 woorden). ` +
+                                        `Geef alleen de zin terug, zonder uitleg.`
+                            }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 50
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'API fout');
+                }
+
+                const data = await response.json();
+                const sentence = data.choices[0].message.content.trim();
+
+                // Remove quotes if present
+                const cleanSentence = sentence.replace(/^["']|["']$/g, '');
+
+                sentenceDisplay.textContent = cleanSentence;
+                updateAIStatus('Klaar! Klik nogmaals voor een nieuwe zin met hetzelfde woord.', 'success');
+
+            } catch (error) {
+                console.error('Error:', error);
+                sentenceDisplay.textContent = `Fout: ${error.message}`;
+                updateAIStatus('Er ging iets mis bij het genereren.', 'error');
+            } finally {
+                btnGenerate.disabled = false;
+                btnGenerate.textContent = '✨ Genereer zin';
+            }
+        }
+
+        // Update status message for AI game
+        function updateAIStatus(message, type = '') {
+            const statusEl = document.getElementById('aiStatus');
+            statusEl.textContent = message;
+            statusEl.className = 'ai-status ' + type;
+        }
+
+        // Load AI Sentence Generator game
+        function loadAISentenceGame() {
+            loadAIProgress();
+            aiPickNewWord();
+        }
+
+        loadSavedSelections();
     </script>
 </body>
 </html>
