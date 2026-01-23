@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dutch Word Games</title>
+    <title>Игры со словами — нидерландский</title>
     <style>
         * {
             margin: 0;
@@ -1292,33 +1292,33 @@
     <div id="wordSelectionModal" class="word-selection-modal">
         <div class="word-selection-content">
             <div class="word-selection-header">
-                <h2>Select Words to Practice</h2>
+                <h2>Выберите слова для упражнений</h2>
                 <div class="word-selection-actions">
-                    <button type="button" onclick="selectAllWords()">Select All</button>
-                    <button type="button" onclick="clearAllWords()">Clear All</button>
+                    <button type="button" onclick="selectAllWords()">Выбрать все</button>
+                    <button type="button" onclick="clearAllWords()">Очистить</button>
                     <div style="position: relative;">
-                        <button type="button" onclick="toggleEditDropdown()" id="editSelectionBtn">Edit Current</button>
+                        <button type="button" onclick="toggleEditDropdown()" id="editSelectionBtn">Изменить</button>
                         <div id="editSelectionDropdown" class="edit-dropdown">
-                            <h4>Edit current selection</h4>
-                            <button type="button" class="edit-action" onclick="toggleSelectMode('add')">Add from saved selection</button>
-                            <button type="button" class="edit-action" onclick="toggleSelectMode('remove')">Remove via saved selection</button>
-                            <button type="button" class="edit-action" onclick="exitSelectMode()">Finish editing</button>
+                            <h4>Изменить текущий выбор</h4>
+                            <button type="button" class="edit-action" onclick="toggleSelectMode('add')">Добавить из сохранённого</button>
+                            <button type="button" class="edit-action" onclick="toggleSelectMode('remove')">Убрать из сохранённого</button>
+                            <button type="button" class="edit-action" onclick="exitSelectMode()">Готово</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <input type="text" id="wordSelectionSearch" class="word-selection-search" placeholder="Search Dutch or English..." oninput="filterWordSelection(this.value)">
+            <input type="text" id="wordSelectionSearch" class="word-selection-search" placeholder="Поиск по голландскому или русскому..." oninput="filterWordSelection(this.value)">
             <div id="wordSelectionList" class="word-selection-list"></div>
             <div class="word-selection-save">
                 <div class="word-selection-save-controls">
-                    <input type="text" id="saveSelectionName" placeholder="Save current selection as...">
-                    <button type="button" onclick="saveCurrentSelection()">Save Selection</button>
+                    <input type="text" id="saveSelectionName" placeholder="Сохранить выбор как...">
+                    <button type="button" onclick="saveCurrentSelection()">Сохранить выбор</button>
                 </div>
                 <div id="savedSelectionList" class="saved-selection-list"></div>
             </div>
             <div class="word-selection-footer">
-                <button type="button" onclick="cancelWordSelection()">Cancel</button>
-                <button type="button" onclick="confirmWordSelection()" id="confirmWordSelectionBtn">Start Game</button>
+                <button type="button" onclick="cancelWordSelection()">Отмена</button>
+                <button type="button" onclick="confirmWordSelection()" id="confirmWordSelectionBtn">Начать игру</button>
             </div>
         </div>
     </div>
@@ -1326,127 +1326,127 @@
     <!-- Menu Screen -->
     <div class="container">
         <div id="menuScreen" class="menu-screen">
-            <h1>🇳🇱 Dutch Word Games 🇬🇧</h1>
-            <p class="info">Choose a game mode to practice Dutch vocabulary!</p>
+            <h1>🇳🇱 Игры со словами — нидерландский 🇬🇧</h1>
+            <p class="info">Выберите режим игры для практики голландского!</p>
             <div class="menu-buttons">
                 <button class="menu-btn" onclick="prepareGame('matching')">
-                    📝 Matching Game<br>
-                    <small>Match Dutch words with English translations</small>
+                    📝 Сопоставление<br>
+                    <small>Соедините голландские слова с переводами</small>
                 </button>
                 <button class="menu-btn secondary" onclick="prepareGame('memory')">
-                    🎴 Memory Game<br>
-                    <small>Flip cards to find matching pairs</small>
+                    🎴 Мемори<br>
+                    <small>Переворачивайте карточки и находите пары</small>
                 </button>
                 <button class="menu-btn" onclick="prepareGame('articles')" style="background: #f39c12; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);">
-                    📚 Articles Game<br>
-                    <small>Type articles (de/het) and translations for nouns</small>
+                    📚 Артикли<br>
+                    <small>Введите артикли (de/het) и переводы существительных</small>
                 </button>
                 <button class="menu-btn secondary" onclick="prepareGame('verbs')" style="background: #e74c3c; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);">
-                    🔤 Verbs Practice<br>
-                    <small>Practice Dutch verbs with past tense and past participle</small>
+                    🔤 Глаголы<br>
+                    <small>Тренировка глаголов: прошедшее время и причастие</small>
                 </button>
                 <button class="menu-btn secondary" onclick="prepareGame('verification')" style="background: #16a085; box-shadow: 0 4px 15px rgba(22, 160, 133, 0.4);">
-                    ✅ Word Verification<br>
-                    <small>Words flash for 800ms, then verify if they match!</small>
+                    ✅ Проверка слов<br>
+                    <small>Слова мелькают 800 мс — определите, совпадают ли пары!</small>
                 </button>
                 <button class="menu-btn" onclick="prepareGame('knowledge')" style="background: #9b59b6; box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4);">
-                    🧠 Knowledge Check<br>
-                    <small>Mark words you know (green) or don't know (red)</small>
+                    🧠 Проверка знаний<br>
+                    <small>Отметьте известные (зелёный) и неизвестные (красный) слова</small>
                 </button>
                 <button class="menu-btn secondary" onclick="prepareGame('hetwords')" style="background: #3498db; box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);">
-                    🎯 Het Words Game<br>
-                    <small>Select all words with article "het"</small>
+                    🎯 Слова с «het»<br>
+                    <small>Выберите все слова с артиклем «het»</small>
                 </button>
                 <button class="menu-btn" onclick="prepareGame('aisentence')" style="background: #27ae60; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);">
-                    ✨ AI Sentence Generator<br>
-                    <small>Learn words and generate sentences with AI</small>
+                    ✨ ИИ: предложения<br>
+                    <small>Учите слова и составляйте предложения с ИИ</small>
                 </button>
             </div>
         </div>
 
         <!-- Matching Game Screen -->
         <div id="matchingGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>📝 Matching Game</h1>
-            <p class="info">Match the Dutch words with their English translations!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>📝 Сопоставление</h1>
+            <p class="info">Соедините голландские слова с их переводами!</p>
             
-            <div class="score" id="matchingScore">Pairs matched: 0 / 0</div>
-            <div class="score" id="matchingProgress" style="color: #666; font-size: 16px;">Progress: 0 / 0</div>
+            <div class="score" id="matchingScore">Пар: 0 / 0</div>
+            <div class="score" id="matchingProgress" style="color: #666; font-size: 16px;">Прогресс: 0 / 0</div>
             <div class="congratulations" id="matchingCongratulations">
-                🎉 Great job! You matched all pairs! Click "Next Words" to continue.
+                🎉 Отлично! Все пары собраны! Нажмите «Следующие слова».
             </div>
 
             <div class="game-area">
                 <div class="column">
-                    <div class="column-title">Dutch Words</div>
+                    <div class="column-title">Голландские слова</div>
                     <div id="dutch-column"></div>
                 </div>
                 <div class="column">
-                    <div class="column-title">English Translations</div>
+                    <div class="column-title">Перевод</div>
                     <div id="english-column"></div>
                 </div>
             </div>
 
             <div class="controls">
-                <button id="matchingNextBtn" onclick="loadNextBatch('matching')" disabled>Next Words</button>
+                <button id="matchingNextBtn" onclick="loadNextBatch('matching')" disabled>Следующие слова</button>
             </div>
         </div>
 
         <!-- Memory Game Screen -->
         <div id="memoryGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>🎴 Memory Game</h1>
-            <p class="info">Flip cards to find matching pairs!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>🎴 Мемори</h1>
+            <p class="info">Переворачивайте карточки и находите пары!</p>
             
-            <div class="score" id="memoryScore">Pairs matched: 0 / 0</div>
-            <div class="score" id="memoryProgress" style="color: #666; font-size: 16px;">Progress: 0 / 0</div>
+            <div class="score" id="memoryScore">Пар: 0 / 0</div>
+            <div class="score" id="memoryProgress" style="color: #666; font-size: 16px;">Прогресс: 0 / 0</div>
             <div class="congratulations" id="memoryCongratulations">
-                🎉 Great job! You matched all pairs! Click "Next Words" to continue.
+                🎉 Отлично! Все пары собраны! Нажмите «Следующие слова».
             </div>
 
             <div class="memory-grid" id="memory-grid"></div>
 
             <div class="controls">
-                <button id="memoryNextBtn" onclick="loadNextBatch('memory')" disabled>Next Words</button>
+                <button id="memoryNextBtn" onclick="loadNextBatch('memory')" disabled>Следующие слова</button>
             </div>
         </div>
 
         <!-- Articles Game Screen -->
         <div id="articlesGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>📚 Articles Game</h1>
-            <p class="info">Type the article (de/het) and English translation for each noun!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>📚 Артикли</h1>
+            <p class="info">Введите артикль (de/het) и перевод для каждого существительного!</p>
             
-            <div class="score" id="articlesProgress" style="color: #666; font-size: 16px;">Total nouns: 0</div>
+            <div class="score" id="articlesProgress" style="color: #666; font-size: 16px;">Всего существительных: 0</div>
             <div class="congratulations" id="articlesResults" style="display: none;"></div>
 
             <div id="articles-list" style="max-width: 800px; margin: 0 auto;"></div>
 
             <div class="controls">
-                <button id="checkArticlesBtn" onclick="checkArticles()">Check Answers</button>
-                <button id="articlesResetBtn" onclick="resetArticles()" style="display: none;">Try Again</button>
+                <button id="checkArticlesBtn" onclick="checkArticles()">Проверить</button>
+                <button id="articlesResetBtn" onclick="resetArticles()" style="display: none;">Ещё раз</button>
             </div>
         </div>
 
         <!-- Verbs Game Screen -->
         <div id="verbsGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>🔤 Verbs Practice</h1>
-            <p class="info">Click the buttons to reveal the Dutch infinitive, past tense, and past participle!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>🔤 Глаголы</h1>
+            <p class="info">Нажимайте кнопки, чтобы увидеть инфинитив, прошедшее время и причастие!</p>
             
             <div class="verbs-game-container">
                 <div class="verbs-progress" id="verbsProgress">0 / 0</div>
-                <div class="english-word" id="englishVerbWord">Loading...</div>
+                <div class="english-word" id="englishVerbWord">Загрузка...</div>
                 <div class="verb-buttons" id="verbButtons"></div>
-                <button class="next-verb-btn" id="nextVerbBtn" onclick="nextVerb()">Next Verb →</button>
+                <button class="next-verb-btn" id="nextVerbBtn" onclick="nextVerb()">Следующий глагол →</button>
             </div>
         </div>
 
         <!-- Verification Game Screen -->
         <div id="verificationGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>✅ Word Verification</h1>
-            <p class="info">The word pair will flash for 800 milliseconds, then verify if they match!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>✅ Проверка слов</h1>
+            <p class="info">Пара слов мелькнёт на 800 мс — определите, совпадают ли они!</p>
             
             <div class="verification-game-container">
                 <div class="verification-progress-container">
@@ -1459,54 +1459,54 @@
                 <div class="timer-display" id="timerDisplay">50</div>
 
                 <div class="word-pair-display" id="wordPairDisplay">
-                    <div class="dutch-word" id="dutchWordDisplay">Loading...</div>
-                    <div class="english-word" id="englishWordDisplay">Loading...</div>
+                    <div class="dutch-word" id="dutchWordDisplay">Загрузка...</div>
+                    <div class="english-word" id="englishWordDisplay">Загрузка...</div>
                 </div>
 
                 <div class="verification-buttons" id="verificationButtons" style="display: none;">
-                    <button class="verify-btn match" onclick="verifyMatch(true)">✓ Match</button>
-                    <button class="verify-btn no-match" onclick="verifyMatch(false)">✗ Don't Match</button>
+                    <button class="verify-btn match" onclick="verifyMatch(true)">✓ Совпадает</button>
+                    <button class="verify-btn no-match" onclick="verifyMatch(false)">✗ Не совпадает</button>
                 </div>
 
                 <div class="result-message" id="resultMessage"></div>
 
-                <button class="next-word-btn" id="nextWordBtn" onclick="nextWord()">Next Word →</button>
+                <button class="next-word-btn" id="nextWordBtn" onclick="nextWord()">Следующее слово →</button>
             </div>
         </div>
 
         <!-- Knowledge Check Game Screen -->
         <div id="knowledgeGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>🧠 Knowledge Check</h1>
-            <p class="info">Mark words you know (green) or don't know (red)!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>🧠 Проверка знаний</h1>
+            <p class="info">Отметьте известные (зелёный) и неизвестные (красный) слова!</p>
             
             <div style="display: flex; gap: 30px; max-width: 1200px; margin: 0 auto;">
                 <!-- Main Content Area -->
                 <div style="flex: 1;">
                     <div class="knowledge-word-display" id="knowledgeWordDisplay">
-                        <div class="knowledge-english-word" id="knowledgeEnglishWord">Loading...</div>
+                        <div class="knowledge-english-word" id="knowledgeEnglishWord">Загрузка...</div>
                         <div class="knowledge-dutch-word" id="knowledgeDutchWord" style="display: none;"></div>
                     </div>
 
                     <div class="knowledge-buttons" id="knowledgeButtons">
                         <button class="knowledge-btn know-btn" onclick="markKnowledge(true)">
-                            ✓ I Know This
+                            ✓ Знаю
                         </button>
                         <button class="knowledge-btn dont-know-btn" onclick="markKnowledge(false)">
-                            ✗ I Don't Know This
+                            ✗ Не знаю
                         </button>
                     </div>
 
                     <div class="knowledge-controls" style="margin-top: 30px; text-align: center;">
-                        <button id="showAnswerBtn" onclick="showAnswer()" style="display: none;">Show Answer</button>
-                        <button id="nextKnowledgeBtn" onclick="nextKnowledgeWord()" style="display: none;">Next Word →</button>
+                        <button id="showAnswerBtn" onclick="showAnswer()" style="display: none;">Показать ответ</button>
+                        <button id="nextKnowledgeBtn" onclick="nextKnowledgeWord()" style="display: none;">Следующее слово →</button>
                     </div>
                 </div>
 
                 <!-- Progress Bar Sidebar -->
                 <div style="width: 200px; flex-shrink: 0;">
                     <div class="knowledge-progress-container">
-                        <div class="knowledge-progress-title">Progress</div>
+                        <div class="knowledge-progress-title">Прогресс</div>
                         <div class="knowledge-progress-bar">
                             <div class="knowledge-progress-fill" id="knowledgeProgressFill"></div>
                         </div>
@@ -1514,11 +1514,11 @@
                         
                         <div class="knowledge-stats" style="margin-top: 30px;">
                             <div class="stat-item">
-                                <span class="stat-label">Known:</span>
+                                <span class="stat-label">Знаю:</span>
                                 <span class="stat-value known-stat" id="knownCount">0</span>
                             </div>
                             <div class="stat-item">
-                                <span class="stat-label">Unknown:</span>
+                                <span class="stat-label">Не знаю:</span>
                                 <span class="stat-value unknown-stat" id="unknownCount">0</span>
                             </div>
                         </div>
@@ -1529,25 +1529,25 @@
             <!-- Statistics Modal -->
             <div id="knowledgeStatsModal" class="knowledge-stats-modal" style="display: none;">
                 <div class="knowledge-stats-content">
-                    <h2>📊 Statistics</h2>
+                    <h2>📊 Статистика</h2>
                     <div class="stats-summary">
                         <div class="stat-box known-box">
                             <div class="stat-number" id="finalKnownCount">0</div>
-                            <div class="stat-label-text">Words You Know</div>
+                            <div class="stat-label-text">Знаете</div>
                         </div>
                         <div class="stat-box unknown-box">
                             <div class="stat-number" id="finalUnknownCount">0</div>
-                            <div class="stat-label-text">Words You Don't Know</div>
+                            <div class="stat-label-text">Не знаете</div>
                         </div>
                         <div class="stat-box total-box">
                             <div class="stat-number" id="finalTotalCount">0</div>
-                            <div class="stat-label-text">Total Words</div>
+                            <div class="stat-label-text">Всего слов</div>
                         </div>
                     </div>
                     <div class="stat-percentage" id="knowledgePercentage">0%</div>
                     <div class="stats-buttons">
-                        <button onclick="restartKnowledgeGame()" class="knowledge-btn know-btn">Try Again</button>
-                        <button onclick="showMenu()" class="knowledge-btn dont-know-btn">Back to Menu</button>
+                        <button onclick="restartKnowledgeGame()" class="knowledge-btn know-btn">Ещё раз</button>
+                        <button onclick="showMenu()" class="knowledge-btn dont-know-btn">В меню</button>
                     </div>
                 </div>
             </div>
@@ -1555,56 +1555,56 @@
 
         <!-- Het Words Game Screen -->
         <div id="hetWordsGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>🎯 Het Words Game</h1>
-            <p class="info">Click on all words that use the article "het"! When you select all "het" words correctly, you win!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>🎯 Слова с «het»</h1>
+            <p class="info">Выберите все слова с артиклем «het»! Когда отметьте все правильно — победа!</p>
             
-            <div class="score" id="hetWordsProgress" style="color: #666; font-size: 16px;">Select all "het" words: 0 / 0</div>
+            <div class="score" id="hetWordsProgress" style="color: #666; font-size: 16px;">Слов с «het»: 0 / 0</div>
             <div class="congratulations" id="hetWordsCongratulations" style="display: none;">
-                🎉 Perfect! You found all "het" words!
+                🎉 Отлично! Все слова с «het» найдены!
             </div>
 
             <div id="hetWordsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 30px 0; max-width: 1200px; margin-left: auto; margin-right: auto;"></div>
 
             <div class="controls">
-                <button id="checkHetWordsBtn" onclick="checkHetWords()">Check Answers</button>
-                <button id="resetHetWordsBtn" onclick="resetHetWords()" style="display: none;">Try Again</button>
+                <button id="checkHetWordsBtn" onclick="checkHetWords()">Проверить</button>
+                <button id="resetHetWordsBtn" onclick="resetHetWords()" style="display: none;">Ещё раз</button>
             </div>
         </div>
 
         <!-- AI Sentence Generator Game Screen -->
         <div id="aiSentenceGameScreen" class="game-screen">
-            <button class="back-btn" onclick="showMenu()">← Back to Menu</button>
-            <h1>✨ AI Sentence Generator</h1>
-            <p class="info">Learn words and generate sentences with AI!</p>
+            <button class="back-btn" onclick="showMenu()">← В меню</button>
+            <h1>✨ ИИ: предложения</h1>
+            <p class="info">Учите слова и составляйте предложения с ИИ!</p>
             
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="ai-word-section">
-                    <div class="ai-word-label">English</div>
+                    <div class="ai-word-label">Перевод</div>
                     <div class="ai-word-display" id="aiEnglishWord">-</div>
 
                     <div class="ai-word-label">Nederlands</div>
-                    <div class="ai-word-display hidden" id="aiDutchWord">(druk op 'Toon Nederlands')</div>
+                    <div class="ai-word-display hidden" id="aiDutchWord">(нажмите «Показать по-голландски»)</div>
                 </div>
 
                 <div class="ai-game-buttons">
                     <button class="ai-btn-show-dutch" id="aiBtnShowDutch" onclick="aiShowDutch()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
-                        🇳🇱 Toon Nederlands
+                        🇳🇱 Показать по-голландски
                     </button>
                     <button class="ai-btn-generate" id="aiBtnGenerate" onclick="aiGenerateSentence()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
-                        ✨ Genereer zin
+                        ✨ Создать предложение
                     </button>
-                    <button class="ai-btn-new-word" id="aiBtnNewWord" onclick="aiPickNewWord()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
-                        🔄 Nieuw woord
+                    <button class="ai-btn-new-word" id="aiBtnNewWord" onclick="aiNextWord()" style="padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; flex: 1; min-width: 150px;">
+                        🔄 Следующее слово
                     </button>
                 </div>
 
                 <div class="ai-status" id="aiStatus"></div>
 
                 <div class="ai-sentence-section">
-                    <div class="ai-sentence-label">AI-Zin</div>
+                    <div class="ai-sentence-label">Предложение ИИ</div>
                     <div class="ai-sentence-display empty" id="aiSentenceDisplay">
-                        (druk op 'Genereer zin' om een zin te maken)
+                        (нажмите «Создать предложение»)
                     </div>
                 </div>
             </div>
@@ -1613,861 +1613,936 @@
 
     <script>
         // OpenAI API key
-        const OPENAI_API_KEY = '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';
+        const OPENAI_API_KEY = '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';
 
         // All word pairs
         const wordPairsData = [
-            { dutch: "vragen", english: "to ask" },
-            { dutch: "mogen", english: "to be allowed to/may" },
-            { dutch: "excuseren", english: "to apologize/excuse" },
-            { dutch: "aankomen", english: "to arrive" },
-            { dutch: "raken", english: "to hit/reach/touch" },
-            { dutch: "kiezen", english: "to choose" },
-            { dutch: "verjaren", english: "to expire" },
-            { dutch: "helpen", english: "to help" },
-            { dutch: "eruitzien", english: "to look like" },
-            { dutch: "vullen", english: "to fill" },
-            { dutch: "verkopen", english: "to sell" },
-            { dutch: "vieren", english: "to celebrate" },
-            { dutch: "zanger", english: "singer" },
-            { dutch: "regisseur", english: "director" },
-            { dutch: "modeontwerper", english: "fashion designer" },
-            { dutch: "kalender", english: "calendar" },
-            { dutch: "hulp", english: "help" },
-            { dutch: "mevrouw", english: "madam/Mrs" },
-            { dutch: "meneer", english: "sir" },
-            { dutch: "vorm", english: "form/shape" },
-            { dutch: "ui", english: "onion" },
-            { dutch: "lente", english: "spring" },
-            { dutch: "herfst", english: "autumn/fall" },
-            { dutch: "verjaardag", english: "birthday" },
-            { dutch: "koning", english: "king" },
-            { dutch: "koningin", english: "queen" },
-            { dutch: "werkschema", english: "work schedule" },
-            { dutch: "keer", english: "time/turn" },
-            { dutch: "voormiddag", english: "morning" },
-            { dutch: "namiddag", english: "afternoon" },
-            { dutch: "weekdag", english: "weekday" },
-            { dutch: "sluitingsdag", english: "closing day" },
-            { dutch: "krant", english: "newspaper" },
-            { dutch: "weekendkrant", english: "weekend newspaper" },
-            { dutch: "plaats", english: "place" },
-            { dutch: "gemeente", english: "municipality" },
-            { dutch: "cursus", english: "course" },
-            { dutch: "boodschap", english: "message/shopping" },
-            { dutch: "kennis", english: "knowledge/acquaintance" },
-            { dutch: "schat", english: "treasure/sweetheart" },
-            { dutch: "bakker", english: "baker" },
-            { dutch: "bericht", english: "message" },
-            { dutch: "gemeentehuis", english: "town hall" },
-            { dutch: "weekend", english: "weekend" },
-            { dutch: "zwembad", english: "swimming pool" },
-            { dutch: "bad", english: "bath" },
-            { dutch: "werkwoord", english: "verb" },
-            { dutch: "gehakt", english: "minced meat" },
-            { dutch: "seizoen", english: "season" },
-            { dutch: "boeket", english: "bouquet" },
-            { dutch: "open", english: "open" },
-            { dutch: "vrij", english: "free" },
-            { dutch: "druk", english: "busy" },
-            { dutch: "doorlopend", english: "continuous" },
-            { dutch: "ondersteunend", english: "supportive" },
-            { dutch: "informeel", english: "informal" },
-            { dutch: "formeel", english: "formal" },
-            { dutch: "zeker", english: "certain/sure" },
-            { dutch: "jarig", english: "having a birthday" },
-            { dutch: "laat", english: "late" },
-            { dutch: "gelukkig", english: "happy" },
-            { dutch: "koninklijk", english: "royal" },
-            { dutch: "naartoe", english: "towards/to" },
-            { dutch: "bij", english: "at/by/with" },
-            { dutch: "meestal", english: "usually" },
-            { dutch: "dus", english: "so/therefore" },
-            { dutch: "geboortedatum", english: "date of birth" },
-            { dutch: "bevestigingsmail", english: "confirmation email" },
-            { dutch: "gast", english: "guest" },
-            { dutch: "regio", english: "region" },
-            { dutch: "voorkeur", english: "preference" },
-            { dutch: "punt", english: "point" },
-            { dutch: "nummer", english: "number" },
-            { dutch: "ambulance", english: "ambulance" },
-            { dutch: "wachtdienst", english: "on-call service" },
-            { dutch: "storm", english: "storm" },
-            { dutch: "overstroming", english: "flood" },
-            { dutch: "lid", english: "member" },
-            { dutch: "buurt", english: "neighborhood" },
-            { dutch: "jaartal", english: "year" },
-            { dutch: "vereiste", english: "requirement" },
-            { dutch: "tankstation", english: "gas station" },
-            { dutch: "tanken", english: "to refuel" },
-            { dutch: "herhalen", english: "to repeat" },
-            { dutch: "controleren", english: "to check" },
-            { dutch: "bellen", english: "to call" },
-            { dutch: "inslikken", english: "to swallow" },
-            { dutch: "oproepen", english: "to call up/summon" },
-            { dutch: "verstaan", english: "to understand" },
-            { dutch: "mobiel", english: "mobile" },
-            { dutch: "biologisch", english: "biological/organic" },
-            { dutch: "giftig", english: "toxic/poisonous" },
-            { dutch: "dringend", english: "urgent" },
-            { dutch: "nodig", english: "necessary" },
-            { dutch: "kwijt", english: "lost" },
-            { dutch: "bijna", english: "almost" },
-            { dutch: "traag", english: "slow" },
-            { dutch: "ver", english: "far" },
-            { dutch: "liever", english: "rather/preferably" },
-            { dutch: "overal", english: "everywhere" },
-            { dutch: "iemand", english: "someone" },
-            { dutch: "elk", english: "each" },
-            { dutch: "zich", english: "oneself" },
-            { dutch: "onderstrepen", english: "to underline" },
-            { dutch: "markeren", english: "to mark/highlight" },
-            { dutch: "ontspannen", english: "to relax" },
-            { dutch: "tijdens", english: "during" },
-            { dutch: "want", english: "because" },
-            { dutch: "thuiskomen", english: "to come home" },
-            { dutch: "Vlaming", english: "Flemish person" },
-            { dutch: "bekende", english: "acquaintance" },
-            { dutch: "milieu", english: "environment" },
-            { dutch: "pension", english: "boarding house/guesthouse" },
-            { dutch: "winkelen", english: "to shop" },
-            { dutch: "was", english: "laundry" },
-            { dutch: "stofzuigen", english: "to vacuum" },
-            { dutch: "afwassen", english: "to do the dishes" },
-            { dutch: "sporten", english: "to play sports/exercise" },
-            { dutch: "relaxen", english: "to relax" },
-            { dutch: "serie", english: "series/TV show" },
-            { dutch: "boterham", english: "sandwich" },
-            { dutch: "werkloos", english: "unemployed" },
-            { dutch: "huishouden", english: "household" },
-            { dutch: "winkelcentrum", english: "shopping center" },
-            { dutch: "centrum", english: "center" },
-            { dutch: "bushalte", english: "bus stop" },
-            { dutch: "halte", english: "stop" },
-            { dutch: "verdergaan", english: "to continue/go on" },
-            { dutch: "richting", english: "direction/towards" },
-            { dutch: "noorden", english: "north" },
-            { dutch: "kot", english: "room/student room" },
-            { dutch: "vlak", english: "flat/level" },
-            { dutch: "cinema", english: "cinema" },
-            { dutch: "museum", english: "museum" },
-            { dutch: "uitstap", english: "excursion/trip" },
-            { dutch: "toegangsprijs", english: "entrance price" },
-            { dutch: "volwassene", english: "adult" },
-            { dutch: "friet", english: "fries" },
-            { dutch: "kliken", english: "to click" },
-            { dutch: "groep", english: "group" },
-            { dutch: "kerstmis", english: "Christmas" },
-            { dutch: "betalen", english: "to pay" },
-            { dutch: "sturen", english: "to send" },
-            { dutch: "grotendeels", english: "largely/mostly" },
-            { dutch: "ceremonie", english: "ceremony" },
-            { dutch: "trouwceremonie", english: "wedding ceremony" },
-            { dutch: "omstandigheid", english: "circumstance" },
-            { dutch: "werkelijk", english: "actually/real" },
-            { dutch: "overeenkomen", english: "to agree" },
-            { dutch: "looproute", english: "walking route" },
-            { dutch: "route", english: "route" },
-            { dutch: "voorzichtig", english: "careful" },
-            { dutch: "slaan", english: "to hit/strike" },
-            { dutch: "bar", english: "bar" },
-            { dutch: "beleefd", english: "polite" },
-            { dutch: "afspreken", english: "to arrange/to agree" },
-            { dutch: "ingang", english: "entrance" },
-            { dutch: "spijtig", english: "regrettable/sorry" },
-            { dutch: "stadhuis", english: "city hall" },
-            { dutch: "teken", english: "sign/symbol" },
-            { dutch: "leesteken", english: "punctuation mark" },
-            { dutch: "verzenden", english: "to send" },
-            { dutch: "vooraf", english: "in advance/beforehand" },
-            { dutch: "bijvoegen", english: "to attach/add" },
-            { dutch: "verwijderen", english: "to remove/delete" },
-            { dutch: "reageren", english: "to react/respond" },
-            { dutch: "even", english: "just/moment" },
-            { dutch: "wegvervolgen", english: "to continue on the way" },
-            { dutch: "op bezoek", english: "visiting" },
-            { dutch: "zonder", english: "without" },
-            { dutch: "duiden", english: "to indicate/mean" },
-            { dutch: "bezig", english: "busy/occupied" },
-            { dutch: "nevenschikking", english: "coordination" },
-            { dutch: "combineren", english: "to combine" },
-            { dutch: "reden", english: "reason" },
-            { dutch: "huwelijk", english: "marriage/wedding" },
-            { dutch: "bedanken", english: "to thank" },
-            { dutch: "daarop", english: "on that/thereupon" },
-            { dutch: "glas", english: "glass" },
-            { dutch: "verontschuldigen", english: "to apologize/excuse" },
-            { dutch: "afscheiden", english: "to separate/isolate" },
-            { dutch: "zo", english: "so/thus" },
-            { dutch: "tekening", english: "drawing" },
-            { dutch: "meegaan", english: "to go along/come along" },
-            { dutch: "meenemen", english: "to take along" },
-            { dutch: "uitnodigen", english: "to invite" },
-            { dutch: "delen", english: "to share/divide" },
-            { dutch: "toekomst", english: "future" },
-            { dutch: "wijzen", english: "to point/show" },
-            { dutch: "mogelijkheid", english: "possibility" },
-            { dutch: "noodzakelijk", english: "necessary" },
-            { dutch: "zetten", english: "to put/place" },
-            { dutch: "turnen", english: "to do gymnastics" },
-            { dutch: "koord", english: "rope/cord" },
-            { dutch: "speld", english: "pin/brooch" },
-            { dutch: "scharen", english: "scissors" },
-            { dutch: "rok", english: "skirt" },
-            { dutch: "schommel", english: "swing" },
-            { dutch: "eenvoudig", english: "simple" },
-            { dutch: "instructie", english: "instruction" },
-            { dutch: "aanvaarden", english: "to accept" },
-            { dutch: "schriftelijk", english: "written/in writing" },
-            { dutch: "training", english: "training" },
-            { dutch: "uitspraak", english: "pronunciation" },
-            { dutch: "uitspreken", english: "to pronounce" },
-            { dutch: "schrijfregel", english: "writing rule" },
-            { dutch: "regel", english: "rule" },
-            { dutch: "algemeen", english: "general/generally" },
-            { dutch: "haak", english: "hook/bracket" },
-            { dutch: "gelijk", english: "equal/same/immediately" },
-            { dutch: "baard", english: "beard" },
-            { dutch: "vocaal", english: "vowel" },
-            { dutch: "kolom", english: "column" },
-            { dutch: "midden", english: "middle" },
-            { dutch: "spreekuur", english: "consultation hours" },
-            { dutch: "uurregeling", english: "time schedule" },
-            { dutch: "regeling", english: "arrangement/regulation" },
-            { dutch: "huisarts", english: "general practitioner/family doctor" },
-            { dutch: "arts", english: "doctor/physician" },
-            { dutch: "enkel", english: "ankle/only" },
-            { dutch: "afspraak", english: "appointment" },
-            { dutch: "formulier", english: "form" },
-            { dutch: "selecteren", english: "to select" },
-            { dutch: "tijdstrip", english: "time strip" },
-            { dutch: "strip", english: "strip" },
-            { dutch: "gegeven", english: "given/data" },
-            { dutch: "schelen", english: "to matter/to care" },
-            { dutch: "klacht", english: "complaint" },
-            { dutch: "niezen", english: "to sneeze" },
-            { dutch: "hoesten", english: "to cough" },
-            { dutch: "lichaamsdeel", english: "body part" },
-            { dutch: "deel", english: "part" },
-            { dutch: "buik", english: "stomach/abdomen" },
-            { dutch: "lichaam", english: "body" },
-            { dutch: "knie", english: "knee" },
-            { dutch: "rug", english: "back" },
-            { dutch: "schouder", english: "shoulder" },
-            { dutch: "tand", english: "tooth" },
-            { dutch: "teen", english: "toe" },
-            { dutch: "vinger", english: "finger" },
-            { dutch: "voet", english: "foot" },
-            { dutch: "wens", english: "wish" },
-            { dutch: "doorgeven", english: "to pass on/to report" },
-            { dutch: "hopelijk", english: "hopefully" },
-            { dutch: "hart", english: "heart" },
-            { dutch: "long", english: "lung" },
-            { dutch: "keel", english: "throat" },
-            { dutch: "onderzoeken", english: "to examine/to investigate" },
-            { dutch: "beterschap", english: "recovery/get well" },
-            { dutch: "eens", english: "once/at all" },
-            { dutch: "hoest", english: "cough" },
-            { dutch: "adem", english: "breath" },
-            { dutch: "diep", english: "deep" },
-            { dutch: "uitdoen", english: "to take off/to extinguish" },
-            { dutch: "zand", english: "sand" },
-            { dutch: "allergie", english: "allergy" },
-            { dutch: "schrift", english: "notebook/writing" },
-            { dutch: "voorschrift", english: "prescription" },
-            { dutch: "verkrijgen", english: "to obtain" },
-            { dutch: "verkrijgenbaar", english: "available" },
-            { dutch: "inname", english: "intake/ingestion" },
-            { dutch: "tablet", english: "tablet" },
-            { dutch: "minimaal", english: "minimal/minimum" },
-            { dutch: "maximaal", english: "maximal/maximum" },
-            { dutch: "verpakking", english: "packaging" },
-            { dutch: "verpakken", english: "to pack" },
-            { dutch: "goedkoop", english: "cheap" },
-            { dutch: "antibioticum", english: "antibiotic" },
-            { dutch: "lepel", english: "spoon" },
-            { dutch: "eetlepel", english: "tablespoon" },
-            { dutch: "dikwijls", english: "often" },
-            { dutch: "innemen", english: "to take (medicine)" },
-            { dutch: "spray", english: "spray" },
-            { dutch: "neusspray", english: "nasal spray" },
-            { dutch: "zuigtablet", english: "lozenge/sucking tablet" },
-            { dutch: "zuigen", english: "to suck" },
-            { dutch: "siroop", english: "syrup" },
-            { dutch: "hoestsiroop", english: "cough syrup" },
-            { dutch: "tegen", english: "against" },
-            { dutch: "gebruiken", english: "to use" },
-            { dutch: "bronchitis", english: "bronchitis" },
-            { dutch: "ontsteking", english: "inflammation" },
-            { dutch: "keelontsteking", english: "throat infection" },
-            { dutch: "letten", english: "to pay attention" },
-            { dutch: "opletten", english: "to pay attention/to watch out" },
-            { dutch: "achteraan", english: "at the back" },
-            { dutch: "alle", english: "all" },
-            { dutch: "opsomming", english: "enumeration/list" },
-            { dutch: "uitsteken", english: "to stick out" },
-            { dutch: "aandoen", english: "to put on/to affect" },
-            { dutch: "creme", english: "cream" },
-            { dutch: "helemaal", english: "completely/entirely" },
-            { dutch: "zonnecreme", english: "sunscreen" },
-            { dutch: "inademen", english: "to inhale" },
-            { dutch: "uitademen", english: "to exhale" },
-            { dutch: "steek", english: "stitch/sting" },
-            { dutch: "fris", english: "fresh" },
-            { dutch: "voldoende", english: "sufficient/enough" },
-            { dutch: "echt", english: "real/really" },
-            { dutch: "zoet", english: "sweet" },
-            { dutch: "favoriet", english: "favorite" },
-            { dutch: "sommig", english: "some" },
-            { dutch: "hartig", english: "savory" },
-            { dutch: "traditioneel", english: "traditional" },
-            { dutch: "volkoren", english: "whole grain" },
-            { dutch: "zoals", english: "such as/like" },
-            { dutch: "daarbij", english: "in addition/with it" },
-            { dutch: "minder", english: "less" },
-            { dutch: "aanvullen", english: "to supplement/fill up" },
-            { dutch: "steunen", english: "to support" },
-            { dutch: "doorlopen", english: "to continue/walk through" },
-            { dutch: "strepen", english: "stripes/lines" },
-            { dutch: "bestaan", english: "to exist" },
-            { dutch: "smeren", english: "to spread/smear" },
-            { dutch: "uiteten", english: "to eat out" },
-            { dutch: "spannen", english: "to tighten/stretch" },
-            { dutch: "bijten", english: "to bite" },
-            { dutch: "grijpen", english: "to grab/seize" },
-            { dutch: "voldoen", english: "to satisfy/meet" },
-            { dutch: "kauwen", english: "to chew" },
-            { dutch: "adviseren", english: "to advise" },
-            { dutch: "haver", english: "oats" },
-            { dutch: "mout", english: "malt" },
-            { dutch: "havermout", english: "oatmeal/porridge" },
-            { dutch: "yogurt", english: "yogurt" },
-            { dutch: "bloemkool", english: "cauliflower" },
-            { dutch: "kool", english: "cabbage" },
-            { dutch: "voedingsdriehoek", english: "nutrition triangle/food pyramid" },
-            { dutch: "voeding", english: "nutrition/food" },
-            { dutch: "driehoek", english: "triangle" },
-            { dutch: "hoek", english: "corner" },
-            { dutch: "chocolade", english: "chocolate" },
-            { dutch: "koek", english: "biscuit/cookie" },
-            { dutch: "frisdrank", english: "soft drink/soda" },
-            { dutch: "drank", english: "drink/beverage" },
-            { dutch: "restgroep", english: "rest group/other foods" },
-            { dutch: "tomatensaus", english: "tomato sauce" },
-            { dutch: "saus", english: "sauce" },
-            { dutch: "tomaat", english: "tomato" },
-            { dutch: "zoetekauw", english: "person with a sweet tooth" },
-            { dutch: "eetgewoonte", english: "eating habit" },
-            { dutch: "gewoonte", english: "habit" },
-            { dutch: "sporter", english: "athlete/sporty person" },
-            { dutch: "voorbeeld", english: "example" },
-            { dutch: "advies", english: "advice" },
-            { dutch: "dienst", english: "service/duty/shift" },
-            { dutch: "kapper", english: "hairdresser/barber" },
-            { dutch: "wassalon", english: "laundromat" },
-            { dutch: "salon", english: "salon" },
-            { dutch: "apotheek", english: "pharmacy" },
-            { dutch: "post", english: "post/mail" },
-            { dutch: "bank", english: "bank" },
-            { dutch: "frituur", english: "chip shop/snack bar" },
-            { dutch: "mutualiteit", english: "health insurance fund" },
-            { dutch: "krandwinkel", english: "newspaper shop" },
-            { dutch: "klerenwinkel", english: "clothes shop" },
-            { dutch: "bakkerij", english: "bakery" },
-            { dutch: "soep", english: "soup" },
-            { dutch: "cornflakes", english: "cornflakes" },
-            { dutch: "muesli", english: "muesli" },
-            { dutch: "ontbijtgraan", english: "breakfast cereal" },
-            { dutch: "graanproduct", english: "grain product" },
-            { dutch: "melkproducten", english: "dairy products" },
-            { dutch: "hummus", english: "hummus" },
-            { dutch: "hesp", english: "ham" },
-            { dutch: "confituur", english: "jam" },
-            { dutch: "beleg", english: "topping/spread" },
-            { dutch: "broodmaaltijd", english: "bread meal" },
-            { dutch: "maaltijd", english: "meal" },
-            { dutch: "gemiddelde", english: "average" },
-            { dutch: "aardappel", english: "potato" },
-            { dutch: "dessert", english: "dessert" },
-            { dutch: "mes", english: "knife" },
-            { dutch: "kop", english: "cup/mug" },
-            { dutch: "vork", english: "fork" },
-            { dutch: "stok", english: "stick" },
-            { dutch: "inleiding", english: "introduction" },
-            { dutch: "tekst", english: "text" },
-            { dutch: "volkorenbrood", english: "wholemeal bread" },
-            { dutch: "de kom", english: "the bowl" },
-            { dutch: "test", english: "test" },
-            { dutch: "volkorengraanproducten", english: "whole grain products" },
-            { dutch: "volkorenpasta", english: "wholewheat pasta" },
-            { dutch: "pasta", english: "pasta" },
-            { dutch: "informatie", english: "information" },
-            { dutch: "maag", english: "stomach" },
-            { dutch: "gerecht", english: "dish/meal" },
-            { dutch: "bestek", english: "cutlery" },
-            { dutch: "margarine", english: "margarine" },
-            { dutch: "frequentie", english: "frequency" },
-            { dutch: "vergelijken", english: "to compare" },
-            { dutch: "aanduiden", english: "to indicate/mark" },
-            { dutch: "bestellen", english: "to order" },
-            { dutch: "persoonlijk", english: "personal" },
-            { dutch: "soort", english: "kind/type/sort" },
-            { dutch: "benoemen", english: "to name/to call/to appoint" },
-            { dutch: "verschillend", english: "different" },
-            { dutch: "pluralis", english: "plural" },
-            { dutch: "substantief", english: "noun/substantive" },
-            { dutch: "olijfolie", english: "olive oil" },
-            { dutch: "olie", english: "oil" },
-            { dutch: "tandenborstel", english: "toothbrush" },
-            { dutch: "borstel", english: "brush" },
-            { dutch: "wasmiddel", english: "detergent/laundry detergent" },
-            { dutch: "middel", english: "means/method" },
-            { dutch: "banaan", english: "banana" },
-            { dutch: "plattegrond", english: "floor plan/map" },
-            { dutch: "plat", english: "flat" },
-            { dutch: "grond", english: "ground/floor" },
-            { dutch: "meebrengen", english: "to bring along" },
-            { dutch: "ijskast", english: "refrigerator" },
-            { dutch: "dicht", english: "closed/tight" },
-            { dutch: "koopzondag", english: "shopping Sunday" },
-            { dutch: "waarop", english: "on which/whereupon" },
-            { dutch: "vast", english: "fixed/certain/solid" },
-            { dutch: "supermarktketen", english: "supermarket chain" },
-            { dutch: "keten", english: "chain" },
-            { dutch: "zout", english: "salt" },
-            { dutch: "zuivelproduct", english: "dairy product" },
-            { dutch: "kast", english: "cabinet/closet" },
-            { dutch: "gang", english: "hallway/corridor" },
-            { dutch: "mouw", english: "sleeve" },
-            { dutch: "douche", english: "shower" },
-            { dutch: "dof", english: "dull/matte" },
-            { dutch: "combinatie", english: "combination" },
-            { dutch: "knoflook", english: "garlic" },
-            { dutch: "wortel", english: "carrot" },
-            { dutch: "kikkererwt", english: "chickpea" },
-            { dutch: "erwt", english: "pea" },
-            { dutch: "kikker", english: "frog" },
-            { dutch: "paprika", english: "bell pepper/paprika" },
-            { dutch: "room", english: "cream" },
-            { dutch: "roomijs", english: "ice cream" },
-            { dutch: "shampoo", english: "shampoo" },
-            { dutch: "sinaasappel", english: "orange (fruit)" },
-            { dutch: "sla", english: "lettuce" },
-            { dutch: "spaghetti", english: "spaghetti" },
-            { dutch: "stuk", english: "piece" },
-            { dutch: "druif", english: "grape" },
-            { dutch: "fruitsap", english: "fruit juice" },
-            { dutch: "sap", english: "juice" },
-            { dutch: "winkelwagen", english: "shopping cart" },
-            { dutch: "wagen", english: "cart/car" },
-            { dutch: "afdeling", english: "department/section" },
-            { dutch: "charcuterie", english: "deli/delicatessen" },
-            { dutch: "zelfscankassa", english: "self-checkout" },
-            { dutch: "zuivel", english: "dairy" },
-            { dutch: "diepvries", english: "freezer" },
-            { dutch: "beenhouwerij", english: "butcher shop" },
-            { dutch: "aubergine", english: "eggplant" },
-            { dutch: "biefstuk", english: "steak" },
-            { dutch: "komkommer", english: "cucumber" },
-            { dutch: "citroen", english: "lemon" },
-            { dutch: "courgette", english: "zucchini" },
-            { dutch: "volgorde", english: "order/sequence" },
-            { dutch: "kaart", english: "card/map" },
-            { dutch: "bankkaart", english: "bank card" },
-            { dutch: "blik", english: "can/tin" },
-            { dutch: "boodschappenlijst", english: "shopping list" },
-            { dutch: "kassa", english: "cash register/checkout" },
-            { dutch: "pot", english: "pot/jar" },
-            { dutch: "lijst", english: "list" },
-            { dutch: "pak", english: "package/pack" },
-            { dutch: "supermarkt", english: "supermarket" },
-            { dutch: "tros", english: "bunch/cluster" },
-            { dutch: "plezier", english: "pleasure" },
-            { dutch: "herfstweer", english: "autumn weather" },
-            { dutch: "beroep", english: "profession" },
-            { dutch: "terras", english: "terrace" },
-            { dutch: "baksel", english: "baked good" },
-            { dutch: "mengsel", english: "mixture" },
-            { dutch: "ogenblik", english: "moment" },
-            { dutch: "poeder", english: "powder" },
-            { dutch: "trimester", english: "trimester" },
-            { dutch: "bedrijf", english: "company" },
-            { dutch: "sciencefictionboek", english: "science fiction book" },
-            { dutch: "doel", english: "goal" },
-            { dutch: "stapeltje", english: "small stack" },
-            { dutch: "bankbiljet", english: "banknote" },
-            { dutch: "hetzelfde", english: "the same" },
-            { dutch: "modder", english: "mud" },
-            { dutch: "poel", english: "pool" },
-            { dutch: "modderpoel", english: "mud puddle" },
-            { dutch: "laars", english: "boot" },
-            { dutch: "hoop", english: "hope" },
-            { dutch: "banketbakker", english: "pastry chef" },
-            { dutch: "bom", english: "bomb" },
-            { dutch: "lokomotief", english: "locomotive" },
-            { dutch: "raaf", english: "raven" },
-            { dutch: "regenjas", english: "raincoat" },
-            { dutch: "schuur", english: "barn/shed" },
-            { dutch: "theekop", english: "teacup" },
-            { dutch: "sleutel", english: "key" },
-            { dutch: "vriendin", english: "girlfriend/female friend" },
-            { dutch: "zus", english: "sister" },
-            { dutch: "kant", english: "side/edge" },
-            { dutch: "kraam", english: "stall/stand" },
-            { dutch: "oom", english: "uncle" },
-            { dutch: "tante", english: "aunt" },
-            { dutch: "beuk", english: "beech tree" },
-            { dutch: "blouse", english: "blouse" },
-            { dutch: "bron", english: "source/spring" },
-            { dutch: "ergernis", english: "annoyance" },
-            { dutch: "klant", english: "customer" },
-            { dutch: "lezing", english: "lecture/reading" },
-            { dutch: "nervositeit", english: "nervousness" },
-            { dutch: "pet", english: "cap" },
-            { dutch: "pinda", english: "peanut" },
-            { dutch: "rekening", english: "bill/account" },
-            { dutch: "slijterij", english: "liquor store" },
-            { dutch: "spijkerbroek", english: "jeans" },
-            { dutch: "stropdas", english: "tie" },
-            { dutch: "trui", english: "sweater" },
-            { dutch: "verzekering", english: "insurance" },
-            { dutch: "vla", english: "custard" },
-            { dutch: "voorbereiding", english: "preparation" },
-            { dutch: "voordeur", english: "front door" },
-            { dutch: "student", english: "student" },
-            { dutch: "uitwisseling", english: "exchange" },
-            { dutch: "tennisbaan", english: "tennis court" },
-            { dutch: "baan", english: "job/court" },
-            { dutch: "basketbalspeler", english: "basketball player" },
-            { dutch: "speler", english: "player" },
-            { dutch: "elektricien", english: "electrician" },
-            { dutch: "schrijfster", english: "female writer" },
-            { dutch: "knuffel", english: "hug/cuddle" },
-            { dutch: "gek", english: "fool/madman" },
-            { dutch: "loempia", english: "spring roll" },
-            { dutch: "begripsvraag", english: "comprehension question" },
-            { dutch: "rit", english: "ride/trip" },
-            { dutch: "zakenman", english: "businessman" },
-            { dutch: "uitwisselingsstudent", english: "exchange student" },
-            { dutch: "samenvatting", english: "summary" },
-            { dutch: "passen", english: "to fit/to suit" },
-            { dutch: "laten", english: "to let/to allow" },
-            { dutch: "raden", english: "to guess" },
-            { dutch: "schoonmaken", english: "to clean" },
-            { dutch: "bakken", english: "to bake" },
-            { dutch: "snijden", english: "to cut" },
-            { dutch: "dragen", english: "to carry/to wear" },
-            { dutch: "voorbereiden", english: "to prepare" },
-            { dutch: "roepen", english: "to call/to shout" },
-            { dutch: "inpakken", english: "to pack" },
-            { dutch: "uitwisselen", english: "to exchange" },
-            { dutch: "bereiken", english: "to reach/to achieve" },
-            { dutch: "oefenen", english: "to practice" },
-            { dutch: "aanmoedigen", english: "to encourage" },
-            { dutch: "verbazen", english: "to amaze" },
-            { dutch: "aankleden", english: "to dress" },
-            { dutch: "douchen", english: "to shower" },
-            { dutch: "zorgen", english: "to care/to worry" },
-            { dutch: "sparen", english: "to save" },
-            { dutch: "merken", english: "to notice/to mark" },
-            { dutch: "binnenkomen", english: "to enter" },
-            { dutch: "wijzen", english: "to point" },
-            { dutch: "tweeën", english: "to do something together" },
-            { dutch: "glimlachen", english: "to smile" },
-            { dutch: "gebeuren", english: "to happen" },
-            { dutch: "inchecken", english: "to check in" },
-            { dutch: "zwaaien", english: "to wave" },
-            { dutch: "opstijgen", english: "to take off (airplane)" },
-            { dutch: "bouwen", english: "to move" },
-            { dutch: "op iemand passen", english: "to look after someone" },
-            { dutch: "meekomen", english: "to come along" },
-            { dutch: "veilig", english: "safe" },
-            { dutch: "vies", english: "dirty" },
-            { dutch: "fantastisch", english: "fantastic" },
-            { dutch: "grijs", english: "gray" },
-            { dutch: "heerlijk", english: "delicious" },
-            { dutch: "natuurlijk", english: "natural/naturally" },
-            { dutch: "komend", english: "coming/upcoming" },
-            { dutch: "stevig", english: "sturdy/strong" },
-            { dutch: "eigen", english: "own" },
-            { dutch: "geweldig", english: "great/awesome" },
-            { dutch: "verschillend", english: "different" },
-            { dutch: "voordat", english: "before" },
-            { dutch: "allemaal", english: "all/everyone" },
-            { dutch: "neer", english: "down" },
-            { dutch: "iedereen", english: "everyone" },
-            { dutch: "net", english: "just/neat" },
-            { dutch: "ongeveer", english: "approximately" },
-            { dutch: "dankzij", english: "thanks to" },
-            { dutch: "dezelfde", english: "the same" },
-            { dutch: "nadat", english: "after" },
-            { dutch: "elkaar", english: "each other" },
-            { dutch: "gedag", english: "goodbye" },
-            { dutch: "bezoeken", english: "to visit" },
-            { dutch: "champinion", english: "mushroom" },
-            { dutch: "doelpunt", english: "goal (sports)" },
-            { dutch: "gratis", english: "free" },
-            { dutch: "naiien", english: "to sew" },
-            { dutch: "naald", english: "needle" },
-            { dutch: "rijles", english: "driving lesson" },
-            { dutch: "rits", english: "zipper" },
-            { dutch: "stelen", english: "to steal" },
-            { dutch: "stof", english: "dust/fabric" },
-            { dutch: "bioscoop", english: "cinema" },
-            { dutch: "boor", english: "drill" },
-            { dutch: "buurman", english: "neighbor (male)" },
-            { dutch: "lijken", english: "to seem/to appear" },
-            { dutch: "meubel", english: "furniture" },
-            { dutch: "mossel", english: "mussel" },
-            { dutch: "paskamer", english: "fitting room" },
-            { dutch: "schaatsen", english: "to skate" },
-            { dutch: "schotel", english: "dish/plate" },
-            { dutch: "uitmaken", english: "to break up/to turn off" },
-            { dutch: "uitstekend", english: "excellent" },
-            { dutch: "opwachten", english: "to wait for" },
-            { dutch: "schaap", english: "sheep" },
-            { dutch: "meedoen", english: "to participate" },
-            { dutch: "speelgoed", english: "toy" },
-            { dutch: "toverstaf", english: "magic wand" },
-            { dutch: "tover", english: "magic" },
-            { dutch: "ergens", english: "somewhere" },
-            { dutch: "eenzaam", english: "lonely" },
-            { dutch: "uitlikken", english: "to lick out" },
-            { dutch: "ademhalen", english: "to breathe" },
-            { dutch: "volgens", english: "according to" },
-            { dutch: "los", english: "loose/detached" },
-            { dutch: "pleister", english: "band-aid/plaster" },
-            { dutch: "opdoen", english: "to pick up/to acquire" },
-            { dutch: "opnemen", english: "to record/to take in" },
-            { dutch: "zuster", english: "sister" },
-            { dutch: "opzoeken", english: "to look up" },
-            { dutch: "zorg", english: "care/worry" },
-            { dutch: "kietelen", english: "tickles" },
-            { dutch: "knorren", english: "to grunt/to snore" },
-            { dutch: "verrassing", english: "surprise" },
-            { dutch: "papegaai", english: "parrot" },
-            { dutch: "haast", english: "hurry/haste" },
-            { dutch: "duivel", english: "devil" },
-            { dutch: "vooruit", english: "forward/come on" },
-            { dutch: "verlegen", english: "shy" },
-            { dutch: "alsof", english: "as if" },
-            { dutch: "lawaai", english: "noise" },
-            { dutch: "maar eens", english: "but once/just once" },
-            { dutch: "toch", english: "yet/still/though" },
-            { dutch: "nadenken", english: "to think/to reflect" },
-            { dutch: "nog meer", english: "even more/still more" },
-            { dutch: "aardbei", english: "strawberry" },
-            { dutch: "afhalen", english: "to pick up/to collect" },
-            { dutch: "bak", english: "bowl/container" },
-            { dutch: "boon", english: "bean" },
-            { dutch: "bos", english: "bunch/bouquet" },
-            { dutch: "drop", english: "licorice" },
-            { dutch: "gordijn", english: "curtain" },
-            { dutch: "inlijsten", english: "to frame" },
-            { dutch: "krat", english: "crate" },
-            { dutch: "krentenbol", english: "currant bun" },
-            { dutch: "kussen", english: "cushion/pillow" },
-            { dutch: "laken", english: "sheet" },
-            { dutch: "lusten", english: "to like/to fancy" },
-            { dutch: "meloen", english: "melon" },
-            { dutch: "ophangen", english: "to hang up" },
-            { dutch: "peterselie", english: "parsley" },
-            { dutch: "roken", english: "to smoke" },
-            { dutch: "schillen", english: "to peel" },
-            { dutch: "staal", english: "steel" },
-            { dutch: "uitlaten", english: "to let out/to walk (dog)" },
-            { dutch: "verdieping", english: "floor/story" },
-            { dutch: "vlakbij", english: "nearby" },
-            { dutch: "vuilnis", english: "garbage/trash" },
-            { dutch: "balcon", english: "balcony" },
-            { dutch: "boer", english: "farmer" },
-            { dutch: "huren", english: "to rent" },
-            { dutch: "komijn", english: "cumin" },
-            { dutch: "maat", english: "size/friend" },
-            { dutch: "spoor", english: "track/trail" },
-            { dutch: "vet", english: "fat/greasy" },
-            { dutch: "vierkant", english: "square" },
-            { dutch: "zuur", english: "sour" },
-            { dutch: "achterop", english: "on the back" },
-            { dutch: "beddengoed", english: "bedding" },
-            { dutch: "cijfer", english: "number/figure" },
-            { dutch: "fijn", english: "fine/nice" },
-            { dutch: "gaaf", english: "cool/awesome" },
-            { dutch: "klasgenoot", english: "classmate" },
-            { dutch: "maaier", english: "mower" },
-            { dutch: "naast", english: "next to" },
-            { dutch: "pakken", english: "to grab/to pack" },
-            { dutch: "verliefd", english: "in love" },
-            { dutch: "verschonen", english: "to change (diaper/clothes)" },
-            { dutch: "zaak", english: "business/case" },
-            { dutch: "bezorgen", english: "to deliver" },
-            { dutch: "bruid", english: "bride" },
-            { dutch: "legen", english: "to empty" },
-            { dutch: "mondkapje", english: "face mask" },
-            { dutch: "lippenstift", english: "lipstick" },
-            { dutch: "kelner", english: "waiter" },
-            { dutch: "minstens", english: "at least" },
-            { dutch: "ontvangen", english: "to receive" },
-            { dutch: "eens wat", english: "once what/something" },
-            { dutch: "aantrekken", english: "to put on/to attract" },
-            { dutch: "afmaken", english: "to finish/to complete" },
-            { dutch: "leerling", english: "pupil/student" },
-            { dutch: "oversteken", english: "to cross (street)" },
-            { dutch: "wedstrijd", english: "competition/match" },
-            { dutch: "wiskunde", english: "mathematics" },
-            { dutch: "decennium", english: "decade" },
-            { dutch: "eeuw", english: "century" },
-            { dutch: "vorig", english: "previous/last" },
-            { dutch: "eergisteren", english: "day before yesterday" },
-            { dutch: "overmorgen", english: "day after tomorrow" },
-            { dutch: "geleden", english: "ago" },
-            { dutch: "vanaf", english: "from/starting from" },
-            { dutch: "tegen", english: "just before/against" },
-            { dutch: "over", english: "in time/over/about" },
-            { dutch: "aflopen", english: "to expire/to run out" },
-            { dutch: "regelmatig", english: "regular/regularly" },
-            { dutch: "zelden", english: "rarely/seldom" },
-            { dutch: "vervolgens", english: "subsequently/then" },
-            { dutch: "verder", english: "further/continuing" },
-            { dutch: "tenslotte", english: "finally/eventually" },
-            { dutch: "pas", english: "recently/only just" },
-            { dutch: "straks", english: "soon/in a moment" },
-            { dutch: "vroeger", english: "earlier/before" },
-            { dutch: "ooit", english: "ever/once" },
-            { dutch: "jemig", english: "wow/gosh" },
-            { dutch: "opereren", english: "to operate/to perform surgery" },
-            { dutch: "opschieten", english: "to hurry up/to make progress" },
-            { dutch: "vergadering", english: "meeting" },
-            { dutch: "wakker", english: "awake" },
-            { dutch: "weleens", english: "sometimes/ever" },
-            { dutch: "ananas", english: "pineapple" },
-            { dutch: "asperge", english: "asparagus" },
-            { dutch: "contant", english: "cash" },
-            { dutch: "duur", english: "expensive" },
-            { dutch: "gracht", english: "canal" },
-            { dutch: "perzik", english: "peach" },
-            { dutch: "proefwerk", english: "test/exam" },
-            { dutch: "heus", english: "really/truly" },
-            { dutch: "gezelschap", english: "company/group" },
-            { dutch: "hemel", english: "heaven/sky" },
-            { dutch: "redden", english: "to save/to handle (a situation)" },
-            { dutch: "hebben er zin in", english: "to feel like/to want to do something" },
-            { dutch: "echt waar", english: "really/true" },
-            { dutch: "eng", english: "scary" },
-            { dutch: "trots", english: "proud" },
-            { dutch: "verven", english: "to paint" },
-            { dutch: "cirkel", english: "circle" },
-            { dutch: "verkeerde", english: "wrong/incorrect" },
-            { dutch: "stengel", english: "stem/stalk" },
-            { dutch: "schilderij", english: "painting" },
-            { dutch: "bedoelen", english: "to mean/intend" },
-            { dutch: "brug", english: "bridge" },
-            { dutch: "gat", english: "hole" },
-            { dutch: "kapot", english: "broken" },
-            { dutch: "luchtbed", english: "airbed" },
-            { dutch: "mager", english: "thin/lean" },
-            { dutch: "opblazen", english: "to blow up/inflate" },
-            { dutch: "slaapzaak", english: "sleepwear" },
-            { dutch: "spullen", english: "stuff/things" },
-            { dutch: "toren", english: "tower" },
-            { dutch: "uitkijken", english: "to look out/watch out" },
-            { dutch: "verte", english: "distance" },
-            { dutch: "vesting", english: "fortress" },
-            { dutch: "vlooienmarkt", english: "flea market" },
-            { dutch: "voetganger", english: "pedestrian" },
-            { dutch: "metaal", english: "metal" },
-            { dutch: "wol", english: "wool" },
-            { dutch: "zijde", english: "silk/side" },
+            { dutch: "vragen", english: "спрашивать (to ask)" },
+            { dutch: "mogen", english: "иметь разрешение/мочь (may/to be allowed)" },
+            { dutch: "excuseren", english: "извиняться (to excuse)" },
+            { dutch: "aankomen", english: "прибывать (to arrive)" },
+            { dutch: "raken", english: "попадать/достигать/трогать (to hit/reach/touch)" },
+            { dutch: "kiezen", english: "выбирать (to choose)" },
+            { dutch: "verjaren", english: "истекать (о сроке) (to expire)" },
+            { dutch: "helpen", english: "помогать (to help)" },
+            { dutch: "eruitzien", english: "выглядеть (to look)" },
+            { dutch: "vullen", english: "наполнять (to fill)" },
+            { dutch: "verkopen", english: "продавать (to sell)" },
+            { dutch: "vieren", english: "праздновать (to celebrate)" },
+            { dutch: "zanger", english: "певец (singer)" },
+            { dutch: "regisseur", english: "режиссёр (director)" },
+            { dutch: "modeontwerper", english: "модельер (fashion designer)" },
+            { dutch: "kalender", english: "календарь (calendar)" },
+            { dutch: "hulp", english: "помощь (help)" },
+            { dutch: "mevrouw", english: "госпожа (Mrs)" },
+            { dutch: "meneer", english: "господин (Mr)" },
+            { dutch: "vorm", english: "форма (form/shape)" },
+            { dutch: "ui", english: "лук (onion)" },
+            { dutch: "lente", english: "весна (spring)" },
+            { dutch: "herfst", english: "осень (autumn)" },
+            { dutch: "verjaardag", english: "день рождения (birthday)" },
+            { dutch: "koning", english: "король (king)" },
+            { dutch: "koningin", english: "королева (queen)" },
+            { dutch: "werkschema", english: "расписание работы (work schedule)" },
+            { dutch: "keer", english: "раз/очередь (time/turn)" },
+            { dutch: "voormiddag", english: "утро (morning)" },
+            { dutch: "namiddag", english: "день (после полудня) (afternoon)" },
+            { dutch: "weekdag", english: "будний день (weekday)" },
+            { dutch: "sluitingsdag", english: "выходной день (closing day)" },
+            { dutch: "krant", english: "газета (newspaper)" },
+            { dutch: "weekendkrant", english: "воскресная газета (weekend newspaper)" },
+            { dutch: "plaats", english: "место (place)" },
+            { dutch: "gemeente", english: "муниципалитет (municipality)" },
+            { dutch: "cursus", english: "курс (course)" },
+            { dutch: "boodschap", english: "сообщение/покупки (message/shopping)" },
+            { dutch: "kennis", english: "знание/знакомый (knowledge/acquaintance)" },
+            { dutch: "schat", english: "сокровище/дорогой (treasure/dear)" },
+            { dutch: "bakker", english: "пекарь (baker)" },
+            { dutch: "bericht", english: "сообщение (message)" },
+            { dutch: "gemeentehuis", english: "ратуша (town hall)" },
+            { dutch: "weekend", english: "выходные (weekend)" },
+            { dutch: "zwembad", english: "бассейн (swimming pool)" },
+            { dutch: "bad", english: "ванна (bath)" },
+            { dutch: "werkwoord", english: "глагол (verb)" },
+            { dutch: "gehakt", english: "фарш (minced meat)" },
+            { dutch: "seizoen", english: "время года (season)" },
+            { dutch: "boeket", english: "букет (bouquet)" },
+            { dutch: "open", english: "открытый (open)" },
+            { dutch: "vrij", english: "свободный (free)" },
+            { dutch: "druk", english: "занятый (busy)" },
+            { dutch: "doorlopend", english: "непрерывный (continuous)" },
+            { dutch: "ondersteunend", english: "поддерживающий (supportive)" },
+            { dutch: "informeel", english: "неформальный (informal)" },
+            { dutch: "formeel", english: "формальный (formal)" },
+            { dutch: "zeker", english: "уверенный (sure)" },
+            { dutch: "jarig", english: "именинник (birthday person)" },
+            { dutch: "laat", english: "поздний (late)" },
+            { dutch: "gelukkig", english: "счастливый (happy)" },
+            { dutch: "koninklijk", english: "королевский (royal)" },
+            { dutch: "naartoe", english: "к/по направлению (towards)" },
+            { dutch: "bij", english: "у/при/с (at/with)" },
+            { dutch: "meestal", english: "обычно (usually)" },
+            { dutch: "dus", english: "итак/следовательно (so/therefore)" },
+            { dutch: "geboortedatum", english: "дата рождения (date of birth)" },
+            { dutch: "bevestigingsmail", english: "письмо с подтверждением (confirmation email)" },
+            { dutch: "gast", english: "гость (guest)" },
+            { dutch: "regio", english: "регион (region)" },
+            { dutch: "voorkeur", english: "предпочтение (preference)" },
+            { dutch: "punt", english: "точка (point)" },
+            { dutch: "nummer", english: "номер (number)" },
+            { dutch: "ambulance", english: "скорая помощь (ambulance)" },
+            { dutch: "wachtdienst", english: "дежурная служба (on-call service)" },
+            { dutch: "storm", english: "шторм (storm)" },
+            { dutch: "overstroming", english: "наводнение (flood)" },
+            { dutch: "lid", english: "член (member)" },
+            { dutch: "buurt", english: "окрестность/район (neighborhood)" },
+            { dutch: "jaartal", english: "год (year)" },
+            { dutch: "vereiste", english: "требование (requirement)" },
+            { dutch: "tankstation", english: "заправка (gas station)" },
+            { dutch: "tanken", english: "заправлять (to refuel)" },
+            { dutch: "herhalen", english: "повторять (to repeat)" },
+            { dutch: "controleren", english: "проверять (to check)" },
+            { dutch: "bellen", english: "звонить (to call)" },
+            { dutch: "inslikken", english: "глотать (to swallow)" },
+            { dutch: "oproepen", english: "вызывать (to call)" },
+            { dutch: "verstaan", english: "понимать (to understand)" },
+            { dutch: "mobiel", english: "мобильный (mobile)" },
+            { dutch: "biologisch", english: "биологический/органический (organic)" },
+            { dutch: "giftig", english: "ядовитый (toxic)" },
+            { dutch: "dringend", english: "срочный (urgent)" },
+            { dutch: "nodig", english: "необходимый (necessary)" },
+            { dutch: "kwijt", english: "потерявший (lost)" },
+            { dutch: "bijna", english: "почти (almost)" },
+            { dutch: "traag", english: "медленный (slow)" },
+            { dutch: "ver", english: "далеко (far)" },
+            { dutch: "liever", english: "предпочтительнее (rather)" },
+            { dutch: "overal", english: "везде (everywhere)" },
+            { dutch: "iemand", english: "кто-то (someone)" },
+            { dutch: "elk", english: "каждый (each)" },
+            { dutch: "zich", english: "себя (oneself)" },
+            { dutch: "onderstrepen", english: "подчёркивать (to underline)" },
+            { dutch: "markeren", english: "отмечать (to mark)" },
+            { dutch: "ontspannen", english: "расслабляться (to relax)" },
+            { dutch: "tijdens", english: "во время (during)" },
+            { dutch: "want", english: "потому что (because)" },
+            { dutch: "thuiskomen", english: "приходить домой (to come home)" },
+            { dutch: "Vlaming", english: "фламандец (Fleming)" },
+            { dutch: "bekende", english: "знакомый (acquaintance)" },
+            { dutch: "milieu", english: "окружающая среда (environment)" },
+            { dutch: "pension", english: "пансион (boarding house)" },
+            { dutch: "winkelen", english: "ходить за покупками (to shop)" },
+            { dutch: "was", english: "стирка (laundry)" },
+            { dutch: "stofzuigen", english: "пылесосить (to vacuum)" },
+            { dutch: "afwassen", english: "мыть посуду (to do dishes)" },
+            { dutch: "sporten", english: "заниматься спортом (to exercise)" },
+            { dutch: "relaxen", english: "расслабляться (to relax)" },
+            { dutch: "serie", english: "сериал (series)" },
+            { dutch: "boterham", english: "бутерброд (sandwich)" },
+            { dutch: "werkloos", english: "безработный (unemployed)" },
+            { dutch: "huishouden", english: "домашнее хозяйство (household)" },
+            { dutch: "winkelcentrum", english: "торговый центр (shopping center)" },
+            { dutch: "centrum", english: "центр (center)" },
+            { dutch: "bushalte", english: "автобусная остановка (bus stop)" },
+            { dutch: "halte", english: "остановка (stop)" },
+            { dutch: "verdergaan", english: "продолжать (to continue)" },
+            { dutch: "richting", english: "направление (direction)" },
+            { dutch: "noorden", english: "север (north)" },
+            { dutch: "kot", english: "комната (студенческая) (student room)" },
+            { dutch: "vlak", english: "плоский/уровень (flat/level)" },
+            { dutch: "cinema", english: "кинотеатр (cinema)" },
+            { dutch: "museum", english: "музей (museum)" },
+            { dutch: "uitstap", english: "экскурсия (excursion)" },
+            { dutch: "toegangsprijs", english: "входная плата (admission price)" },
+            { dutch: "volwassene", english: "взрослый (adult)" },
+            { dutch: "friet", english: "картофель фри (fries)" },
+            { dutch: "kliken", english: "нажимать/кликать (to click)" },
+            { dutch: "groep", english: "группа (group)" },
+            { dutch: "kerstmis", english: "Рождество (Christmas)" },
+            { dutch: "betalen", english: "платить (to pay)" },
+            { dutch: "sturen", english: "отправлять (to send)" },
+            { dutch: "grotendeels", english: "в значительной степени (largely)" },
+            { dutch: "ceremonie", english: "церемония (ceremony)" },
+            { dutch: "trouwceremonie", english: "свадебная церемония (wedding ceremony)" },
+            { dutch: "omstandigheid", english: "обстоятельство (circumstance)" },
+            { dutch: "werkelijk", english: "действительно/настоящий (real)" },
+            { dutch: "overeenkomen", english: "соглашаться (to agree)" },
+            { dutch: "looproute", english: "пешеходный маршрут (walking route)" },
+            { dutch: "route", english: "маршрут (route)" },
+            { dutch: "voorzichtig", english: "осторожный (careful)" },
+            { dutch: "slaan", english: "бить/ударять (to hit)" },
+            { dutch: "bar", english: "бар (bar)" },
+            { dutch: "beleefd", english: "вежливый (polite)" },
+            { dutch: "afspreken", english: "договариваться (to agree)" },
+            { dutch: "ingang", english: "вход (entrance)" },
+            { dutch: "spijtig", english: "жаль (pity)" },
+            { dutch: "stadhuis", english: "ратуша (town hall)" },
+            { dutch: "teken", english: "знак/символ (sign/symbol)" },
+            { dutch: "leesteken", english: "знак препинания (punctuation mark)" },
+            { dutch: "verzenden", english: "отправлять (to send)" },
+            { dutch: "vooraf", english: "заранее (in advance)" },
+            { dutch: "bijvoegen", english: "прикладывать (to attach)" },
+            { dutch: "verwijderen", english: "удалять (to remove)" },
+            { dutch: "reageren", english: "реагировать/отвечать (to respond)" },
+            { dutch: "even", english: "момент/просто (moment/just)" },
+            { dutch: "wegvervolgen", english: "продолжать путь (to continue)" },
+            { dutch: "op bezoek", english: "в гостях (visiting)" },
+            { dutch: "zonder", english: "без (without)" },
+            { dutch: "duiden", english: "обозначать/означать (to denote)" },
+            { dutch: "bezig", english: "занятый (busy)" },
+            { dutch: "nevenschikking", english: "согласование (coordination)" },
+            { dutch: "combineren", english: "сочетать (to combine)" },
+            { dutch: "reden", english: "причина (reason)" },
+            { dutch: "huwelijk", english: "брак/свадьба (marriage)" },
+            { dutch: "bedanken", english: "благодарить (to thank)" },
+            { dutch: "daarop", english: "на том/затем (thereon)" },
+            { dutch: "glas", english: "стекло/стакан (glass)" },
+            { dutch: "verontschuldigen", english: "извиняться (to apologize)" },
+            { dutch: "afscheiden", english: "отделять (to separate)" },
+            { dutch: "zo", english: "так (so)" },
+            { dutch: "tekening", english: "рисунок (drawing)" },
+            { dutch: "meegaan", english: "идти вместе (to go along)" },
+            { dutch: "meenemen", english: "брать с собой (to bring along)" },
+            { dutch: "uitnodigen", english: "приглашать (to invite)" },
+            { dutch: "delen", english: "делить/делиться (to share)" },
+            { dutch: "toekomst", english: "будущее (future)" },
+            { dutch: "wijzen", english: "указывать (to point)" },
+            { dutch: "mogelijkheid", english: "возможность (possibility)" },
+            { dutch: "noodzakelijk", english: "необходимый (necessary)" },
+            { dutch: "zetten", english: "ставить/класть (to put)" },
+            { dutch: "turnen", english: "заниматься гимнастикой (to do gymnastics)" },
+            { dutch: "koord", english: "верёвка/шнур (rope/cord)" },
+            { dutch: "speld", english: "булавка/брошь (pin/brooch)" },
+            { dutch: "scharen", english: "ножницы (scissors)" },
+            { dutch: "rok", english: "юбка (skirt)" },
+            { dutch: "schommel", english: "качели (swing)" },
+            { dutch: "eenvoudig", english: "простой (simple)" },
+            { dutch: "instructie", english: "инструкция (instruction)" },
+            { dutch: "aanvaarden", english: "принимать (to accept)" },
+            { dutch: "schriftelijk", english: "письменный (in writing)" },
+            { dutch: "training", english: "тренировка (training)" },
+            { dutch: "uitspraak", english: "произношение (pronunciation)" },
+            { dutch: "uitspreken", english: "произносить (to pronounce)" },
+            { dutch: "schrijfregel", english: "правило написания (spelling rule)" },
+            { dutch: "regel", english: "правило (rule)" },
+            { dutch: "algemeen", english: "общий/вообще (general)" },
+            { dutch: "haak", english: "крючок/скобка (hook/bracket)" },
+            { dutch: "gelijk", english: "равный/одинаковый/сразу (equal/same)" },
+            { dutch: "baard", english: "борода (beard)" },
+            { dutch: "vocaal", english: "гласный (vowel)" },
+            { dutch: "kolom", english: "колонка (column)" },
+            { dutch: "midden", english: "середина (middle)" },
+            { dutch: "spreekuur", english: "приёмные часы (office hours)" },
+            { dutch: "uurregeling", english: "расписание (schedule)" },
+            { dutch: "regeling", english: "договорённость/правило (arrangement)" },
+            { dutch: "huisarts", english: "врач общей практики (GP)" },
+            { dutch: "arts", english: "врач (doctor)" },
+            { dutch: "enkel", english: "лодыжка/только (ankle/only)" },
+            { dutch: "afspraak", english: "встреча/договорённость (appointment)" },
+            { dutch: "formulier", english: "бланк/форма (form)" },
+            { dutch: "selecteren", english: "выбирать (to select)" },
+            { dutch: "tijdstrip", english: "временная шкала (timeline)" },
+            { dutch: "strip", english: "полоска/комикс (strip/comic)" },
+            { dutch: "gegeven", english: "данные (data)" },
+            { dutch: "schelen", english: "иметь значение (to matter)" },
+            { dutch: "klacht", english: "жалоба (complaint)" },
+            { dutch: "niezen", english: "чихать (to sneeze)" },
+            { dutch: "hoesten", english: "кашлять (to cough)" },
+            { dutch: "lichaamsdeel", english: "часть тела (body part)" },
+            { dutch: "deel", english: "часть (part)" },
+            { dutch: "buik", english: "живот (belly)" },
+            { dutch: "lichaam", english: "тело (body)" },
+            { dutch: "knie", english: "колено (knee)" },
+            { dutch: "rug", english: "спина (back)" },
+            { dutch: "schouder", english: "плечо (shoulder)" },
+            { dutch: "tand", english: "зуб (tooth)" },
+            { dutch: "teen", english: "палец ноги (toe)" },
+            { dutch: "vinger", english: "палец (finger)" },
+            { dutch: "voet", english: "нога/ступня (foot)" },
+            { dutch: "wens", english: "желание (wish)" },
+            { dutch: "doorgeven", english: "передавать/сообщать (to pass on)" },
+            { dutch: "hopelijk", english: "надеюсь (hopefully)" },
+            { dutch: "hart", english: "сердце (heart)" },
+            { dutch: "long", english: "лёгкое (lung)" },
+            { dutch: "keel", english: "горло (throat)" },
+            { dutch: "onderzoeken", english: "исследовать/осматривать (to examine)" },
+            { dutch: "beterschap", english: "выздоравливай (get well)" },
+            { dutch: "eens", english: "когда-нибудь (sometime)" },
+            { dutch: "hoest", english: "кашель (cough)" },
+            { dutch: "adem", english: "дыхание (breath)" },
+            { dutch: "diep", english: "глубокий (deep)" },
+            { dutch: "uitdoen", english: "снимать/тушить (to take off/put out)" },
+            { dutch: "zand", english: "песок (sand)" },
+            { dutch: "allergie", english: "аллергия (allergy)" },
+            { dutch: "schrift", english: "тетрадь/письмо (notebook)" },
+            { dutch: "voorschrift", english: "рецепт (prescription)" },
+            { dutch: "verkrijgen", english: "получать (to obtain)" },
+            { dutch: "verkrijgenbaar", english: "доступный (available)" },
+            { dutch: "inname", english: "приём (intake)" },
+            { dutch: "tablet", english: "таблетка (tablet)" },
+            { dutch: "minimaal", english: "минимальный (minimal)" },
+            { dutch: "maximaal", english: "максимальный (maximum)" },
+            { dutch: "verpakking", english: "упаковка (packaging)" },
+            { dutch: "verpakken", english: "упаковывать (to pack)" },
+            { dutch: "goedkoop", english: "дёшевый (cheap)" },
+            { dutch: "antibioticum", english: "антибиотик (antibiotic)" },
+            { dutch: "lepel", english: "ложка (spoon)" },
+            { dutch: "eetlepel", english: "столовая ложка (tablespoon)" },
+            { dutch: "dikwijls", english: "часто (often)" },
+            { dutch: "innemen", english: "принимать (лекарство) (to take medicine)" },
+            { dutch: "spray", english: "спрей (spray)" },
+            { dutch: "neusspray", english: "назальный спрей (nasal spray)" },
+            { dutch: "zuigtablet", english: "пастилка (lozenge)" },
+            { dutch: "zuigen", english: "сосать (to suck)" },
+            { dutch: "siroop", english: "сироп (syrup)" },
+            { dutch: "hoestsiroop", english: "сироп от кашля (cough syrup)" },
+            { dutch: "tegen", english: "против (against)" },
+            { dutch: "gebruiken", english: "использовать (to use)" },
+            { dutch: "bronchitis", english: "бронхит (bronchitis)" },
+            { dutch: "ontsteking", english: "воспаление (inflammation)" },
+            { dutch: "keelontsteking", english: "воспаление горла (sore throat)" },
+            { dutch: "letten", english: "обращать внимание (to pay attention)" },
+            { dutch: "opletten", english: "внимать/остерегаться (to watch out)" },
+            { dutch: "achteraan", english: "сзади (at the back)" },
+            { dutch: "alle", english: "все (all)" },
+            { dutch: "opsomming", english: "перечисление/список (list)" },
+            { dutch: "uitsteken", english: "высовывать (to stick out)" },
+            { dutch: "aandoen", english: "надевать/затрагивать (to put on)" },
+            { dutch: "creme", english: "крем (cream)" },
+            { dutch: "helemaal", english: "полностью (completely)" },
+            { dutch: "zonnecreme", english: "солнцезащитный крем (sunscreen)" },
+            { dutch: "inademen", english: "вдыхать (to breathe in)" },
+            { dutch: "uitademen", english: "выдыхать (to breathe out)" },
+            { dutch: "steek", english: "укус/укол (sting/prick)" },
+            { dutch: "fris", english: "свежий (fresh)" },
+            { dutch: "voldoende", english: "достаточно (enough)" },
+            { dutch: "echt", english: "настоящий/действительно (real)" },
+            { dutch: "zoet", english: "сладкий (sweet)" },
+            { dutch: "favoriet", english: "любимый (favorite)" },
+            { dutch: "sommig", english: "некоторый (some)" },
+            { dutch: "hartig", english: "солёный/пряный (savory)" },
+            { dutch: "traditioneel", english: "традиционный (traditional)" },
+            { dutch: "volkoren", english: "цельнозерновой (whole grain)" },
+            { dutch: "zoals", english: "как/такой как (such as)" },
+            { dutch: "daarbij", english: "кроме того (in addition)" },
+            { dutch: "minder", english: "меньше (less)" },
+            { dutch: "aanvullen", english: "дополнять/заправлять (to supplement)" },
+            { dutch: "steunen", english: "поддерживать (to support)" },
+            { dutch: "doorlopen", english: "продолжать/проходить (to continue)" },
+            { dutch: "strepen", english: "полоски/линии (stripes)" },
+            { dutch: "bestaan", english: "существовать (to exist)" },
+            { dutch: "smeren", english: "мазать/намазывать (to spread)" },
+            { dutch: "uiteten", english: "ужинать вне дома (to eat out)" },
+            { dutch: "spannen", english: "натягивать (to stretch)" },
+            { dutch: "bijten", english: "кусать (to bite)" },
+            { dutch: "grijpen", english: "хватать (to grab)" },
+            { dutch: "voldoen", english: "удовлетворять/соответствовать (to meet)" },
+            { dutch: "kauwen", english: "жевать (to chew)" },
+            { dutch: "adviseren", english: "советовать (to advise)" },
+            { dutch: "haver", english: "овёс (oat)" },
+            { dutch: "mout", english: "солод (malt)" },
+            { dutch: "havermout", english: "овсянка (oatmeal)" },
+            { dutch: "yogurt", english: "йогурт (yogurt)" },
+            { dutch: "bloemkool", english: "цветная капуста (cauliflower)" },
+            { dutch: "kool", english: "капуста (cabbage)" },
+            { dutch: "voedingsdriehoek", english: "пирамида питания (food pyramid)" },
+            { dutch: "voeding", english: "питание (nutrition)" },
+            { dutch: "driehoek", english: "треугольник (triangle)" },
+            { dutch: "hoek", english: "угол (corner)" },
+            { dutch: "chocolade", english: "шоколад (chocolate)" },
+            { dutch: "koek", english: "печенье (cookie)" },
+            { dutch: "frisdrank", english: "газировка (soft drink)" },
+            { dutch: "drank", english: "напиток (drink)" },
+            { dutch: "restgroep", english: "прочие продукты (rest group)" },
+            { dutch: "tomatensaus", english: "томатный соус (tomato sauce)" },
+            { dutch: "saus", english: "соус (sauce)" },
+            { dutch: "tomaat", english: "помидор (tomato)" },
+            { dutch: "zoetekauw", english: "сладкоежка (sweet tooth)" },
+            { dutch: "eetgewoonte", english: "привычка в еде (eating habit)" },
+            { dutch: "gewoonte", english: "привычка (habit)" },
+            { dutch: "sporter", english: "спортсмен (athlete)" },
+            { dutch: "voorbeeld", english: "пример (example)" },
+            { dutch: "advies", english: "совет (advice)" },
+            { dutch: "dienst", english: "услуга/дежурство (service)" },
+            { dutch: "kapper", english: "парикмахер (hairdresser)" },
+            { dutch: "wassalon", english: "прачечная (laundromat)" },
+            { dutch: "salon", english: "салон (salon)" },
+            { dutch: "apotheek", english: "аптека (pharmacy)" },
+            { dutch: "post", english: "почта (mail)" },
+            { dutch: "bank", english: "банк (bank)" },
+            { dutch: "frituur", english: "закусочная (fry shop)" },
+            { dutch: "mutualiteit", english: "больничная касса (health insurance)" },
+            { dutch: "krandwinkel", english: "газетный киоск (newsstand)" },
+            { dutch: "klerenwinkel", english: "магазин одежды (clothing store)" },
+            { dutch: "bakkerij", english: "пекарня (bakery)" },
+            { dutch: "soep", english: "суп (soup)" },
+            { dutch: "cornflakes", english: "кукурузные хлопья (cornflakes)" },
+            { dutch: "muesli", english: "мюсли (muesli)" },
+            { dutch: "ontbijtgraan", english: "сухие завтраки (cereal)" },
+            { dutch: "graanproduct", english: "зерновой продукт (grain product)" },
+            { dutch: "melkproducten", english: "молочные продукты (dairy products)" },
+            { dutch: "hummus", english: "хумус (hummus)" },
+            { dutch: "hesp", english: "ветчина (ham)" },
+            { dutch: "confituur", english: "варенье (jam)" },
+            { dutch: "beleg", english: "намазка/начинка (topping)" },
+            { dutch: "broodmaaltijd", english: "перекус с хлебом (bread meal)" },
+            { dutch: "maaltijd", english: "приём пищи (meal)" },
+            { dutch: "gemiddelde", english: "средний (average)" },
+            { dutch: "aardappel", english: "картофель (potato)" },
+            { dutch: "dessert", english: "десерт (dessert)" },
+            { dutch: "mes", english: "нож (knife)" },
+            { dutch: "kop", english: "чашка (cup)" },
+            { dutch: "vork", english: "вилка (fork)" },
+            { dutch: "stok", english: "палка (stick)" },
+            { dutch: "inleiding", english: "введение (introduction)" },
+            { dutch: "tekst", english: "текст (text)" },
+            { dutch: "volkorenbrood", english: "цельнозерновой хлеб (whole wheat bread)" },
+            { dutch: "de kom", english: "миска (the bowl)" },
+            { dutch: "test", english: "тест (test)" },
+            { dutch: "volkorengraanproducten", english: "цельнозерновые продукты (whole grain products)" },
+            { dutch: "volkorenpasta", english: "цельнозерновые макароны (whole grain pasta)" },
+            { dutch: "pasta", english: "паста/макароны (pasta)" },
+            { dutch: "informatie", english: "информация (information)" },
+            { dutch: "maag", english: "желудок (stomach)" },
+            { dutch: "gerecht", english: "блюдо (dish)" },
+            { dutch: "bestek", english: "столовые приборы (cutlery)" },
+            { dutch: "margarine", english: "маргарин (margarine)" },
+            { dutch: "frequentie", english: "частота (frequency)" },
+            { dutch: "vergelijken", english: "сравнивать (to compare)" },
+            { dutch: "aanduiden", english: "обозначать (to indicate)" },
+            { dutch: "bestellen", english: "заказывать (to order)" },
+            { dutch: "persoonlijk", english: "личный (personal)" },
+            { dutch: "soort", english: "вид/тип (kind/type)" },
+            { dutch: "benoemen", english: "называть/назначать (to name)" },
+            { dutch: "verschillend", english: "разный (different)" },
+            { dutch: "pluralis", english: "множественное число (plural)" },
+            { dutch: "substantief", english: "существительное (noun)" },
+            { dutch: "olijfolie", english: "оливковое масло (olive oil)" },
+            { dutch: "olie", english: "масло (oil)" },
+            { dutch: "tandenborstel", english: "зубная щётка (toothbrush)" },
+            { dutch: "borstel", english: "щётка (brush)" },
+            { dutch: "wasmiddel", english: "стиральный порошок (detergent)" },
+            { dutch: "middel", english: "средство/метод (means)" },
+            { dutch: "banaan", english: "банан (banana)" },
+            { dutch: "plattegrond", english: "план/карта (floor plan)" },
+            { dutch: "plat", english: "плоский (flat)" },
+            { dutch: "grond", english: "земля/пол (ground)" },
+            { dutch: "meebrengen", english: "приносить с собой (to bring along)" },
+            { dutch: "ijskast", english: "холодильник (refrigerator)" },
+            { dutch: "dicht", english: "закрытый/плотный (closed)" },
+            { dutch: "koopzondag", english: "воскресенье работы магазинов (shopping Sunday)" },
+            { dutch: "waarop", english: "на котором (on which)" },
+            { dutch: "vast", english: "постоянный/твёрдый (fixed)" },
+            { dutch: "supermarktketen", english: "сеть супермаркетов (supermarket chain)" },
+            { dutch: "keten", english: "сеть (chain)" },
+            { dutch: "zout", english: "соль (salt)" },
+            { dutch: "zuivelproduct", english: "молочный продукт (dairy product)" },
+            { dutch: "kast", english: "шкаф (cupboard)" },
+            { dutch: "gang", english: "коридор (hallway)" },
+            { dutch: "mouw", english: "рукав (sleeve)" },
+            { dutch: "douche", english: "душ (shower)" },
+            { dutch: "dof", english: "матовый (dull)" },
+            { dutch: "combinatie", english: "сочетание (combination)" },
+            { dutch: "knoflook", english: "чеснок (garlic)" },
+            { dutch: "wortel", english: "морковь (carrot)" },
+            { dutch: "kikkererwt", english: "нут (chickpea)" },
+            { dutch: "erwt", english: "горох (pea)" },
+            { dutch: "kikker", english: "лягушка (frog)" },
+            { dutch: "paprika", english: "перец/паприка (pepper)" },
+            { dutch: "room", english: "сливки (cream)" },
+            { dutch: "roomijs", english: "мороженое (ice cream)" },
+            { dutch: "shampoo", english: "шампунь (shampoo)" },
+            { dutch: "sinaasappel", english: "апельсин (orange)" },
+            { dutch: "sla", english: "салат (латук) (lettuce)" },
+            { dutch: "spaghetti", english: "спагетти (spaghetti)" },
+            { dutch: "stuk", english: "кусок (piece)" },
+            { dutch: "druif", english: "виноград (grape)" },
+            { dutch: "fruitsap", english: "фруктовый сок (fruit juice)" },
+            { dutch: "sap", english: "сок (juice)" },
+            { dutch: "winkelwagen", english: "тележка (shopping cart)" },
+            { dutch: "wagen", english: "тележка/машина (cart)" },
+            { dutch: "afdeling", english: "отдел (department)" },
+            { dutch: "charcuterie", english: "гастрономия (deli)" },
+            { dutch: "zelfscankassa", english: "самообслуживание (self-checkout)" },
+            { dutch: "zuivel", english: "молочные продукты (dairy)" },
+            { dutch: "diepvries", english: "морозилка (freezer)" },
+            { dutch: "beenhouwerij", english: "мясная лавка (butcher)" },
+            { dutch: "aubergine", english: "баклажан (eggplant)" },
+            { dutch: "biefstuk", english: "стейк (steak)" },
+            { dutch: "komkommer", english: "огурец (cucumber)" },
+            { dutch: "citroen", english: "лимон (lemon)" },
+            { dutch: "courgette", english: "кабачок (zucchini)" },
+            { dutch: "volgorde", english: "порядок (order)" },
+            { dutch: "kaart", english: "карта/карточка (map/card)" },
+            { dutch: "bankkaart", english: "банковская карта (bank card)" },
+            { dutch: "blik", english: "банка (can)" },
+            { dutch: "boodschappenlijst", english: "список покупок (shopping list)" },
+            { dutch: "kassa", english: "касса (checkout)" },
+            { dutch: "pot", english: "банка/горшок (jar)" },
+            { dutch: "lijst", english: "список (list)" },
+            { dutch: "pak", english: "упаковка (pack)" },
+            { dutch: "supermarkt", english: "супермаркет (supermarket)" },
+            { dutch: "tros", english: "гроздь (bunch)" },
+            { dutch: "plezier", english: "удовольствие (fun)" },
+            { dutch: "herfstweer", english: "осенняя погода (autumn weather)" },
+            { dutch: "beroep", english: "профессия (profession)" },
+            { dutch: "terras", english: "терраса (terrace)" },
+            { dutch: "baksel", english: "выпечка (baking)" },
+            { dutch: "mengsel", english: "смесь (mixture)" },
+            { dutch: "ogenblik", english: "мгновение (moment)" },
+            { dutch: "poeder", english: "порошок (powder)" },
+            { dutch: "trimester", english: "триместр (trimester)" },
+            { dutch: "bedrijf", english: "компания (company)" },
+            { dutch: "sciencefictionboek", english: "книга в жанре фантастики (science fiction book)" },
+            { dutch: "doel", english: "цель (goal)" },
+            { dutch: "stapeltje", english: "небольшая стопка (pile)" },
+            { dutch: "bankbiljet", english: "банкнота (banknote)" },
+            { dutch: "hetzelfde", english: "тот же (the same)" },
+            { dutch: "modder", english: "грязь (mud)" },
+            { dutch: "poel", english: "лужа (puddle)" },
+            { dutch: "modderpoel", english: "грязная лужа (mud puddle)" },
+            { dutch: "laars", english: "сапог (boot)" },
+            { dutch: "hoop", english: "надежда (hope)" },
+            { dutch: "banketbakker", english: "кондитер (pastry chef)" },
+            { dutch: "bom", english: "бомба (bomb)" },
+            { dutch: "lokomotief", english: "локомотив (locomotive)" },
+            { dutch: "raaf", english: "ворон (raven)" },
+            { dutch: "regenjas", english: "дождевик (raincoat)" },
+            { dutch: "schuur", english: "сарай (shed)" },
+            { dutch: "theekop", english: "чашка для чая (tea cup)" },
+            { dutch: "sleutel", english: "ключ (key)" },
+            { dutch: "vriendin", english: "подруга (girlfriend)" },
+            { dutch: "zus", english: "сестра (sister)" },
+            { dutch: "kant", english: "сторона/край (side)" },
+            { dutch: "kraam", english: "киоск/палатка (stall)" },
+            { dutch: "oom", english: "дядя (uncle)" },
+            { dutch: "tante", english: "тётя (aunt)" },
+            { dutch: "beuk", english: "бук (beech)" },
+            { dutch: "blouse", english: "блузка (blouse)" },
+            { dutch: "bron", english: "источник (source)" },
+            { dutch: "ergernis", english: "раздражение (annoyance)" },
+            { dutch: "klant", english: "клиент (customer)" },
+            { dutch: "lezing", english: "лекция/чтение (lecture)" },
+            { dutch: "nervositeit", english: "нервозность (nervousness)" },
+            { dutch: "pet", english: "кепка (cap)" },
+            { dutch: "pinda", english: "арахис (peanut)" },
+            { dutch: "rekening", english: "счёт (bill)" },
+            { dutch: "slijterij", english: "винный магазин (liquor store)" },
+            { dutch: "spijkerbroek", english: "джинсы (jeans)" },
+            { dutch: "stropdas", english: "галстук (tie)" },
+            { dutch: "trui", english: "свитер (sweater)" },
+            { dutch: "verzekering", english: "страховка (insurance)" },
+            { dutch: "vla", english: "пудинг (pudding)" },
+            { dutch: "voorbereiding", english: "подготовка (preparation)" },
+            { dutch: "voordeur", english: "входная дверь (front door)" },
+            { dutch: "student", english: "студент (student)" },
+            { dutch: "uitwisseling", english: "обмен (exchange)" },
+            { dutch: "tennisbaan", english: "теннисный корт (tennis court)" },
+            { dutch: "baan", english: "работа/корт (job/court)" },
+            { dutch: "basketbalspeler", english: "баскетболист (basketball player)" },
+            { dutch: "speler", english: "игрок (player)" },
+            { dutch: "elektricien", english: "электрик (electrician)" },
+            { dutch: "schrijfster", english: "писательница (writer f.)" },
+            { dutch: "knuffel", english: "объятие (cuddle)" },
+            { dutch: "gek", english: "сумасшедший (crazy)" },
+            { dutch: "loempia", english: "спринг-ролл (spring roll)" },
+            { dutch: "begripsvraag", english: "вопрос на понимание (comprehension question)" },
+            { dutch: "rit", english: "поездка (ride)" },
+            { dutch: "zakenman", english: "бизнесмен (businessman)" },
+            { dutch: "uitwisselingsstudent", english: "студент по обмену (exchange student)" },
+            { dutch: "samenvatting", english: "резюме (summary)" },
+            { dutch: "passen", english: "подходить (to fit)" },
+            { dutch: "laten", english: "позволять (to let)" },
+            { dutch: "raden", english: "угадывать (to guess)" },
+            { dutch: "schoonmaken", english: "убирать (to clean)" },
+            { dutch: "bakken", english: "печь (to bake)" },
+            { dutch: "snijden", english: "резать (to cut)" },
+            { dutch: "dragen", english: "нести/носить (to carry/wear)" },
+            { dutch: "voorbereiden", english: "готовить (to prepare)" },
+            { dutch: "roepen", english: "звать/кричать (to call)" },
+            { dutch: "inpakken", english: "упаковывать (to pack)" },
+            { dutch: "uitwisselen", english: "обменивать (to exchange)" },
+            { dutch: "bereiken", english: "достигать (to reach)" },
+            { dutch: "oefenen", english: "тренироваться (to practice)" },
+            { dutch: "aanmoedigen", english: "подбадривать (to encourage)" },
+            { dutch: "verbazen", english: "поражать (to amaze)" },
+            { dutch: "aankleden", english: "одеваться (to get dressed)" },
+            { dutch: "douchen", english: "принимать душ (to shower)" },
+            { dutch: "zorgen", english: "заботиться/беспокоиться (to care)" },
+            { dutch: "sparen", english: "копить (to save)" },
+            { dutch: "merken", english: "замечать (to notice)" },
+            { dutch: "binnenkomen", english: "входить (to enter)" },
+            { dutch: "wijzen", english: "указывать (to point)" },
+            { dutch: "tweeën", english: "делать вместе (to do together)" },
+            { dutch: "glimlachen", english: "улыбаться (to smile)" },
+            { dutch: "gebeuren", english: "происходить (to happen)" },
+            { dutch: "inchecken", english: "регистрироваться (to check in)" },
+            { dutch: "zwaaien", english: "махать (to wave)" },
+            { dutch: "opstijgen", english: "взлетать (to take off)" },
+            { dutch: "bouwen", english: "строить (to build)" },
+            { dutch: "op iemand passen", english: "присматривать за кем-то (to look after)" },
+            { dutch: "meekomen", english: "идти вместе (to come along)" },
+            { dutch: "veilig", english: "безопасный (safe)" },
+            { dutch: "vies", english: "грязный (dirty)" },
+            { dutch: "fantastisch", english: "фантастический (fantastic)" },
+            { dutch: "grijs", english: "серый (gray)" },
+            { dutch: "heerlijk", english: "вкусный (delicious)" },
+            { dutch: "natuurlijk", english: "естественно (naturally)" },
+            { dutch: "komend", english: "предстоящий (upcoming)" },
+            { dutch: "stevig", english: "прочный (firm)" },
+            { dutch: "eigen", english: "собственный (own)" },
+            { dutch: "geweldig", english: "замечательный (great)" },
+            { dutch: "verschillend", english: "разный" },
+            { dutch: "voordat", english: "до того как (before)" },
+            { dutch: "allemaal", english: "все (all)" },
+            { dutch: "neer", english: "вниз (down)" },
+            { dutch: "iedereen", english: "все (everyone)" },
+            { dutch: "net", english: "только что/опрятный (just/neat)" },
+            { dutch: "ongeveer", english: "примерно (approximately)" },
+            { dutch: "dankzij", english: "благодаря (thanks to)" },
+            { dutch: "dezelfde", english: "тот же (the same)" },
+            { dutch: "nadat", english: "после того как (after)" },
+            { dutch: "elkaar", english: "друг друга (each other)" },
+            { dutch: "gedag", english: "до свидания (goodbye)" },
+            { dutch: "bezoeken", english: "посещать (to visit)" },
+            { dutch: "champinion", english: "шампиньон (mushroom)" },
+            { dutch: "doelpunt", english: "гол (goal)" },
+            { dutch: "gratis", english: "бесплатно (free)" },
+            { dutch: "naiien", english: "шить (to sew)" },
+            { dutch: "naald", english: "иголка (needle)" },
+            { dutch: "rijles", english: "урок вождения (driving lesson)" },
+            { dutch: "rits", english: "молния (zipper)" },
+            { dutch: "stelen", english: "красть (to steal)" },
+            { dutch: "stof", english: "пыль/ткань (dust/fabric)" },
+            { dutch: "bioscoop", english: "кинотеатр (cinema)" },
+            { dutch: "boor", english: "дрель (drill)" },
+            { dutch: "buurman", english: "сосед (neighbor)" },
+            { dutch: "lijken", english: "казаться (to seem)" },
+            { dutch: "meubel", english: "мебель (furniture)" },
+            { dutch: "mossel", english: "мидия (mussel)" },
+            { dutch: "paskamer", english: "примерочная (fitting room)" },
+            { dutch: "schaatsen", english: "кататься на коньках (to ice skate)" },
+            { dutch: "schotel", english: "тарелка (plate)" },
+            { dutch: "uitmaken", english: "расставаться/выключать (to break up)" },
+            { dutch: "uitstekend", english: "отлично (excellent)" },
+            { dutch: "opwachten", english: "ожидать (to wait for)" },
+            { dutch: "schaap", english: "овца (sheep)" },
+            { dutch: "meedoen", english: "участвовать (to participate)" },
+            { dutch: "speelgoed", english: "игрушка (toy)" },
+            { dutch: "toverstaf", english: "волшебная палочка (magic wand)" },
+            { dutch: "tover", english: "магия (magic)" },
+            { dutch: "ergens", english: "где-то (somewhere)" },
+            { dutch: "eenzaam", english: "одинокий (lonely)" },
+            { dutch: "uitlikken", english: "вылизывать (to lick clean)" },
+            { dutch: "ademhalen", english: "дышать (to breathe)" },
+            { dutch: "volgens", english: "согласно (according to)" },
+            { dutch: "los", english: "свободный (loose)" },
+            { dutch: "pleister", english: "пластырь (band-aid)" },
+            { dutch: "opdoen", english: "приобретать (to acquire)" },
+            { dutch: "opnemen", english: "записывать/принимать (to record)" },
+            { dutch: "zuster", english: "сестра (sister)" },
+            { dutch: "opzoeken", english: "искать (to look up)" },
+            { dutch: "zorg", english: "забота (care)" },
+            { dutch: "kietelen", english: "щекотать (to tickle)" },
+            { dutch: "knorren", english: "хрюкать/храпеть (to snore)" },
+            { dutch: "verrassing", english: "сюрприз (surprise)" },
+            { dutch: "papegaai", english: "попугай (parrot)" },
+            { dutch: "haast", english: "спешка (hurry)" },
+            { dutch: "duivel", english: "дьявол (devil)" },
+            { dutch: "vooruit", english: "вперёд (forward)" },
+            { dutch: "verlegen", english: "застенчивый (shy)" },
+            { dutch: "alsof", english: "как будто (as if)" },
+            { dutch: "lawaai", english: "шум (noise)" },
+            { dutch: "maar eens", english: "как-нибудь раз (sometime)" },
+            { dutch: "toch", english: "всё же (still)" },
+            { dutch: "nadenken", english: "думать/размышлять (to think)" },
+            { dutch: "nog meer", english: "ещё больше (even more)" },
+            { dutch: "aardbei", english: "клубника (strawberry)" },
+            { dutch: "afhalen", english: "забирать (to pick up)" },
+            { dutch: "bak", english: "миска/контейнер (tray)" },
+            { dutch: "boon", english: "боб (bean)" },
+            { dutch: "bos", english: "букет/связка (bunch)" },
+            { dutch: "drop", english: "солодка (licorice)" },
+            { dutch: "gordijn", english: "штора (curtain)" },
+            { dutch: "inlijsten", english: "вставлять в раму (to frame)" },
+            { dutch: "krat", english: "ящик (crate)" },
+            { dutch: "krentenbol", english: "булочка с изюмом (raisin bun)" },
+            { dutch: "kussen", english: "подушка (pillow)" },
+            { dutch: "laken", english: "простыня (sheet)" },
+            { dutch: "lusten", english: "хотеть/любить (to like)" },
+            { dutch: "meloen", english: "дыня (melon)" },
+            { dutch: "ophangen", english: "вешать (to hang)" },
+            { dutch: "peterselie", english: "петрушка (parsley)" },
+            { dutch: "roken", english: "курить (to smoke)" },
+            { dutch: "schillen", english: "чистить (to peel)" },
+            { dutch: "staal", english: "сталь (steel)" },
+            { dutch: "uitlaten", english: "выпускать/выгуливать (to walk dog)" },
+            { dutch: "verdieping", english: "этаж (floor)" },
+            { dutch: "vlakbij", english: "рядом (nearby)" },
+            { dutch: "vuilnis", english: "мусор (garbage)" },
+            { dutch: "balcon", english: "балкон (balcony)" },
+            { dutch: "boer", english: "фермер (farmer)" },
+            { dutch: "huren", english: "снимать (to rent)" },
+            { dutch: "komijn", english: "кумин (cumin)" },
+            { dutch: "maat", english: "размер/друг (size/friend)" },
+            { dutch: "spoor", english: "след/путь (track)" },
+            { dutch: "vet", english: "жир/жирный (fat)" },
+            { dutch: "vierkant", english: "квадрат (square)" },
+            { dutch: "zuur", english: "кислый (sour)" },
+            { dutch: "achterop", english: "сзади (on the back)" },
+            { dutch: "beddengoed", english: "постельное бельё (bedding)" },
+            { dutch: "cijfer", english: "цифра (grade)" },
+            { dutch: "fijn", english: "хороший/мелкий (fine)" },
+            { dutch: "gaaf", english: "клёво (cool)" },
+            { dutch: "klasgenoot", english: "одноклассник (classmate)" },
+            { dutch: "maaier", english: "косилка (lawn mower)" },
+            { dutch: "naast", english: "рядом с (next to)" },
+            { dutch: "pakken", english: "хватать (to grab)" },
+            { dutch: "verliefd", english: "влюблённый (in love)" },
+            { dutch: "verschonen", english: "переодевать (to change)" },
+            { dutch: "zaak", english: "дело/бизнес (business)" },
+            { dutch: "bezorgen", english: "доставлять (to deliver)" },
+            { dutch: "bruid", english: "невеста (bride)" },
+            { dutch: "legen", english: "опустошать (to empty)" },
+            { dutch: "mondkapje", english: "маска (face mask)" },
+            { dutch: "lippenstift", english: "помада (lipstick)" },
+            { dutch: "kelner", english: "официант (waiter)" },
+            { dutch: "minstens", english: "как минимум (at least)" },
+            { dutch: "ontvangen", english: "получать (to receive)" },
+            { dutch: "eens wat", english: "что-нибудь (something)" },
+            { dutch: "aantrekken", english: "надевать/привлекать (to put on)" },
+            { dutch: "afmaken", english: "заканчивать (to finish)" },
+            { dutch: "leerling", english: "ученик (pupil)" },
+            { dutch: "oversteken", english: "переходить (to cross)" },
+            { dutch: "wedstrijd", english: "соревнование/матч (match)" },
+            { dutch: "wiskunde", english: "математика (mathematics)" },
+            { dutch: "decennium", english: "десятилетие" },
+            { dutch: "eeuw", english: "век" },
+            { dutch: "vorig", english: "прошлый" },
+            { dutch: "eergisteren", english: "позавчера" },
+            { dutch: "overmorgen", english: "послезавтра" },
+            { dutch: "geleden", english: "назад" },
+            { dutch: "vanaf", english: "с" },
+            { dutch: "tegen", english: "перед/против" },
+            { dutch: "over", english: "через/о" },
+            { dutch: "aflopen", english: "истекать" },
+            { dutch: "regelmatig", english: "регулярно" },
+            { dutch: "zelden", english: "редко" },
+            { dutch: "vervolgens", english: "затем" },
+            { dutch: "verder", english: "далее" },
+            { dutch: "tenslotte", english: "наконец" },
+            { dutch: "pas", english: "только что" },
+            { dutch: "straks", english: "скоро" },
+            { dutch: "vroeger", english: "раньше" },
+            { dutch: "ooit", english: "когда-нибудь" },
+            { dutch: "jemig", english: "ого" },
+            { dutch: "opereren", english: "оперировать" },
+            { dutch: "opschieten", english: "торопиться" },
+            { dutch: "vergadering", english: "совещание" },
+            { dutch: "wakker", english: "бодрствующий" },
+            { dutch: "weleens", english: "иногда" },
+            { dutch: "ananas", english: "ананас" },
+            { dutch: "asperge", english: "спаржа" },
+            { dutch: "contant", english: "наличные" },
+            { dutch: "duur", english: "дорогой" },
+            { dutch: "gracht", english: "канал" },
+            { dutch: "perzik", english: "персик" },
+            { dutch: "proefwerk", english: "контрольная" },
+            { dutch: "heus", english: "правда" },
+            { dutch: "gezelschap", english: "общество/компания" },
+            { dutch: "hemel", english: "небо" },
+            { dutch: "redden", english: "спасать" },
+            { dutch: "hebben er zin in", english: "хотеть что-то сделать" },
+            { dutch: "echt waar", english: "правда" },
+            { dutch: "eng", english: "страшный" },
+            { dutch: "trots", english: "гордый" },
+            { dutch: "verven", english: "красить" },
+            { dutch: "cirkel", english: "круг" },
+            { dutch: "verkeerde", english: "неправильный" },
+            { dutch: "stengel", english: "стебель" },
+            { dutch: "schilderij", english: "картина" },
+            { dutch: "bedoelen", english: "иметь в виду" },
+            { dutch: "brug", english: "мост" },
+            { dutch: "gat", english: "дыра" },
+            { dutch: "kapot", english: "сломанный" },
+            { dutch: "luchtbed", english: "надувной матрас" },
+            { dutch: "mager", english: "худой" },
+            { dutch: "opblazen", english: "надувать" },
+            { dutch: "slaapzaak", english: "пижама" },
+            { dutch: "spullen", english: "вещи" },
+            { dutch: "toren", english: "башня" },
+            { dutch: "uitkijken", english: "смотреть/остерегаться" },
+            { dutch: "verte", english: "расстояние" },
+            { dutch: "vesting", english: "крепость" },
+            { dutch: "vlooienmarkt", english: "блошиный рынок" },
+            { dutch: "voetganger", english: "пешеход" },
+            { dutch: "metaal", english: "металл" },
+            { dutch: "wol", english: "шерсть" },
+            { dutch: "zijde", english: "шёлк/сторона" },
             { dutch: "heut", english: "heut" },
-            { dutch: "ijzer", english: "iron" },
-            { dutch: "steen", english: "stone" },
-            { dutch: "katoen", english: "cotton" },
-            { dutch: "zilver", english: "silver" },
-            { dutch: "brons", english: "bronze" },
-            { dutch: "leer", english: "leather" },
-            { dutch: "koper", english: "copper/buyer" },
-            { dutch: "tevreden", english: "satisfied" },
-            { dutch: "aantrekkelijk", english: "attractive" },
-            { dutch: "achter", english: "behind/after" },
-            { dutch: "antiek", english: "antique" },
-            { dutch: "augurk", english: "pickle" },
-            { dutch: "baas", english: "boss" },
-            { dutch: "bekleding", english: "upholstery/covering" },
-            { dutch: "bel", english: "bell" },
-            { dutch: "bijkeuken", english: "pantry/scullery" },
-            { dutch: "bijpassend", english: "matching" },
-            { dutch: "eiland", english: "island" },
-            { dutch: "enthousiast", english: "enthusiastic" },
-            { dutch: "fietstocht", english: "bike trip" },
-            { dutch: "fornius", english: "stove" },
-            { dutch: "gebak", english: "pastry/cake" },
-            { dutch: "handschoen", english: "glove" },
-            { dutch: "haring", english: "herring" },
-            { dutch: "hoofddoek", english: "headscarf" },
-            { dutch: "kabeljauw", english: "cod" },
-            { dutch: "kandelaar", english: "candlestick" },
-            { dutch: "kist", english: "box/chest" },
-            { dutch: "klimaat", english: "climate" },
-            { dutch: "koelkast", english: "refrigerator" },
-            { dutch: "langhaarig", english: "long-haired" },
-            { dutch: "marmer", english: "marble" },
-            { dutch: "mosterd", english: "mustard" },
-            { dutch: "muts", english: "cap/hat" },
-            { dutch: "ruim", english: "spacious/roomy" },
-            { dutch: "sieraad", english: "jewelry" },
-            { dutch: "sjaal", english: "scarf" },
-            { dutch: "slagroom", english: "whipped cream" },
-            { dutch: "sollicitant", english: "applicant" },
-            { dutch: "staat", english: "state/condition" },
-            { dutch: "standbeeld", english: "statue" },
-            { dutch: "stoven", english: "to stew" },
-            { dutch: "strak", english: "tight/tightly" },
-            { dutch: "trap", english: "stairs/steps" },
-            { dutch: "tuniek", english: "tunic" },
-            { dutch: "wand", english: "wall" },
-            { dutch: "wijd", english: "wide" },
-            { dutch: "zalm", english: "salmon" },
-            { dutch: "datum", english: "date" },
-            { dutch: "schema", english: "schedule" },
-            { dutch: "stap", english: "step" },
-            { dutch: "leeftijd", english: "age" },
-            { dutch: "puistje", english: "pimple" },
-            { dutch: "sterk", english: "strong" },
-            { dutch: "zacht", english: "soft" },
-            { dutch: "beneden", english: "below/downstairs" },
-            { dutch: "heen", english: "away/towards" },
-            { dutch: "nergens", english: "nowhere" },
-            { dutch: "vandaan", english: "from/away from" },
-            { dutch: "verder", english: "further/more" },
-            { dutch: "tenslotte", english: "finally/eventually" },
-            { dutch: "telkens", english: "each time/repeatedly" },
-            { dutch: "aldoor", english: "continuously/always" },
-            { dutch: "steeds", english: "always/continuously" },
-            { dutch: "thans", english: "now/currently" },
-            { dutch: "ineens", english: "suddenly/all at once" },
-            { dutch: "eindelijk", english: "finally/at last" },
-            { dutch: "meteen", english: "immediately/right away" },
-            { dutch: "plotseling", english: "suddenly" },
-            { dutch: "dadelijk", english: "immediately/right away" },
-            { dutch: "nooit meer", english: "never again" },
-            { dutch: "alweer", english: "again/already" },
-            { dutch: "nog nooit", english: "never yet" },
-            { dutch: "nog even", english: "just a moment" },
-            { dutch: "nog net", english: "just barely" },
-            { dutch: "pas nog", english: "just now/recently" },
-            { dutch: "storen", english: "to disturb/bother" },
-            { dutch: "schoot", english: "lap" },
-            { dutch: "meekijken", english: "to watch along" },
-            { dutch: "stil", english: "quiet/silent" },
-            { dutch: "vrolijk", english: "cheerful/happy" },
-            { dutch: "ding", english: "thing" },
-            { dutch: "uitzetten", english: "to turn off" },
-            { dutch: "aanzetten", english: "to turn on" },
-            { dutch: "disk", english: "disk" },
-            { dutch: "ja hoor", english: "yes, sure/of course" },
-            { dutch: "terwijl", english: "while/meanwhile" },
-            { dutch: "beurt", english: "turn/turn-taking" },
-            { dutch: "aan de hand zijn", english: "to be at hand/to be relevant" }
+            { dutch: "ijzer", english: "железо" },
+            { dutch: "steen", english: "камень" },
+            { dutch: "katoen", english: "хлопок" },
+            { dutch: "zilver", english: "серебро" },
+            { dutch: "brons", english: "бронза" },
+            { dutch: "leer", english: "кожа" },
+            { dutch: "koper", english: "медь/покупатель" },
+            { dutch: "tevreden", english: "довольный" },
+            { dutch: "aantrekkelijk", english: "привлекательный" },
+            { dutch: "achter", english: "позади/после" },
+            { dutch: "antiek", english: "антиквариат" },
+            { dutch: "augurk", english: "маринованный огурец" },
+            { dutch: "baas", english: "начальник" },
+            { dutch: "bekleding", english: "обивка" },
+            { dutch: "bel", english: "колокол" },
+            { dutch: "bijkeuken", english: "кладовая" },
+            { dutch: "bijpassend", english: "подходящий" },
+            { dutch: "eiland", english: "остров" },
+            { dutch: "enthousiast", english: "восторженный" },
+            { dutch: "fietstocht", english: "велопрогулка" },
+            { dutch: "fornius", english: "плита" },
+            { dutch: "gebak", english: "выпечка" },
+            { dutch: "handschoen", english: "перчатка" },
+            { dutch: "haring", english: "сельдь" },
+            { dutch: "hoofddoek", english: "платок" },
+            { dutch: "kabeljauw", english: "треска" },
+            { dutch: "kandelaar", english: "подсвечник" },
+            { dutch: "kist", english: "ящик/сундук" },
+            { dutch: "klimaat", english: "климат" },
+            { dutch: "koelkast", english: "холодильник" },
+            { dutch: "langhaarig", english: "длинношёрстный" },
+            { dutch: "marmer", english: "мрамор" },
+            { dutch: "mosterd", english: "горчица" },
+            { dutch: "muts", english: "шапка" },
+            { dutch: "ruim", english: "просторный" },
+            { dutch: "sieraad", english: "украшение" },
+            { dutch: "sjaal", english: "шарф" },
+            { dutch: "slagroom", english: "взбитые сливки" },
+            { dutch: "sollicitant", english: "кандидат" },
+            { dutch: "staat", english: "состояние" },
+            { dutch: "standbeeld", english: "статуя" },
+            { dutch: "stoven", english: "тушить" },
+            { dutch: "strak", english: "тугой" },
+            { dutch: "trap", english: "лестница" },
+            { dutch: "tuniek", english: "туника" },
+            { dutch: "wand", english: "стена (wall)" },
+            { dutch: "wijd", english: "широкий" },
+            { dutch: "zalm", english: "лосось" },
+            { dutch: "datum", english: "дата" },
+            { dutch: "schema", english: "расписание" },
+            { dutch: "stap", english: "шаг" },
+            { dutch: "leeftijd", english: "возраст" },
+            { dutch: "puistje", english: "прыщ" },
+            { dutch: "sterk", english: "сильный" },
+            { dutch: "zacht", english: "мягкий" },
+            { dutch: "beneden", english: "внизу" },
+            { dutch: "heen", english: "туда" },
+            { dutch: "nergens", english: "нигде" },
+            { dutch: "vandaan", english: "откуда" },
+            { dutch: "verder", english: "далее" },
+            { dutch: "tenslotte", english: "наконец" },
+            { dutch: "telkens", english: "каждый раз" },
+            { dutch: "aldoor", english: "постоянно" },
+            { dutch: "steeds", english: "всё время" },
+            { dutch: "thans", english: "ныне" },
+            { dutch: "ineens", english: "вдруг" },
+            { dutch: "eindelijk", english: "наконец" },
+            { dutch: "meteen", english: "сразу" },
+            { dutch: "plotseling", english: "внезапно" },
+            { dutch: "dadelijk", english: "сейчас же" },
+            { dutch: "nooit meer", english: "никогда больше" },
+            { dutch: "alweer", english: "опять" },
+            { dutch: "nog nooit", english: "ещё никогда" },
+            { dutch: "nog even", english: "минуту" },
+            { dutch: "nog net", english: "едва" },
+            { dutch: "pas nog", english: "только что" },
+            { dutch: "storen", english: "мешать" },
+            { dutch: "schoot", english: "колени" },
+            { dutch: "meekijken", english: "смотреть вместе" },
+            { dutch: "stil", english: "тихий" },
+            { dutch: "vrolijk", english: "весёлый" },
+            { dutch: "ding", english: "вещь" },
+            { dutch: "uitzetten", english: "выключать" },
+            { dutch: "aanzetten", english: "включать" },
+            { dutch: "disk", english: "диск" },
+            { dutch: "ja hoor", english: "да, конечно" },
+            { dutch: "terwijl", english: "пока/в то время как" },
+            { dutch: "beurt", english: "очередь" },
+            { dutch: "aan de hand zijn", english: "иметь отношение" },
+            { dutch: "stom", english: "глупый" },
+            { dutch: "vreselijk", english: "ужасный" },
+            { dutch: "langzaam", english: "медленный" },
+            { dutch: "verschrikkelijk", english: "ужасный/страшный" },
+            { dutch: "misschien", english: "может быть" },
+            { dutch: "wellicht", english: "возможно" },
+            { dutch: "helaas", english: "к сожалению" },
+            { dutch: "mogelijk", english: "возможный" },
+            { dutch: "duidelijk", english: "ясный/очевидный" },
+            { dutch: "eigenlijk", english: "вообще-то/на самом деле" },
+            { dutch: "waarschijnlijk", english: "вероятно" },
+            { dutch: "ongetwijfeld", english: "несомненно" },
+            { dutch: "inderdaad", english: "действительно" },
+            { dutch: "blijkbaar", english: "по-видимому" },
+            { dutch: "schijnbaar", english: "по виду/видимо" },
+            { dutch: "zeer", english: "очень" },
+            { dutch: "nauwelijks", english: "едва" },
+            { dutch: "vrij", english: "довольно/свободный" },
+            { dutch: "volkomen", english: "вполне/совершенно" },
+            { dutch: "nogal", english: "довольно" },
+            { dutch: "totaal", english: "полностью/всего" },
+            { dutch: "vrijwel", english: "почти" },
+            { dutch: "hartstikke", english: "очень (разг.)" },
+            { dutch: "redelijk", english: "довольно/разумный" },
+            { dutch: "absoluut", english: "абсолютно" },
+            { dutch: "volledig", english: "полностью" },
+            { dutch: "dronken", english: "пьяный" },
+            { dutch: "jammer", english: "жаль" },
+            { dutch: "klinken", english: "звучать" },
+            { dutch: "uitverkocht", english: "распродано" },
+            { dutch: "aanbieden", english: "предлагать" },
+            { dutch: "bewerken", english: "редактировать" },
+            { dutch: "doorwerken", english: "продолжать работать" },
+            { dutch: "instappen", english: "садиться/входить" },
+            { dutch: "keuren", english: "проверять/одобрять" },
+            { dutch: "langskomen", english: "заходить" },
+            { dutch: "meewerken", english: "сотрудничать" },
+            { dutch: "mop", english: "шутка" },
+            { dutch: "onthouden", english: "помнить" },
+            { dutch: "ontnemen", english: "лишать" },
+            { dutch: "tegenwerken", english: "мешать/противостоять" },
+            { dutch: "uitgeven", english: "тратить/издавать" },
+            { dutch: "uitstappen", english: "выходить (из транспорта)" },
+            { dutch: "uittrekken", english: "снимать (одежду)/выдёргивать" },
+            { dutch: "verbieden", english: "запрещать" },
+            { dutch: "verfilmen", english: "экранизировать" },
+            { dutch: "vangen", english: "ловить" },
+            { dutch: "brutaal", english: "наглый/дерзкий" },
+            { dutch: "plagen", english: "дразнить" },
+            { dutch: "teveel", english: "слишком много" },
+            { dutch: "lummelen", english: "бездельничать" },
+            { dutch: "gooien", english: "бросать" },
+            { dutch: "pakket", english: "пакет/посылка" },
+            { dutch: "missen", english: "пропускать/скучать" },
+            { dutch: "mal", english: "дурацкий/сумасшедший" },
+            { dutch: "nadoen", english: "подражать" },
+            { dutch: "vast", english: "твёрдый/наверняка" },
+            { dutch: "hoor", english: "же/ведь (частица)" },
+            { dutch: "eerlijk", english: "честный" },
+            { dutch: "jawel", english: "да, именно" },
+            { dutch: "azijn", english: "уксус" },
+            { dutch: "dille", english: "укроп" },
+            { dutch: "doperwt", english: "зелёный горошек" },
+            { dutch: "gaar", english: "готовый (о еде)" },
+            { dutch: "handdoek", english: "полотенце" },
+            { dutch: "jenever", english: "женевер (голл. джин)" },
+            { dutch: "plak", english: "ломтик/полоска" },
+            { dutch: "vuil", english: "грязный" },
+            { dutch: "worst", english: "колбаса" },
+            { dutch: "mengen", english: "смешивать" },
+            { dutch: "openen", english: "открывать" },
+            { dutch: "roeren", english: "помешивать" },
+            { dutch: "gieten", english: "наливать" },
+            { dutch: "serveren", english: "подавать (на стол)" },
+            { dutch: "stevig", english: "крепкий/твёрдый" }
         ];
 
         const allWordPairs = wordPairsData.map((pair, index) => ({ id: index, ...pair }));
@@ -2850,7 +2925,16 @@
             "schoot": "de",
             "ding": "het",
             "disk": "de",
-            "beurt": "de"
+            "beurt": "de",
+            "mop": "de",
+            "handdoek": "de",
+            "plak": "de",
+            "worst": "de",
+            "azijn": "de",
+            "dille": "de",
+            "doperwt": "de",
+            "jenever": "de",
+            "pakket": "het"
         };
 
         function openWordSelectionModal() {
@@ -2884,7 +2968,7 @@
                 emptyState.style.gridColumn = '1 / -1';
                 emptyState.style.textAlign = 'center';
                 emptyState.style.color = '#666';
-                emptyState.textContent = 'No words found. Try adjusting your search or select all words.';
+                emptyState.textContent = 'Слов не найдено. Измените поиск или выберите все слова.';
                 listEl.appendChild(emptyState);
                 return;
             }
@@ -2937,7 +3021,7 @@
                 const emptyState = document.createElement('div');
                 emptyState.style.color = '#666';
                 emptyState.style.fontSize = '14px';
-                emptyState.textContent = 'No saved selections yet.';
+                emptyState.textContent = 'Нет сохранённых выборов.';
                 listEl.appendChild(emptyState);
                 return;
             }
@@ -2956,7 +3040,7 @@
 
                 const countSpan = document.createElement('span');
                 countSpan.className = 'saved-selection-count';
-                countSpan.textContent = `${selectionIds.length} word${selectionIds.length === 1 ? '' : 's'}`;
+                countSpan.textContent = `${selectionIds.length} ${selectionIds.length === 1 ? 'слово' : (selectionIds.length >= 2 && selectionIds.length <= 4) ? 'слова' : 'слов'}`;
 
                 details.appendChild(nameSpan);
                 details.appendChild(countSpan);
@@ -2967,15 +3051,15 @@
                 const useBtn = document.createElement('button');
                 useBtn.type = 'button';
                 useBtn.textContent = selectionEditMode === 'add'
-                    ? 'Add'
+                    ? 'Добавить'
                     : selectionEditMode === 'remove'
-                        ? 'Remove'
-                        : 'Use';
+                        ? 'Убрать'
+                        : 'Применить';
                 useBtn.onclick = () => applySavedSelection(name, selectionEditMode);
 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.type = 'button';
-                deleteBtn.textContent = 'Delete';
+                deleteBtn.textContent = 'Удалить';
                 deleteBtn.onclick = () => deleteSavedSelection(name);
 
                 actions.appendChild(useBtn);
@@ -3013,16 +3097,16 @@
 
             const name = nameInput.value.trim();
             if (!name) {
-                alert('Please enter a name for your selection.');
+                alert('Введите название для сохранения выбора.');
                 return;
             }
 
             if (temporarySelection.size === 0) {
-                alert('Select at least one word before saving.');
+                alert('Выберите хотя бы одно слово перед сохранением.');
                 return;
             }
 
-            if (savedSelections[name] && !confirm(`"${name}" already exists. Overwrite it?`)) {
+            if (savedSelections[name] && !confirm(`"${name}" уже есть. Перезаписать?`)) {
                 return;
             }
 
@@ -3053,7 +3137,7 @@
 
         function deleteSavedSelection(name) {
             if (!savedSelections[name]) return;
-            if (!confirm(`Delete the saved selection "${name}"?`)) {
+            if (!confirm(`Удалить сохранённый выбор «${name}»?`)) {
                 return;
             }
             delete savedSelections[name];
@@ -3085,21 +3169,22 @@
             if (selectionEditMode) {
                 if (editButton) {
                     editButton.textContent = selectionEditMode === 'add'
-                        ? 'Editing: Add Mode'
-                        : 'Editing: Remove Mode';
+                        ? 'Режим: добавление'
+                        : 'Режим: удаление';
                 }
                 if (dropdown) {
                     dropdown.querySelectorAll('.edit-action').forEach(btn => {
-                        if (btn.textContent.startsWith('Add')) {
-                            btn.textContent = selectionEditMode === 'add' ? 'Finish add mode' : 'Add from saved selection';
-                        } else if (btn.textContent.startsWith('Remove')) {
-                            btn.textContent = selectionEditMode === 'remove' ? 'Finish remove mode' : 'Remove via saved selection';
+                        const oc = (btn.getAttribute('onclick') || '');
+                        if (oc.indexOf("'add'") >= 0) {
+                            btn.textContent = selectionEditMode === 'add' ? 'Завершить' : 'Добавить из сохранённого';
+                        } else if (oc.indexOf("'remove'") >= 0) {
+                            btn.textContent = selectionEditMode === 'remove' ? 'Завершить' : 'Убрать из сохранённого';
                         }
                     });
                 }
             } else {
                 if (editButton) {
-                    editButton.textContent = 'Edit Current';
+                    editButton.textContent = 'Изменить';
                 }
                 renderSavedSelectionList();
             }
@@ -3144,7 +3229,7 @@
 
         function confirmWordSelection() {
             if (temporarySelection.size === 0) {
-                alert('Please select at least one word to practice.');
+                alert('Выберите хотя бы одно слово для упражнений.');
                 return;
             }
 
@@ -3199,13 +3284,13 @@
             
             if (document.getElementById('matchingProgress')) {
                 document.getElementById('matchingProgress').textContent = total === 0
-                    ? 'Progress: 0 / 0 (No words selected)'
-                    : `Progress: ${used} / ${total} (${remaining} remaining)`;
+                    ? 'Прогресс: 0 / 0 (слова не выбраны)'
+                    : `Прогресс: ${used} / ${total} (осталось ${remaining})`;
             }
             if (document.getElementById('memoryProgress')) {
                 document.getElementById('memoryProgress').textContent = total === 0
-                    ? 'Progress: 0 / 0 (No words selected)'
-                    : `Progress: ${used} / ${total} (${remaining} remaining)`;
+                    ? 'Прогресс: 0 / 0 (слова не выбраны)'
+                    : `Прогресс: ${used} / ${total} (осталось ${remaining})`;
             }
         }
 
@@ -3223,84 +3308,84 @@
 
         // Verbs with their conjugations
         const verbsData = [
-            { english: "to ask", infinitive: "vragen", past: "vroeg", pastParticiple: "gevraagd" },
-            { english: "to be allowed to/may", infinitive: "mogen", past: "mocht", pastParticiple: "gemogen" },
-            { english: "to apologize/excuse", infinitive: "excuseren", past: "excuseerde", pastParticiple: "geëxcuseerd" },
-            { english: "to arrive", infinitive: "aankomen", past: "kwam aan", pastParticiple: "aangekomen" },
-            { english: "to hit/reach/touch", infinitive: "raken", past: "raakte", pastParticiple: "geraakt" },
-            { english: "to choose", infinitive: "kiezen", past: "koos", pastParticiple: "gekozen" },
-            { english: "to expire", infinitive: "verjaren", past: "verjaarde", pastParticiple: "verjaard" },
-            { english: "to help", infinitive: "helpen", past: "hielp", pastParticiple: "geholpen" },
-            { english: "to look like", infinitive: "eruitzien", past: "zag eruit", pastParticiple: "eruitgezien" },
-            { english: "to fill", infinitive: "vullen", past: "vulde", pastParticiple: "gevuld" },
-            { english: "to sell", infinitive: "verkopen", past: "verkocht", pastParticiple: "verkocht" },
-            { english: "to celebrate", infinitive: "vieren", past: "vierde", pastParticiple: "gevierd" },
-            { english: "to refuel", infinitive: "tanken", past: "tankte", pastParticiple: "getankt" },
-            { english: "to repeat", infinitive: "herhalen", past: "herhaalde", pastParticiple: "herhaald" },
-            { english: "to check", infinitive: "controleren", past: "controleerde", pastParticiple: "gecontroleerd" },
-            { english: "to call", infinitive: "bellen", past: "belde", pastParticiple: "gebeld" },
-            { english: "to swallow", infinitive: "inslikken", past: "slikte in", pastParticiple: "ingeslikt" },
-            { english: "to call up/summon", infinitive: "oproepen", past: "riep op", pastParticiple: "opgeroepen" },
-            { english: "to understand", infinitive: "verstaan", past: "verstond", pastParticiple: "verstaan" },
-            { english: "to underline", infinitive: "onderstrepen", past: "onderstreepte", pastParticiple: "onderstreept" },
-            { english: "to mark/highlight", infinitive: "markeren", past: "markeerde", pastParticiple: "gemarkeerd" },
-            { english: "to relax", infinitive: "ontspannen", past: "ontspande", pastParticiple: "ontspannen" },
-            { english: "to come home", infinitive: "thuiskomen", past: "kwam thuis", pastParticiple: "thuisgekomen" },
-            { english: "to shop", infinitive: "winkelen", past: "winkelde", pastParticiple: "gewinkeld" },
-            { english: "to vacuum", infinitive: "stofzuigen", past: "stofzuigde", pastParticiple: "gestofzuigd" },
-            { english: "to do the dishes", infinitive: "afwassen", past: "waste af", pastParticiple: "afgewassen" },
-            { english: "to play sports/exercise", infinitive: "sporten", past: "sportte", pastParticiple: "gesport" },
-            { english: "to relax", infinitive: "relaxen", past: "relaxte", pastParticiple: "gerelaxt" },
-            { english: "to continue/go on", infinitive: "verdergaan", past: "ging verder", pastParticiple: "verdergegaan" },
-            { english: "to click", infinitive: "kliken", past: "klikte", pastParticiple: "geklikt" },
-            { english: "to pay", infinitive: "betalen", past: "betaalde", pastParticiple: "betaald" },
-            { english: "to send", infinitive: "sturen", past: "stuurde", pastParticiple: "gestuurd" },
-            { english: "to agree", infinitive: "overeenkomen", past: "kwam overeen", pastParticiple: "overeengekomen" },
-            { english: "to hit/strike", infinitive: "slaan", past: "sloeg", pastParticiple: "geslagen" },
-            { english: "to arrange/to agree", infinitive: "afspreken", past: "sprak af", pastParticiple: "afgesproken" },
-            { english: "to send", infinitive: "verzenden", past: "verzond", pastParticiple: "verzonden" },
-            { english: "to attach/add", infinitive: "bijvoegen", past: "voegde bij", pastParticiple: "bijgevoegd" },
-            { english: "to remove/delete", infinitive: "verwijderen", past: "verwijderde", pastParticiple: "verwijderd" },
-            { english: "to react/respond", infinitive: "reageren", past: "reageerde", pastParticiple: "gereageerd" },
-            { english: "to continue on the way", infinitive: "wegvervolgen", past: "volgde weg", pastParticiple: "weggevolgd" },
-            { english: "to indicate/mean", infinitive: "duiden", past: "duidde", pastParticiple: "geduid" },
-            { english: "to combine", infinitive: "combineren", past: "combineerde", pastParticiple: "gecombineerd" },
-            { english: "to thank", infinitive: "bedanken", past: "bedankte", pastParticiple: "bedankt" },
-            { english: "to apologize/excuse", infinitive: "verontschuldigen", past: "verontschuldigde", pastParticiple: "verontschuldigd" },
-            { english: "to separate/isolate", infinitive: "afscheiden", past: "scheidde af", pastParticiple: "afgescheiden" },
-            { english: "to go along/come along", infinitive: "meegaan", past: "ging mee", pastParticiple: "meegaan" },
-            { english: "to take along", infinitive: "meenemen", past: "nam mee", pastParticiple: "meegenomen" },
-            { english: "to invite", infinitive: "uitnodigen", past: "nodigde uit", pastParticiple: "uitgenodigd" },
-            { english: "to share/divide", infinitive: "delen", past: "deelde", pastParticiple: "gedeeld" },
-            { english: "to point/show", infinitive: "wijzen", past: "wees", pastParticiple: "gewezen" },
-            { english: "to put/place", infinitive: "zetten", past: "zette", pastParticiple: "gezet" },
-            { english: "to do gymnastics", infinitive: "turnen", past: "turnde", pastParticiple: "geturnd" },
-            { english: "to accept", infinitive: "aanvaarden", past: "aanvaardde", pastParticiple: "aanvaard" },
-            { english: "to pronounce", infinitive: "uitspreken", past: "sprak uit", pastParticiple: "uitgesproken" },
-            { english: "to select", infinitive: "selecteren", past: "selecteerde", pastParticiple: "geselecteerd" },
-            { english: "to matter/to care", infinitive: "schelen", past: "scheelde", pastParticiple: "gescheeld" },
-            { english: "to sneeze", infinitive: "niezen", past: "nieste", pastParticiple: "geniest" },
-            { english: "to cough", infinitive: "hoesten", past: "hoestte", pastParticiple: "gehoest" },
-            { english: "to pass on/to report", infinitive: "doorgeven", past: "gaf door", pastParticiple: "doorgegeven" },
-            { english: "to examine/to investigate", infinitive: "onderzoeken", past: "onderzocht", pastParticiple: "onderzocht" },
-            { english: "to take off/to extinguish", infinitive: "uitdoen", past: "deed uit", pastParticiple: "uitgedaan" },
-            { english: "to obtain", infinitive: "verkrijgen", past: "verkreeg", pastParticiple: "verkregen" },
-            { english: "to pack", infinitive: "verpakken", past: "verpakte", pastParticiple: "verpakt" },
-            { english: "to take (medicine)", infinitive: "innemen", past: "nam in", pastParticiple: "ingenomen" },
-            { english: "to suck", infinitive: "zuigen", past: "zoog", pastParticiple: "gezogen" },
-            { english: "to use", infinitive: "gebruiken", past: "gebruikte", pastParticiple: "gebruikt" },
-            { english: "to pay attention", infinitive: "letten", past: "lette", pastParticiple: "gelet" },
-            { english: "to pay attention/to watch out", infinitive: "opletten", past: "let op", pastParticiple: "opgelet" },
-            { english: "to stick out", infinitive: "uitsteken", past: "stak uit", pastParticiple: "uitgestoken" },
-            { english: "to put on/to affect", infinitive: "aandoen", past: "deed aan", pastParticiple: "aangedaan" },
-            { english: "to inhale", infinitive: "inademen", past: "ademde in", pastParticiple: "ingeademd" },
-            { english: "to exhale", infinitive: "uitademen", past: "ademde uit", pastParticiple: "uitgeademd" },
-            { english: "to name/to call/to appoint", infinitive: "benoemen", past: "benoemde", pastParticiple: "benoemd" },
-            { english: "to bring along", infinitive: "meebrengen", past: "bracht mee", pastParticiple: "megebracht" },
-            { english: "to disturb/bother", infinitive: "storen", past: "stoorde", pastParticiple: "gestoord" },
-            { english: "to watch along", infinitive: "meekijken", past: "keek mee", pastParticiple: "meegekeken" },
-            { english: "to turn off", infinitive: "uitzetten", past: "zette uit", pastParticiple: "uitgezet" },
-            { english: "to turn on", infinitive: "aanzetten", past: "zette aan", pastParticiple: "aangezet" }
+            { english: "спрашивать", infinitive: "vragen", past: "vroeg", pastParticiple: "gevraagd" },
+            { english: "иметь разрешение", infinitive: "mogen", past: "mocht", pastParticiple: "gemogen" },
+            { english: "извиняться", infinitive: "excuseren", past: "excuseerde", pastParticiple: "geëxcuseerd" },
+            { english: "прибывать", infinitive: "aankomen", past: "kwam aan", pastParticiple: "aangekomen" },
+            { english: "попадать/трогать", infinitive: "raken", past: "raakte", pastParticiple: "geraakt" },
+            { english: "выбирать", infinitive: "kiezen", past: "koos", pastParticiple: "gekozen" },
+            { english: "истекать", infinitive: "verjaren", past: "verjaarde", pastParticiple: "verjaard" },
+            { english: "помогать", infinitive: "helpen", past: "hielp", pastParticiple: "geholpen" },
+            { english: "выглядеть", infinitive: "eruitzien", past: "zag eruit", pastParticiple: "eruitgezien" },
+            { english: "наполнять", infinitive: "vullen", past: "vulde", pastParticiple: "gevuld" },
+            { english: "продавать", infinitive: "verkopen", past: "verkocht", pastParticiple: "verkocht" },
+            { english: "праздновать", infinitive: "vieren", past: "vierde", pastParticiple: "gevierd" },
+            { english: "заправлять", infinitive: "tanken", past: "tankte", pastParticiple: "getankt" },
+            { english: "повторять", infinitive: "herhalen", past: "herhaalde", pastParticiple: "herhaald" },
+            { english: "проверять", infinitive: "controleren", past: "controleerde", pastParticiple: "gecontroleerd" },
+            { english: "звонить", infinitive: "bellen", past: "belde", pastParticiple: "gebeld" },
+            { english: "глотать", infinitive: "inslikken", past: "slikte in", pastParticiple: "ingeslikt" },
+            { english: "вызывать", infinitive: "oproepen", past: "riep op", pastParticiple: "opgeroepen" },
+            { english: "понимать", infinitive: "verstaan", past: "verstond", pastParticiple: "verstaan" },
+            { english: "подчёркивать", infinitive: "onderstrepen", past: "onderstreepte", pastParticiple: "onderstreept" },
+            { english: "отмечать", infinitive: "markeren", past: "markeerde", pastParticiple: "gemarkeerd" },
+            { english: "расслабляться", infinitive: "ontspannen", past: "ontspande", pastParticiple: "ontspannen" },
+            { english: "приходить домой", infinitive: "thuiskomen", past: "kwam thuis", pastParticiple: "thuisgekomen" },
+            { english: "ходить за покупками", infinitive: "winkelen", past: "winkelde", pastParticiple: "gewinkeld" },
+            { english: "пылесосить", infinitive: "stofzuigen", past: "stofzuigde", pastParticiple: "gestofzuigd" },
+            { english: "мыть посуду", infinitive: "afwassen", past: "waste af", pastParticiple: "afgewassen" },
+            { english: "заниматься спортом", infinitive: "sporten", past: "sportte", pastParticiple: "gesport" },
+            { english: "расслабляться", infinitive: "relaxen", past: "relaxte", pastParticiple: "gerelaxt" },
+            { english: "продолжать", infinitive: "verdergaan", past: "ging verder", pastParticiple: "verdergegaan" },
+            { english: "нажимать", infinitive: "kliken", past: "klikte", pastParticiple: "geklikt" },
+            { english: "платить", infinitive: "betalen", past: "betaalde", pastParticiple: "betaald" },
+            { english: "отправлять", infinitive: "sturen", past: "stuurde", pastParticiple: "gestuurd" },
+            { english: "соглашаться", infinitive: "overeenkomen", past: "kwam overeen", pastParticiple: "overeengekomen" },
+            { english: "бить", infinitive: "slaan", past: "sloeg", pastParticiple: "geslagen" },
+            { english: "договариваться", infinitive: "afspreken", past: "sprak af", pastParticiple: "afgesproken" },
+            { english: "отправлять", infinitive: "verzenden", past: "verzond", pastParticiple: "verzonden" },
+            { english: "прикладывать", infinitive: "bijvoegen", past: "voegde bij", pastParticiple: "bijgevoegd" },
+            { english: "удалять", infinitive: "verwijderen", past: "verwijderde", pastParticiple: "verwijderd" },
+            { english: "реагировать", infinitive: "reageren", past: "reageerde", pastParticiple: "gereageerd" },
+            { english: "продолжать путь", infinitive: "wegvervolgen", past: "volgde weg", pastParticiple: "weggevolgd" },
+            { english: "обозначать", infinitive: "duiden", past: "duidde", pastParticiple: "geduid" },
+            { english: "сочетать", infinitive: "combineren", past: "combineerde", pastParticiple: "gecombineerd" },
+            { english: "благодарить", infinitive: "bedanken", past: "bedankte", pastParticiple: "bedankt" },
+            { english: "извиняться", infinitive: "verontschuldigen", past: "verontschuldigde", pastParticiple: "verontschuldigd" },
+            { english: "отделять", infinitive: "afscheiden", past: "scheidde af", pastParticiple: "afgescheiden" },
+            { english: "идти вместе", infinitive: "meegaan", past: "ging mee", pastParticiple: "meegaan" },
+            { english: "брать с собой", infinitive: "meenemen", past: "nam mee", pastParticiple: "meegenomen" },
+            { english: "приглашать", infinitive: "uitnodigen", past: "nodigde uit", pastParticiple: "uitgenodigd" },
+            { english: "делить", infinitive: "delen", past: "deelde", pastParticiple: "gedeeld" },
+            { english: "указывать", infinitive: "wijzen", past: "wees", pastParticiple: "gewezen" },
+            { english: "ставить", infinitive: "zetten", past: "zette", pastParticiple: "gezet" },
+            { english: "заниматься гимнастикой", infinitive: "turnen", past: "turnde", pastParticiple: "geturnd" },
+            { english: "принимать", infinitive: "aanvaarden", past: "aanvaardde", pastParticiple: "aanvaard" },
+            { english: "произносить", infinitive: "uitspreken", past: "sprak uit", pastParticiple: "uitgesproken" },
+            { english: "выбирать", infinitive: "selecteren", past: "selecteerde", pastParticiple: "geselecteerd" },
+            { english: "иметь значение", infinitive: "schelen", past: "scheelde", pastParticiple: "gescheeld" },
+            { english: "чихать", infinitive: "niezen", past: "nieste", pastParticiple: "geniest" },
+            { english: "кашлять", infinitive: "hoesten", past: "hoestte", pastParticiple: "gehoest" },
+            { english: "передавать", infinitive: "doorgeven", past: "gaf door", pastParticiple: "doorgegeven" },
+            { english: "исследовать", infinitive: "onderzoeken", past: "onderzocht", pastParticiple: "onderzocht" },
+            { english: "снимать/тушить", infinitive: "uitdoen", past: "deed uit", pastParticiple: "uitgedaan" },
+            { english: "получать", infinitive: "verkrijgen", past: "verkreeg", pastParticiple: "verkregen" },
+            { english: "упаковывать", infinitive: "verpakken", past: "verpakte", pastParticiple: "verpakt" },
+            { english: "принимать (лекарство)", infinitive: "innemen", past: "nam in", pastParticiple: "ingenomen" },
+            { english: "сосать", infinitive: "zuigen", past: "zoog", pastParticiple: "gezogen" },
+            { english: "использовать", infinitive: "gebruiken", past: "gebruikte", pastParticiple: "gebruikt" },
+            { english: "обращать внимание", infinitive: "letten", past: "lette", pastParticiple: "gelet" },
+            { english: "внимать", infinitive: "opletten", past: "let op", pastParticiple: "opgelet" },
+            { english: "высовывать", infinitive: "uitsteken", past: "stak uit", pastParticiple: "uitgestoken" },
+            { english: "надевать", infinitive: "aandoen", past: "deed aan", pastParticiple: "aangedaan" },
+            { english: "вдыхать", infinitive: "inademen", past: "ademde in", pastParticiple: "ingeademd" },
+            { english: "выдыхать", infinitive: "uitademen", past: "ademde uit", pastParticiple: "uitgeademd" },
+            { english: "назначать", infinitive: "benoemen", past: "benoemde", pastParticiple: "benoemd" },
+            { english: "приносить с собой", infinitive: "meebrengen", past: "bracht mee", pastParticiple: "megebracht" },
+            { english: "мешать", infinitive: "storen", past: "stoorde", pastParticiple: "gestoord" },
+            { english: "смотреть вместе", infinitive: "meekijken", past: "keek mee", pastParticiple: "meegekeken" },
+            { english: "выключать", infinitive: "uitzetten", past: "zette uit", pastParticiple: "uitgezet" },
+            { english: "включать", infinitive: "aanzetten", past: "zette aan", pastParticiple: "aangezet" }
         ];
 
         // Verb game variables
@@ -3482,8 +3567,8 @@
                 const scoreElement = document.getElementById('matchingScore');
                 if (scoreElement) {
                     scoreElement.textContent = totalPairs === 0
-                        ? 'No words available.'
-                        : `Pairs matched: ${matchedPairs} / ${totalPairs}`;
+                        ? 'Нет доступных слов.'
+                        : `Пар: ${matchedPairs} / ${totalPairs}`;
                 }
                 
                 selectedDutch = null;
@@ -3494,7 +3579,7 @@
                 if (totalPairs > 0 && matchedPairs === totalPairs) {
                     const congrats = document.getElementById('matchingCongratulations');
                     if (congrats) {
-                        congrats.innerHTML = `🎉 Great job! You matched all ${totalPairs} pairs! Click "Next Words" to continue.`;
+                        congrats.innerHTML = `🎉 Отлично! Все ${totalPairs} пар собраны! Нажмите «Следующие слова».`;
                         congrats.classList.add('show');
                     }
                     const nextBtn = document.getElementById('matchingNextBtn');
@@ -3575,14 +3660,14 @@
                 const scoreElement = document.getElementById('memoryScore');
                 if (scoreElement) {
                     scoreElement.textContent = totalPairs === 0
-                        ? 'No words available.'
-                        : `Pairs matched: ${score} / ${totalPairs}`;
+                        ? 'Нет доступных слов.'
+                        : `Пар: ${score} / ${totalPairs}`;
                 }
 
                 if (totalPairs > 0 && score === totalPairs) {
                     const congrats = document.getElementById('memoryCongratulations');
                     if (congrats) {
-                        congrats.innerHTML = `🎉 Great job! You matched all ${totalPairs} pairs! Click "Next Words" to continue.`;
+                        congrats.innerHTML = `🎉 Отлично! Все ${totalPairs} пар собраны! Нажмите «Следующие слова».`;
                         congrats.classList.add('show');
                     }
                     const nextBtn = document.getElementById('memoryNextBtn');
@@ -3622,13 +3707,13 @@
                 document.getElementById('matchingCongratulations').classList.remove('show');
                 document.getElementById('matchingNextBtn').disabled = true;
                 document.getElementById('matchingScore').textContent = batch.length === 0
-                    ? 'No words available. Go back to the menu to pick some words.'
-                    : `Pairs matched: 0 / ${batch.length}`;
+                    ? 'Нет слов. Вернитесь в меню и выберите слова.'
+                    : `Пар: 0 / ${batch.length}`;
                 const matchingCongratulations = document.getElementById('matchingCongratulations');
                 if (matchingCongratulations) {
                     matchingCongratulations.innerHTML = batch.length === 0
-                        ? 'No words selected. Use the menu to pick words before playing.'
-                        : `🎉 Great job! You matched all ${batch.length} pairs! Click "Next Words" to continue.`;
+                        ? 'Слова не выбраны. Выберите слова в меню перед игрой.'
+                        : `🎉 Отлично! Все ${batch.length} пар собраны! Нажмите «Следующие слова».`;
                 }
 
                 const dutchWithIndices = batch.map((pair, idx) => ({ ...pair, originalIndex: idx }));
@@ -3640,8 +3725,8 @@
                 if (batch.length === 0) {
                     const dutchColumn = document.getElementById('dutch-column');
                     const englishColumn = document.getElementById('english-column');
-                    if (dutchColumn) dutchColumn.textContent = 'No Dutch words selected.';
-                    if (englishColumn) englishColumn.textContent = 'No English translations selected.';
+                    if (dutchColumn) dutchColumn.textContent = 'Голландские слова не выбраны.';
+                    if (englishColumn) englishColumn.textContent = 'Переводы не выбраны.';
                     return;
                 }
 
@@ -3664,13 +3749,13 @@
                 document.getElementById('memoryCongratulations').classList.remove('show');
                 document.getElementById('memoryNextBtn').disabled = true;
                 document.getElementById('memoryScore').textContent = batch.length === 0
-                    ? 'No words available. Go back to the menu to pick some words.'
-                    : `Pairs matched: 0 / ${batch.length}`;
+                    ? 'Нет слов. Вернитесь в меню и выберите слова.'
+                    : `Пар: 0 / ${batch.length}`;
                 const memoryCongratulations = document.getElementById('memoryCongratulations');
                 if (memoryCongratulations) {
                     memoryCongratulations.innerHTML = batch.length === 0
-                        ? 'No words selected. Use the menu to pick words before playing.'
-                        : `🎉 Great job! You matched all ${batch.length} pairs! Click "Next Words" to continue.`;
+                        ? 'Слова не выбраны. Выберите слова в меню перед игрой.'
+                        : `🎉 Отлично! Все ${batch.length} пар собраны! Нажмите «Следующие слова».`;
                 }
 
                 // Create 20 cards (10 Dutch + 10 English)
@@ -3689,7 +3774,7 @@
                         message.style.gridColumn = '1 / -1';
                         message.style.textAlign = 'center';
                         message.style.color = '#666';
-                        message.textContent = 'No words selected. Go back to the menu to choose some before playing.';
+                        message.textContent = 'Слова не выбраны. Вернитесь в меню и выберите слова.';
                         grid.appendChild(message);
                     }
                     return;
@@ -3710,7 +3795,7 @@
             // Sort alphabetically
             articlesData.sort((a, b) => a.dutch.localeCompare(b.dutch));
             
-            document.getElementById('articlesProgress').textContent = `Total nouns: ${articlesData.length}`;
+            document.getElementById('articlesProgress').textContent = `Всего существительных: ${articlesData.length}`;
             document.getElementById('articles-list').innerHTML = '';
             document.getElementById('articlesResults').style.display = 'none';
             document.getElementById('articlesResults').innerHTML = '';
@@ -3724,7 +3809,7 @@
                     message.style.textAlign = 'center';
                     message.style.color = '#666';
                     message.style.padding = '30px';
-                    message.textContent = 'No noun words are included in your current selection. Go back to the menu and pick nouns before playing the Articles Game.';
+                    message.textContent = 'В вашем выборе нет существительных. Вернитесь в меню и выберите существительные для игры в артикли.';
                     list.appendChild(message);
                 }
                 document.getElementById('checkArticlesBtn').style.display = 'none';
@@ -3752,7 +3837,7 @@
                 translationInput.type = 'text';
                 translationInput.className = 'translation-input';
                 translationInput.id = `translation-${index}`;
-                translationInput.placeholder = 'English translation...';
+                translationInput.placeholder = 'Перевод...';
                 
                 row.appendChild(articleInput);
                 row.appendChild(nounSpan);
@@ -3807,13 +3892,13 @@
                     
                     if (!articleCorrect && !translationCorrect) {
                         feedback.className += ' incorrect-text';
-                        feedbackText = `Correct: ${correctArticle} ${noun.dutch} = ${noun.english}`;
+                        feedbackText = `Верно: ${correctArticle} ${noun.dutch} = ${noun.english}`;
                     } else if (!articleCorrect) {
                         feedback.className += ' incorrect-text';
-                        feedbackText = `Article should be: ${correctArticle}`;
+                        feedbackText = `Артикль: ${correctArticle}`;
                     } else if (!translationCorrect) {
                         feedback.className += ' incorrect-text';
-                        feedbackText = `Translation should be: ${noun.english}`;
+                        feedbackText = `Перевод: ${noun.english}`;
                     }
                     
                     feedback.textContent = feedbackText;
@@ -3827,12 +3912,12 @@
             
             if (correctCount === totalCount) {
                 resultsDiv.className = 'congratulations show';
-                resultsDiv.innerHTML = `🎉 Perfect! You got all ${totalCount} correct!`;
+                resultsDiv.innerHTML = `🎉 Отлично! Всё верно: ${totalCount} из ${totalCount}!`;
             } else {
                 resultsDiv.className = 'congratulations show';
                 resultsDiv.style.background = '#fff3cd';
                 resultsDiv.style.color = '#856404';
-                resultsDiv.innerHTML = `📊 Results: ${correctCount} / ${totalCount} correct`;
+                resultsDiv.innerHTML = `📊 Результат: ${correctCount} / ${totalCount} верно`;
             }
             
             document.getElementById('checkArticlesBtn').style.display = 'none';
@@ -3871,7 +3956,7 @@
 
             if (currentVerbPool.length === 0) {
                 if (progressEl) progressEl.textContent = '0 / 0';
-                if (wordDisplay) wordDisplay.textContent = 'No verbs in your current selection.';
+                if (wordDisplay) wordDisplay.textContent = 'В вашем выборе нет глаголов.';
                 if (buttonsContainer) buttonsContainer.innerHTML = '';
                 if (nextBtn) nextBtn.classList.remove('show');
                 return;
@@ -3930,9 +4015,9 @@
             
             // Create three buttons: infinitive, past, past participle
             const buttonTypes = [
-                { label: 'Infinitive', value: verb.infinitive, type: 'infinitive' },
-                { label: 'Past Tense', value: verb.past, type: 'past' },
-                { label: 'Past Participle', value: verb.pastParticiple, type: 'pastParticiple' }
+                { label: 'Инфинитив', value: verb.infinitive, type: 'infinitive' },
+                { label: 'Прошедшее время', value: verb.past, type: 'past' },
+                { label: 'Причастие', value: verb.pastParticiple, type: 'pastParticiple' }
             ];
             
             // Shuffle button order for variety
@@ -4009,8 +4094,8 @@
                 const resultMessage = document.getElementById('resultMessage');
                 const nextWordBtn = document.getElementById('nextWordBtn');
 
-                if (dutchDisplay) dutchDisplay.textContent = 'No words selected.';
-                if (englishDisplay) englishDisplay.textContent = 'Choose words from the menu to play.';
+                if (dutchDisplay) dutchDisplay.textContent = 'Слова не выбраны.';
+                if (englishDisplay) englishDisplay.textContent = 'Выберите слова в меню для игры.';
                 if (timerDisplay) timerDisplay.textContent = '';
                 if (buttons) buttons.style.display = 'none';
                 if (progressText) progressText.textContent = '0 / 0';
@@ -4172,7 +4257,7 @@
             // Show verification buttons
             document.getElementById('verificationButtons').style.display = 'flex';
             // Update timer display
-            document.getElementById('timerDisplay').textContent = 'Verify if they match!';
+            document.getElementById('timerDisplay').textContent = 'Совпадают ли они?';
         }
 
         function verifyMatch(userAnswer) {
@@ -4196,10 +4281,10 @@
             const resultMessage = document.getElementById('resultMessage');
             if (isCorrect) {
                 resultMessage.classList.add('correct');
-                resultMessage.textContent = '✓ Correct!';
+                resultMessage.textContent = '✓ Верно!';
             } else {
                 resultMessage.classList.add('incorrect');
-                resultMessage.textContent = `✗ Incorrect! They ${currentWordPair.isMatch ? 'do' : 'don\'t'} match.`;
+                resultMessage.textContent = `✗ Неверно! Они ${currentWordPair.isMatch ? 'совпадают' : 'не совпадают'}.`;
             }
             
             // Show next button
@@ -4269,7 +4354,7 @@
                 const nextBtn = document.getElementById('nextKnowledgeBtn');
                 const progressFill = document.getElementById('knowledgeProgressFill');
                 const progressText = document.getElementById('knowledgeProgressText');
-                if (englishWordEl) englishWordEl.textContent = 'No words in your current selection.';
+                if (englishWordEl) englishWordEl.textContent = 'В вашем выборе нет слов.';
                 if (dutchWordEl) dutchWordEl.style.display = 'none';
                 if (knowBtn) knowBtn.disabled = true;
                 if (dontKnowBtn) dontKnowBtn.disabled = true;
@@ -4406,7 +4491,7 @@
                 message.style.textAlign = 'center';
                 message.style.color = '#666';
                 message.style.padding = '30px';
-                message.textContent = 'No noun words are included in your current selection. Go back to the menu and pick nouns before playing the Het Words Game.';
+                message.textContent = 'В вашем выборе нет существительных. Вернитесь в меню и выберите существительные для игры «Слова с het».';
                 grid.appendChild(message);
                 document.getElementById('checkHetWordsBtn').style.display = 'none';
                 return;
@@ -4414,7 +4499,7 @@
             
             // Count how many "het" words there are
             const hetWordsCount = hetWordsData.filter(pair => nounsWithArticles[pair.dutch] === 'het').length;
-            document.getElementById('hetWordsProgress').textContent = `Select all "het" words: 0 / ${hetWordsCount}`;
+            document.getElementById('hetWordsProgress').textContent = `Слов с «het»: 0 / ${hetWordsCount}`;
             
             // Create word cards
             hetWordsData.forEach((pair, index) => {
@@ -4444,7 +4529,7 @@
             
             // Update progress
             const hetWordsCount = hetWordsData.filter(pair => nounsWithArticles[pair.dutch] === 'het').length;
-            document.getElementById('hetWordsProgress').textContent = `Select all "het" words: ${selectedHetWords.size} / ${hetWordsCount}`;
+            document.getElementById('hetWordsProgress').textContent = `Слов с «het»: ${selectedHetWords.size} / ${hetWordsCount}`;
         }
 
         function checkHetWords() {
@@ -4496,11 +4581,11 @@
             
             if (missedCount === 0 && incorrectCount === 0) {
                 // Perfect score!
-                progressEl.textContent = `Perfect! All ${correctCount} "het" words selected correctly!`;
+                progressEl.textContent = `Отлично! Все ${correctCount} слов с «het» выбраны верно!`;
                 congratsEl.style.display = 'block';
             } else {
                 const totalHet = hetWordsIndices.size;
-                progressEl.textContent = `Results: ${correctCount} / ${totalHet} "het" words correct. ${incorrectCount} incorrect selections, ${missedCount} missed.`;
+                progressEl.textContent = `Результат: ${correctCount} / ${totalHet} слов с «het» верно. Ошибок: ${incorrectCount}, пропущено: ${missedCount}.`;
             }
             
             document.getElementById('checkHetWordsBtn').style.display = 'none';
@@ -4524,107 +4609,79 @@
         // AI SENTENCE GENERATOR GAME FUNCTIONS
         let aiCurrentWord = null;
         let aiDutchShown = false;
-        let aiProgress = {}; // Maps word key (dutch|english) -> view count
+        let aiShuffledWords = [];  // Shuffled list, one by one, no repeats
+        let aiWordIndex = 0;       // Current word index (0-based)
+        let aiGameOver = false;
 
-        // Progress tracking functions for AI game
-        function loadAIProgress() {
-            const saved = localStorage.getItem('vocabProgress');
-            if (saved) {
-                try {
-                    aiProgress = JSON.parse(saved);
-                } catch (e) {
-                    aiProgress = {};
-                }
-            }
+        // Show the word at current aiWordIndex
+        function aiShowCurrentWord() {
+            if (aiWordIndex >= aiShuffledWords.length) return;
+            aiCurrentWord = aiShuffledWords[aiWordIndex];
+            aiDutchShown = false;
+
+            document.getElementById('aiEnglishWord').textContent = aiCurrentWord.english;
+            document.getElementById('aiDutchWord').textContent = '(нажмите «Показать по-голландски»)';
+            document.getElementById('aiDutchWord').classList.add('hidden');
+            document.getElementById('aiSentenceDisplay').textContent = '(нажмите «Создать предложение»)';
+            document.getElementById('aiSentenceDisplay').classList.add('empty');
+            document.getElementById('aiStatus').textContent = `Слово ${aiWordIndex + 1} / ${aiShuffledWords.length}`;
+            document.getElementById('aiStatus').className = 'ai-status';
+
+            document.getElementById('aiBtnShowDutch').disabled = false;
+            document.getElementById('aiBtnGenerate').disabled = false;
         }
 
-        function saveAIProgress() {
-            try {
-                localStorage.setItem('vocabProgress', JSON.stringify(aiProgress));
-            } catch (e) {
-                console.error('Could not save progress:', e);
-            }
+        // Show "no words" or "game over" state
+        function aiShowNoWords() {
+            aiCurrentWord = null;
+            document.getElementById('aiEnglishWord').textContent = 'Слова не выбраны.';
+            document.getElementById('aiDutchWord').textContent = 'Выберите слова в меню для игры.';
+            document.getElementById('aiDutchWord').classList.remove('hidden');
+            document.getElementById('aiSentenceDisplay').textContent = '';
+            document.getElementById('aiSentenceDisplay').classList.add('empty');
+            document.getElementById('aiStatus').textContent = 'Сначала выберите слова в меню.';
+            document.getElementById('aiStatus').className = 'ai-status error';
+            document.getElementById('aiBtnShowDutch').disabled = true;
+            document.getElementById('aiBtnGenerate').disabled = true;
+            document.getElementById('aiBtnNewWord').textContent = '← В меню';
+            document.getElementById('aiBtnNewWord').onclick = showMenu;
         }
 
-        function getAIWordKey(wordPair) {
-            // Create a unique key for each word pair
-            return wordPair.dutch + '|' + wordPair.english;
+        function aiShowGameOver() {
+            aiGameOver = true;
+            aiCurrentWord = null;
+            const total = aiShuffledWords.length;
+            document.getElementById('aiEnglishWord').textContent = '🎉 Игра окончена!';
+            document.getElementById('aiDutchWord').textContent = `Все ${total} слов просмотрены.`;
+            document.getElementById('aiDutchWord').classList.remove('hidden');
+            document.getElementById('aiSentenceDisplay').textContent = '';
+            document.getElementById('aiSentenceDisplay').classList.add('empty');
+            document.getElementById('aiStatus').textContent = '';
+            document.getElementById('aiStatus').className = 'ai-status';
+            document.getElementById('aiBtnShowDutch').disabled = true;
+            document.getElementById('aiBtnGenerate').disabled = true;
+            document.getElementById('aiBtnNewWord').textContent = '← В меню';
+            document.getElementById('aiBtnNewWord').onclick = showMenu;
         }
 
-        function getAIViewCount(wordPair) {
-            const key = getAIWordKey(wordPair);
-            return aiProgress[key] || 0;
-        }
-
-        function incrementAIViewCount(wordPair) {
-            const key = getAIWordKey(wordPair);
-            aiProgress[key] = (aiProgress[key] || 0) + 1;
-            saveAIProgress();
-        }
-
-        // Weighted random selection: words shown fewer times have higher probability
-        function aiPickNewWord() {
-            if (activeWordPool.length === 0) {
-                document.getElementById('aiEnglishWord').textContent = 'No words selected.';
-                document.getElementById('aiDutchWord').textContent = 'Choose words from the menu to play.';
-                document.getElementById('aiDutchWord').classList.remove('hidden');
-                document.getElementById('aiStatus').textContent = 'Please select words from the menu first.';
-                document.getElementById('aiStatus').className = 'ai-status error';
+        // Next word: on first call from load we show 0; button advances to next
+        function aiNextWord() {
+            if (aiGameOver) {
+                showMenu();
                 return;
             }
-
-            // Calculate weights: words with fewer views get higher weight
-            const weights = activeWordPool.map(wordPair => {
-                const viewCount = getAIViewCount(wordPair);
-                // Weight = 1 / (viewCount + 1)
-                // 0 views = weight 1.0, 1 view = 0.5, 2 views = 0.33, etc.
-                return 1.0 / (viewCount + 1);
-            });
-
-            // Calculate total weight
-            const totalWeight = weights.reduce((sum, w) => sum + w, 0);
-
-            // Pick random number between 0 and totalWeight
-            let random = Math.random() * totalWeight;
-            
-            // Find which word this corresponds to
-            let selectedIndex = 0;
-            for (let i = 0; i < weights.length; i++) {
-                random -= weights[i];
-                if (random <= 0) {
-                    selectedIndex = i;
-                    break;
-                }
+            // "Следующее слово" means: go to next. If we're at last, next = game over
+            aiWordIndex++;
+            if (aiWordIndex >= aiShuffledWords.length) {
+                aiShowGameOver();
+                return;
             }
-
-            aiCurrentWord = activeWordPool[selectedIndex];
-            const viewCount = getAIViewCount(aiCurrentWord);
-            const totalWords = activeWordPool.length;
-            // Count only words in the current selection that have been seen
-            const wordsSeen = activeWordPool.filter(wordPair => {
-                const key = getAIWordKey(wordPair);
-                return aiProgress[key] && aiProgress[key] > 0;
-            }).length;
-            
-            document.getElementById('aiEnglishWord').textContent = aiCurrentWord.english;
-            document.getElementById('aiDutchWord').textContent = '(druk op \'Toon Nederlands\')';
-            document.getElementById('aiDutchWord').classList.add('hidden');
-            document.getElementById('aiSentenceDisplay').textContent = '(druk op \'Genereer zin\' om een zin te maken)';
-            document.getElementById('aiSentenceDisplay').classList.add('empty');
-            document.getElementById('aiStatus').textContent = 
-                `Nieuw woord gekozen. (Dit woord: ${viewCount}x gezien | Totaal: ${wordsSeen}/${totalWords} woorden gezien)`;
-            document.getElementById('aiStatus').className = 'ai-status';
-            
-            aiDutchShown = false;
+            aiShowCurrentWord();
         }
 
         // Show Dutch translation
         function aiShowDutch() {
             if (!aiCurrentWord) return;
-            
-            // Record that this word was shown
-            incrementAIViewCount(aiCurrentWord);
-            
             document.getElementById('aiDutchWord').textContent = aiCurrentWord.dutch;
             document.getElementById('aiDutchWord').classList.remove('hidden');
             aiDutchShown = true;
@@ -4633,12 +4690,12 @@
         // Generate sentence using OpenAI API
         async function aiGenerateSentence() {
             if (!aiCurrentWord) {
-                updateAIStatus('Kies eerst een woord.', 'error');
+                updateAIStatus('Сначала выберите слово.', 'error');
                 return;
             }
 
             if (!aiDutchShown) {
-                updateAIStatus('Toon eerst de Nederlandse vertaling.', 'error');
+                updateAIStatus('Сначала нажмите «Показать по-голландски».', 'error');
                 return;
             }
 
@@ -4648,8 +4705,8 @@
 
             // Disable button and show loading
             btnGenerate.disabled = true;
-            btnGenerate.textContent = '⏳ Genereren...';
-            updateAIStatus('Zin wordt gegenereerd met AI...', 'loading');
+            btnGenerate.textContent = '⏳ Генерация...';
+            updateAIStatus('ИИ создаёт предложение...', 'loading');
             sentenceDisplay.textContent = '';
             sentenceDisplay.classList.remove('empty');
 
@@ -4692,15 +4749,15 @@
                 const cleanSentence = sentence.replace(/^["']|["']$/g, '');
 
                 sentenceDisplay.textContent = cleanSentence;
-                updateAIStatus('Klaar! Klik nogmaals voor een nieuwe zin met hetzelfde woord.', 'success');
+                updateAIStatus('Готово! Нажмите «Следующее слово» для перехода.', 'success');
 
             } catch (error) {
                 console.error('Error:', error);
-                sentenceDisplay.textContent = `Fout: ${error.message}`;
-                updateAIStatus('Er ging iets mis bij het genereren.', 'error');
+                sentenceDisplay.textContent = `Ошибка: ${error.message}`;
+                updateAIStatus('Не удалось создать предложение.', 'error');
             } finally {
                 btnGenerate.disabled = false;
-                btnGenerate.textContent = '✨ Genereer zin';
+                btnGenerate.textContent = '✨ Создать предложение';
             }
         }
 
@@ -4713,8 +4770,18 @@
 
         // Load AI Sentence Generator game
         function loadAISentenceGame() {
-            loadAIProgress();
-            aiPickNewWord();
+            aiGameOver = false;
+            aiShuffledWords = shuffle([...activeWordPool]);
+            aiWordIndex = 0;
+
+            document.getElementById('aiBtnNewWord').textContent = '🔄 Следующее слово';
+            document.getElementById('aiBtnNewWord').onclick = aiNextWord;
+
+            if (aiShuffledWords.length === 0) {
+                aiShowNoWords();
+                return;
+            }
+            aiShowCurrentWord();
         }
 
         loadSavedSelections();
